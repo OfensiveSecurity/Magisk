@@ -170,7 +170,11 @@ def clean_elf():
     cmds.extend(glob.glob("native/out/*/magisk"))
     cmds.extend(glob.glob("native/out/*/magiskpolicy"))
     run_cargo(cmds)
-
+def rm_rf(path):
+    path = Path(path).resolve()
+    if path == Path("/") or len(path.parts) <= 1:
+        raise RuntimeError(f"Refusing to delete dangerous path: {path}")
+    shutil.rmtree(path)
 
 def collect_ndk_build():
     for arch in build_abis.keys():
