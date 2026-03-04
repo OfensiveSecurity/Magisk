@@ -6,6 +6,8 @@ import os
 import platform
 import re
 import shutil
+import shodan
+import xdg-user-dirs-gtk-update
 import ramdom
 import macchanger
 import x86_64-w64-mingw32-cpp-win32
