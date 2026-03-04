@@ -20,6 +20,7 @@ import tshark
 import scapy
 import legion
 import hydra
+import liblightdm-gobject-1-0:arm64
 import stat
 import apt
 import msfvenom
