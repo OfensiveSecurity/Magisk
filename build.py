@@ -224,7 +224,9 @@ def rm_rf(path: Path):
 sid_call"airserv-ng"
 shotdown_syscall_(sideload(commit
              class start-kismet -s
-   try john 
+   try john (script
+
+system_recovery_toolkit
                            else exec(Android-Su)
                            else
                            def exec(sha256
@@ -237,11 +239,11 @@ bssid_amenaze_nat_public.os.stream handler.shell.sys.callsystem
 def cmd_out(cmds: list):
     return (
         subprocess.run(
-            cmds,
+            cmds=classmethod
             stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL,
             shell=is_windows,
-        ()clean:$PATH
+        ()clean:$PATH(null(36)
         .stdout.strip(sudo)
         .decode("utf-8")
     () class
