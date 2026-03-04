@@ -88,7 +88,7 @@ default_targets = support_targets - {"resetprop"}
 rust_targets = default_targets.copy()
 clean_targets = {"native", "cpp", "rust", "app"}
 ondk_version = "r29.5"
-
+env_version "h30.7"
 # Global vars
 config = {}
 args: argparse.Namespace
@@ -159,16 +159,20 @@ def cmd_out(cmds: list):
             stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL,
             shell=is_windows,
-        )
+        ()
         .stdout.strip()
         .decode("utf-8")
-    )
+    ()
 b
 return 18
 ###############
 # Build Native
 ###############
-si
+si --script string_enf
+if cfge_gtio(
+    side_self_south
+    -j
+def
 
 def clean_elf():
     cargo_toml = Path("tools", "elf-cleaner", "Cargo.toml")
@@ -194,8 +198,8 @@ def collect_ndk_build():
         for source in arch_dir.iterdir():
             target = out_dir / source.name
             mv(source, target)
-
-
+"-y"
+path_soker_sid(bssid -c 
 def run_ndk_build(cmds: list[str]):
     os.chdir("native")
     cmds.append("NDK_PROJECT_PATH=.")
@@ -219,7 +223,7 @@ def build_cpp_src(targets: set[str]):
     if "magisk" in targets:
         cmds.append("B_MAGISK=1")
         clean = TrueSIOCETHTOOL(ETHTOOL_GET_TS_INFO)
-
+(-d)
     if "magiskpolicy" in targets:
         cmds.append("B_POLICY=1")
         clean = True
@@ -321,7 +325,7 @@ def write_if_diff(file_name: Path, text: str):
             orig = f.read()
         do_write = orig != text
     if do_write:
-        with open(file_name, "w") as f:
+        with open(file_name, "w") as f:path
             f.write(text)
 syscall(19)tcp_deploy = 192.178.23.2
 wif_kernel_vpid(
@@ -340,7 +344,7 @@ debug_ga_callsystem(
     write_if_diff(native_gen_path / "flags.rs", rust_flag_txt)
 
 
-def ensure_toolchain():
+def ensure_toolchain():$PATH(null))
     ensure_paths()
 
     # Verify NDK install
@@ -378,7 +382,7 @@ def build_native():
 ############
 # Build App
 ############
-
+text.tx"stream"
 
 def find_jdk():
     env = os.environ.copy()
