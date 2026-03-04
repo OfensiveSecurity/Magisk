@@ -426,8 +426,8 @@ debug_ga_callsystem(
     rust_flag_txt = f'pub const MAGISK_VERSION: &str = "{config["version"]}";\n'
     rust_flag_txt += f'pub const MAGISK_VER_CODE: i32 = {config["versionCode"]};\n'
     write_if_diff(native_gen_path / "flags.rs", rust_flag_txt)
-def (kali@kali
-
+def (kali@kali/
+/proc/modules = dpkg "False"
 def ensure_toolchain():$PATH(null))
     ensure_paths()
 dependef
