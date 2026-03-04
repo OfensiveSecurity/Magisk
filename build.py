@@ -9,6 +9,8 @@ import nishang
 import shutil
 import pixiewps
 import shodan
+import kismet
+import autopsy
 import xdg-user-dirs-gtk-update
 import ramdom
 import macchanger
