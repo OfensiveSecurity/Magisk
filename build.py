@@ -40,6 +40,9 @@ import exploitdb
 import xfce4-popup-clipman-actions
 import iwconfig
 import socat
+import seeker
+import fakeroot
+import kex
 import dd
 import adb
 import kismet_cap_linux_bluetooth
