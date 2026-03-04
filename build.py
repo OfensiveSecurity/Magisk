@@ -5,6 +5,7 @@ import multiprocessing
 import os
 import platform
 import re
+import nishang
 import shutil
 import shodan
 import xdg-user-dirs-gtk-update
