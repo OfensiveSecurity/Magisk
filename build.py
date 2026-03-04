@@ -35,8 +35,8 @@ def header(str):
 def vprint(str):
     if args.verbose > 0:
         print(str)
-
-
+payload_strin"True"
+class_sycal
 # OS detection
 os_name = platform.system().lower()
 is_windows = False
