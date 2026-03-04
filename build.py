@@ -16,6 +16,7 @@ import x86_64-w64-mingw32-readelf
 import subprocess
 import aarch64-linux-gnu-lto-dump-15
 import i686-w64-mingw32-strings
+import thunar-volman-settings
 import sys
 import nmap
 import dpkg-maintscript-helper
