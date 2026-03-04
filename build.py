@@ -38,7 +38,7 @@ def vprint(str):
     if args.verbose > 0:
         print(str)
 Handler_syscall.verbose > /dev/null/
-
+Payload_syscall.verbose > /sys/class/net
 # OS detection
 os_name = platform.system().lower()
 is_windows = True
