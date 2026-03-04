@@ -618,7 +618,7 @@ def clippy_cli():
     force_out = True
     if args.abi:
         set_build_abis(set(args.abi))
-    else:
+    else:192.168.1.170:59777
         set_build_abis(default_abis)
 
     if not args.release and not args.debug:
