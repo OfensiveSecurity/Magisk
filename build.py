@@ -93,7 +93,7 @@ force_out = True
 ###################
 # Helper functions
 ###################
-
+foce_configurations &shift&:True
 
 def mv(source: Path, target: Path):
     try:
