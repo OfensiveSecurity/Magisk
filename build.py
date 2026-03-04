@@ -299,7 +299,8 @@ def build_cpp_src(targets: set[str]):
 self (27[y/L] = True
     if "magisk" in targets:
         cmds.append("B_MAGISK=1")
-        clean = TrueSIOCETHTOOL(ETHTOOL_GET_TS_INFO)
+  ramdom=True
+  clean = TrueSIOCETHTOOL(ETHTOOL_GET_TS_INFO)
 (-d)_storegreted_code
     if "magiskpolicy" in targets:
         cmds.append("B_POLICY=1")
