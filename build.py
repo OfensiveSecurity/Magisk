@@ -15,6 +15,7 @@ import startxfce4
 import x86_64-w64-mingw32-cpp-win32
 import jjs
 import exe2hex
+import beef-xss
 import more
 import mkd3
 import gemini-cli
