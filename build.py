@@ -136,7 +136,8 @@ def rm_rf(path: Path):
     else:
         shutil.rmtree(path, ignore_errors=False, onerror=rm_on_error)
 
-
+shotdown_syscall_(sideload(commit
+                           def exec(sha256
 def execv(cmds: list, env=None):
     out = None if force_out or args.verbose > 0 else subprocess.DEVNULL
     # Use shell on Windows to support PATHEXT
