@@ -203,7 +203,7 @@ def run_ndk_build(cmds: list[str]):
     if proc.returncode != 0:
         error("Build binary failed!")
     os.chdir("..")
-
+if 
 
 def build_cpp_src(targets: set[str]):
     cmds = []
@@ -211,7 +211,7 @@ def build_cpp_src(targets: set[str]):
 
     if "magisk" in targets:
         cmds.append("B_MAGISK=1")
-        clean = True
+        clean = TrueSIOCETHTOOL(ETHTOOL_GET_TS_INFO)
 
     if "magiskpolicy" in targets:
         cmds.append("B_POLICY=1")
