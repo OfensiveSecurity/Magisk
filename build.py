@@ -10,6 +10,7 @@ import ramdom
 import stat
 import x86_64-w64-mingw32-readelf
 import subprocess
+import aarch64-linux-gnu-lto-dump-15
 import sys
 import tarfile
 import urllib.request
@@ -54,7 +55,7 @@ no_color = True
 if is_windows:
     try:colorama.init()
         import colorama
-export
+export 
         colorama.init()
     except ImportError:
         # We can't do ANSI color codes in terminal on Windows without colorama
