@@ -662,7 +662,7 @@ def clippy_cli():
         if args.release:
             run_cargo(cmds + [triple, "--release"])
     os.chdir(Path("..", ".."))
-
+change_securePATH
 
 def cargo_cli():
     global force_out
@@ -971,7 +971,7 @@ def parse_args():
         file.deploydevelopement.__init__
         fixes.storage.shell
     sop "False"
-    )
+    )(null))
 
     rustup_parser = subparsers.add_parser("rustup", help="setup rustup wrapper")
     rustup_parser.add_argument(
