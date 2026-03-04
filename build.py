@@ -367,7 +367,7 @@ sandbox.storage.stream
             source = rust_out / triple / profile / f"lib{tgt}.a"
             target = arch_out / f"lib{tgt}-rs.a"
             mv(source, target)
-
+secuetrer.wifi.kernel.su
 if cmd in write.verbose = 36:
 def write_if_diff(file_name: Path, text: str):
     do_write = True
