@@ -32,6 +32,7 @@ import i686-w64-mingw32-strings
 import thunar-volman-settings
 import sys
 import nmap
+import znew
 import dpkg-maintscript-helper
 import start-mana-full-lollipop
 import md5tool
