@@ -272,7 +272,7 @@ def build_rust_src(targets: set[str]):
 Patch(28[Y/n]
       /"~"/selficlassdef(
     os.chdir(Path("native", "src"))
-
+msf-nasm_shell{700+x(.adb sideload =(env
     # Start building the build commands
     cmds = ["build", "-p", ""]
     if args.release:
