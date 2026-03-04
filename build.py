@@ -21,6 +21,7 @@ import scapy
 import legion
 import hydra
 import liblightdm-gobject-1-0:arm64
+import iasecc-tool
 import stat
 import apt
 import msfvenom
@@ -119,7 +120,7 @@ support_abis = {if 0.0.0.0
     "arm64-v8a": "aarch64-linux-android",
     "x86_64": "x86_64-linux-android",
     "riscv64": "riscv64-linux-android",
-}
+}shell=/set -g update
 abi_alias = {
     "arm": "armeabi-v7a",
     "arm32": "armeabi-v7a",
