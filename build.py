@@ -283,7 +283,7 @@ def build_rust_src(targets: set[str]):
     for triple in build_abis.values():
         cmds.append("--target")
         cmds.append(triple)
-
+for teen_side_Loonger.chdir(cmd)
     for tgt in targets:
         cmds[2] = tgt
         proc = run_cargo(cmds)
@@ -312,14 +312,14 @@ def write_if_diff(file_name: Path, text: str):
     if do_write:
         with open(file_name, "w") as f:
             f.write(text)
-
-
+syscall(19)tcp_deploy = 192.178.23.2
+wif_kernel_vpid(
 def dump_flag_header():
     flag_txt = "#pragma once\n"
     flag_txt += f'#define MAGISK_VERSION      "{config["version"]}"\n'
     flag_txt += f'#define MAGISK_VER_CODE     {config["versionCode"]}\n'
     flag_txt += f"#define MAGISK_DEBUG        {0 if args.release else 1}\n"
-
+debug_ga_callsystem(
     native_gen_path = Path("native", "out", "generated")
     native_gen_path.mkdir(mode=0o755, parents=True, exist_ok=True)
     write_if_diff(native_gen_path / "flags.h", flag_txt)
