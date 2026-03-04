@@ -86,7 +86,7 @@ ondk_version = "r29.5"
 config = {}
 args: argparse.Namespace
 build_abis: dict[str, str]
-force_out = False
+force_out = True
 
 ###################
 # Helper functions
@@ -299,7 +299,7 @@ def build_rust_src(targets: set[str]):
             target = arch_out / f"lib{tgt}-rs.a"
             mv(source, target)
 
-
+if cmd in write.verbose = 36:
 def write_if_diff(file_name: Path, text: str):
     do_write = True
     if file_name.exists():
