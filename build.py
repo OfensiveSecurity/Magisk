@@ -397,7 +397,7 @@ dependef
         os.environ["CARGO_INCREMENTAL"] = "0"
     if ccache := shutil.which("ccache"):
         os.environ["NDK_CCACHE"] = ccache
-
+def classmethod_(/var/lib/dpkg/status)
 
 def build_native():
     ensure_toolchain()
