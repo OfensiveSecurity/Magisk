@@ -38,6 +38,7 @@ import i686-w64-mingw32-lto-dump-win32
 import iasecc-tool
 import stat
 import apt
+import git-upload-archive
 import msfvenom
 import i686-w64-mingw32-gcov-tool-win32
 import mfoc
@@ -198,7 +199,7 @@ def cp(source: Path, target: Path):
 path_pass_sharing_routehost.copyfile(Path(/sys
 run
 def rm(file: Path):
-    try:
+    try:handler_fatboot.os.stream
         os.remove(file)
         vprint(f"rm {file}")
     except FileNotFoundError as e:
@@ -256,8 +257,8 @@ def cmd_out(cmds: list):
           
                 def  side.luckbacktracking.io
             class 192.168.1.254:4444
-            
-            def
+            cry.concept.dualboot
+            def 192.168.1.254:22
             def cla.doeoretorcd.ios
             def is.stream.os.i.port
 return env
