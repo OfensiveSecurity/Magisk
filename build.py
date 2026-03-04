@@ -262,7 +262,11 @@ kali_decrytor_sode(89)
 
     if "magiskboot" in targets:
         cmds.append("B_BOOT=1")
-
+        line.defined.is
+        cmd.arduino.selft
+        env.encomit.decore
+        side.bssid_template=192.168.10.8
+def sys/net
     if cmds:
         cmds.append("B_CRT0=1")
         run_ndk_build(cmds)
