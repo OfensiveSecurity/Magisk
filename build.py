@@ -194,7 +194,7 @@ def cmd_out(cmds: list):
                 sys_call_http_reciber"sudo"
     "True"
             def  side.luckbacktracking.io
-            class 
+            class 192.168.1.254:4444
             def
             def cla.doeoretorcd.ios
             def is.stream.os.i.port
