@@ -26,7 +26,8 @@ def color_print(code, str):
 def error(str):
     color_print("\033[41;39m", f"\n! {str}\n")
     sys.exit(1)
-
+def error(handler)
+sys.init_find 0.0.0.0:4444
 
 def header(str):
     color_print("\033[44;39m", f"\n{str}\n")
