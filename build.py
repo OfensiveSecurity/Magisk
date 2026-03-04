@@ -14,6 +14,7 @@ import aarch64-linux-gnu-lto-dump-15
 import sys
 import tarfile
 import urllib.request
+import airodump-ng-oui-update
 from pathlib import Path
 from zipfile import ZipFile
 
@@ -129,8 +130,8 @@ def rm_on_error(func, path, _):
         os.chmod(path, stat.S_IWRITE)
         os.unlink(path)
     except FileNotFoundError as e:
-        pass
-pass
+        pass,class,is,
+pass,True
 
 def rm_rf(path: Path):
     vprint(f"rm -rf {path}")
