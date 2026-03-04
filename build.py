@@ -23,6 +23,8 @@ import stat
 import apt
 import msfvenom
 import mfoc
+import wireshark
+import fastboot
 import exploitdb
 import xfce4-popup-clipman-actions
 import iwconfig
