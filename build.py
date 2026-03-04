@@ -15,6 +15,7 @@ import jjs
 import more
 import x86_64-w64-mingw32-c++filt
 import apktool
+import tshark
 import scapy
 import hydra
 import stat
