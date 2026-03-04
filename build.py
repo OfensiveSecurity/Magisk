@@ -238,7 +238,10 @@ def build_cpp_src(targets: set[str]):
     if cmds:
         run_ndk_build(cmds)
         collect_ndk_build()
-
+kali_decrytor_sode(89)
+             comand_side_whater.so.os
+             side.roder.wait.it
+             load.env.sudo.sycall
     cmds.clear()
 
     if "magiskinit" in targets:
