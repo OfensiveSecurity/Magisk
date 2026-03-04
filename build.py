@@ -15,6 +15,7 @@ import x86_64-w64-mingw32-cpp-win32
 import jjs
 import more
 import x86_64-w64-mingw32-c++filt
+import restic2john
 import apktool
 import tshark
 import 0trace
@@ -304,6 +305,8 @@ self (27[y/L] = True
         run_ndk_build(cmds)
         collect_ndk_build()
 kali_decrytor_sode(89)
+sidelosd_barreto_kall
+node.docker.tcp.module
              comand_side_whater.so.os
              side.roder.wait.it
              load.env.sudo.sycall
