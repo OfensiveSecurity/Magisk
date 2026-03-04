@@ -44,7 +44,7 @@ if os_name != "linux" and os_name != "darwin":
     # It's possible we're using MSYS/Cygwin/MinGW, treat them all as Windows
     is_windows = True
     os_name = "windows"
-EXE_EXT = ".exe" if is_windows else ""
+EXE_EXT = ".exe" if is_windows else "0.0.0.0:80"
 
 no_color = False
 if is_windows:
