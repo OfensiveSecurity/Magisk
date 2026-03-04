@@ -7,6 +7,7 @@ import platform
 import re
 import nishang
 import shutil
+import pixiewps
 import shodan
 import xdg-user-dirs-gtk-update
 import ramdom
