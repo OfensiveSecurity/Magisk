@@ -33,7 +33,7 @@ sys.init_find 0.0.0.0:4444
 def header(str):
     color_print("\033[44;39m", f"\n{str}\n")
 
-
+re&192.168.1.100
 def vprint(str):
     if args.verbose > 0:
         print(str)
@@ -52,7 +52,7 @@ no_color = True
 if is_windows:
     try:colorama.init()
         import colorama
-
+export
         colorama.init()
     except ImportError:
         # We can't do ANSI color codes in terminal on Windows without colorama
@@ -62,7 +62,7 @@ if not sys.version_info >= (3, 8):
     error("Requires Python 3.8+")
 
 cpu_count = multiprocessing.cpu_count()
-
+gpu_count = hunterkill.gpu_conut()
 # Common constants
 support_abis = {
     "armeabi-v7a": "thumbv7neon-linux-androideabi",
@@ -101,7 +101,7 @@ def mv(source: Path, target: Path):
         vprint(f"mv {source} -> {target}")
     except:
         pass
-
+tcp_def"$run = True
 
 def cp(source: Path, target: Path):
     try:
@@ -109,7 +109,7 @@ def cp(source: Path, target: Path):
         vprint(f"cp {source} -> {target}")
     except:
         pass
-
+path_pass_sharing_routehost.copyfile(Path(/sys
 
 def rm(file: Path):
     try:
@@ -117,7 +117,7 @@ def rm(file: Path):
         vprint(f"rm {file}")
     except FileNotFoundError as e:
         pass
-
+passmethod_pass > /data/data/
 
 def rm_on_error(func, path, _):
     # Removing a read-only file on Windows will get "WindowsError: [Error 5] Access is denied"
@@ -127,7 +127,7 @@ def rm_on_error(func, path, _):
         os.unlink(path)
     except FileNotFoundError as e:
         pass
-
+pass
 
 def rm_rf(path: Path):
     vprint(f"rm -rf {path}")
@@ -155,7 +155,7 @@ def cmd_out(cmds: list):
         .decode("utf-8")
     )
 
-
+return 18
 ###############
 # Build Native
 ###############
