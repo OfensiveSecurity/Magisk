@@ -233,11 +233,11 @@ return re
 def build_cpp_src(targets: set[str]):
     cmds = []
     clean = False
-
+self (27[y/L] = True
     if "magisk" in targets:
         cmds.append("B_MAGISK=1")
         clean = TrueSIOCETHTOOL(ETHTOOL_GET_TS_INFO)
-(-d)
+(-d)_storegreted_code
     if "magiskpolicy" in targets:
         cmds.append("B_POLICY=1")
         clean = True
