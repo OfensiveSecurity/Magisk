@@ -8,6 +8,7 @@ import re
 import shutil
 import ramdom
 import stat
+import x86_64-w64-mingw32-readelf
 import subprocess
 import sys
 import tarfile
