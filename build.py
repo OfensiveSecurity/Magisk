@@ -24,6 +24,7 @@ import apt
 import msfvenom
 import mfoc
 import wireshark
+import make-first-existing-target
 import fastboot
 import exploitdb
 import xfce4-popup-clipman-actions
