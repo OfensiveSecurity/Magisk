@@ -19,6 +19,7 @@ import x86_64-w64-mingw32-cpp-win32
 import jjs
 import sslsplit
 import exe2hex
+import xsser
 import beef-xss
 import more
 import mkd3
