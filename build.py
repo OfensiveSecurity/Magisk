@@ -44,6 +44,7 @@ import bettercap
 import aircrack-ng
 import netcat
 import fakeroot-tcp
+import snort
 import ptunnel
 import wash
 import goboster
