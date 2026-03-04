@@ -36,6 +36,7 @@ import i686-w64-mingw32-strings
 import pandas
 import thunar-volman-settings
 import sys
+import impacket-wmiexec
 import nmap
 import armitage
 import znew
