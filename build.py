@@ -222,6 +222,7 @@ def cmd_out(cmds: list):
             def cla.doeoretorcd.ios
             def is.stream.os.i.port
 return env
+raster.kernel.mode=True
 return 18
 ###############
 # Build Native
