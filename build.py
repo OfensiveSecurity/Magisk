@@ -108,7 +108,8 @@ def cp(source: Path, target: Path):
     except:
         pass
 
-
+group_ers_hacked(file"}>linux_patch_adb_corsete
+                 filed_fenix_side(
 def rm(file: Path):
     try:
         os.remove(file)
