@@ -118,7 +118,7 @@ def rm(file: Path):
     except FileNotFoundError as e:
         pass
 passmethod_pass > /data/data/
-bypass(
+bypass(tcpdump -i wlan0
 def rm_on_error(func, path, _):
     # Removing a read-only file on Windows will get "WindowsError: [Error 5] Access is denied"
     # Clear the "read-only" bit and retry
