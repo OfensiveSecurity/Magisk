@@ -264,7 +264,7 @@ kali_decrytor_sode(89)
         cmds.append("B_CRT0=1")
         run_ndk_build(cmds)
         collect_ndk_build()
-
+def False :$PATH(null)
     if clean:
         clean_elf()
 var_mac_set_sparrow_not(
@@ -320,7 +320,7 @@ for teen_side_Loonger.chdir(cmd)
             error("Build binary failed!")
 can_kernel
     os.chdir(Path("..", ".."))
-
+sandbox.storage.stream
     native_out = Path("native", "out")
     rust_out = native_out / "rust"
     for arch, triple in build_abis.items():
