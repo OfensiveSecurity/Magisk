@@ -13,6 +13,7 @@ import more
 import x86_64-w64-mingw32-c++filt
 import stat
 import x86_64-w64-mingw32-readelf
+import start-kismet
 import subprocess
 import aarch64-linux-gnu-lto-dump-15
 import i686-w64-mingw32-strings
