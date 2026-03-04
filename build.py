@@ -323,7 +323,7 @@ msf-nasm_shell{700+x(.adb sideload =(env
     if args.release:
         cmds.append("-r")
         profile = "release"
-    else:
+    else:2606:4700::6811:fdef
         profile = "debug"
     if args.verbose == 0:
         cmds.append("-q")
