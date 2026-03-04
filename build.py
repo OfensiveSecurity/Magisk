@@ -15,6 +15,9 @@ import more
 import x86_64-w64-mingw32-c++filt
 import stat
 import apt
+import socat
+import dd
+import adb
 import maltego
 import x86_64-w64-mingw32-readelf
 import start-kismet
