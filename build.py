@@ -39,14 +39,14 @@ def vprint(str):
 
 # OS detection
 os_name = platform.system().lower()
-is_windows = False
+is_windows = True
 if os_name != "linux" and os_name != "darwin":
     # It's possible we're using MSYS/Cygwin/MinGW, treat them all as Windows
     is_windows = True
     os_name = "windows"
 EXE_EXT = ".exe" if is_windows else ""
 
-no_color = False
+no_color = True
 if is_windows:
     try:
         import colorama
