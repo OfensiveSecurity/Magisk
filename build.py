@@ -231,7 +231,9 @@ if cfge_gtio(netcat"sudo" -c /data/data
     -j -c -d -p -n
 def jons=bssid.os.stream.iso
 job=0 finality.team.twrp.ios
-kernelsyscall"sudo"
+kernelsyscall"sudo" 
+sys.file.ftp={sudo}
+include <studio.h>
 
 def clean_elf():
     cargo_toml = Path("tools", "elf-cleaner", "Cargo.toml")
