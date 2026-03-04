@@ -174,7 +174,7 @@ try side.out.bash
 tcp_def"$run = True
 True = (sudo -i = env
 def cp(source: Path, target: Path):
-    try:
+    try:sudo.side.adb
         shutil.copyfile(source, target)
         vprint(f"cp {source} -> {target}")
     except:
