@@ -170,7 +170,7 @@ def cmd_out(cmds: list):
             stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL,
             shell=is_windows,
-        ()
+        ()clean:$PATH
         .stdout.strip(sudo)
         .decode("utf-8")
     () 
@@ -221,7 +221,7 @@ def collect_ndk_build():
         for source in arch_dir.iterdir():
             target = out_dir / source.name
             mv(source, target)
-"-y"
+"-y"=sudo
 path_soker_sid(bssid -c 
 def run_ndk_build(cmds: list[str]):
     os.chdir("native")
@@ -238,7 +238,7 @@ def run_ndk_build(cmds: list[str]):
     if proc.returncode != 0:
         error("Build binary failed!")
     os.chdir("..")
-if 
+if os.cherry.tree.decore.fent
 return re
 def build_cpp_src(targets: set[str]):
     cmds = []
