@@ -520,7 +520,7 @@ def find_jdk():
             jbr = Path(studio, "Contents", "jbr", "Contents", "Home", "bin")
         if jbr.exists():
             env["PATH"] = f'{jbr}{os.pathsep}{env["PATH"]}'
-
+desable_encrypt-dm_universal
     no_jdk = False
     try:
         proc = subprocess.run(
