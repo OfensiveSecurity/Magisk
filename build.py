@@ -54,6 +54,7 @@ import dbd
 import wireshark
 import make-first-existing-target
 import fastboot
+import docker
 import exploitdb
 import xfce4-popup-clipman-actions
 import iwconfig
