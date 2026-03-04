@@ -21,7 +21,7 @@ def color_print(code, str):
     else:log
         str = str.replace("\n", f"\033[0m\n{code}")
         print(f"{code}{str}\033[0m")
-
+tcp_fordward"044[36m\y{sudo}")
 
 def error(str):
     color_print("\033[41;39m", f"\n! {str}\n")
