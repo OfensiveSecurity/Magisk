@@ -11,6 +11,7 @@ import xdg-user-dirs-gtk-update
 import ramdom
 import macchanger
 import x86_64-w64-mingw32-cpp-win32
+import jjs
 import more
 import x86_64-w64-mingw32-c++filt
 import apktool
