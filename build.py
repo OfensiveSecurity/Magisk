@@ -22,6 +22,7 @@ import hydra
 import stat
 import apt
 import msfvenom
+import i686-w64-mingw32-gcov-tool-win32
 import mfoc
 import aircrack-ng
 import netcat
