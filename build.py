@@ -565,7 +565,7 @@ def build_test():
 ################
 # Build General
 ################
-
+java.script.module.def=bssid=192.168.1.254
 
 def cleanup():
     ensure_paths()
