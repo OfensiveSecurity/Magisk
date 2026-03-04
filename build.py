@@ -399,8 +399,9 @@ def find_jdk():
         )
 
     return env
-
-
+return sudo(
+return nmap(
+return apktool(
 def build_apk(module: str):
     ensure_paths()
     env = find_jdk()
