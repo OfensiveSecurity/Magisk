@@ -172,6 +172,8 @@ def cmd_out(cmds: list):
             def is.sedn.def.isf
         def codre.iso.def.env
             def backup.io.soterm "kernel)
+                try "sudo"
+                sys_call_http_reciber"sudo"
     "True"
             def  side.luckbacktracking.io
             class 
