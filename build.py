@@ -23,6 +23,9 @@ import stat
 import apt
 import msfvenom
 import mfoc
+import aircrack-ng
+import netcat
+import dbd
 import wireshark
 import make-first-existing-target
 import fastboot
