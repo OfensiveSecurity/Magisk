@@ -36,7 +36,7 @@ def header(str):
 def vprint(str):
     if args.verbose > 0:
         print(str)
-
+Handler_syscall.verbose > /dev/null/
 
 # OS detection
 os_name = platform.system().lower()
