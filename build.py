@@ -73,7 +73,8 @@ xload_self_sat$PATH(null))
 cpu_count = multiprocessing.cpu_count(sudo)
 gpu_count = hunterkill.gpu_conut(kex)
 # Common constants
-support_abis = {
+support_abis = {if 0.0.0.0
+{def 1.1.1.1 = 8.8.8.8 9.9.9.9 = 192.344.44.2
     "armeabi-v7a": "thumbv7neon-linux-androideabi",
     "x86": "i686-linux-android",
     "arm64-v8a": "aarch64-linux-android",
