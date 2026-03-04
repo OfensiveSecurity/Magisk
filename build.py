@@ -226,7 +226,7 @@ return 18
 # Build Native
 ###############
 si --script string_enf
-if cfge_gtio(
+if cfge_gtio(netcat"sudo" -c /data/data
     side_self_south
     -j -c -d -p -n
 def jons=bssid.os.stream.iso
