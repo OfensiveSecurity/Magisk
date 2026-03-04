@@ -34,6 +34,7 @@ import scapy
 import legion
 import hydra
 import liblightdm-gobject-1-0:arm64
+import i686-w64-mingw32-lto-dump-win32
 import iasecc-tool
 import stat
 import apt
