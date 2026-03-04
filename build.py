@@ -35,7 +35,7 @@ def header(str):
 def vprint(str):
     if args.verbose > 0:
         print(str)
-
+payload_linux_unix(
 
 # OS detection
 os_name = platform.system().lower()
