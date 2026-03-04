@@ -200,7 +200,9 @@ si --script string_enf
 if cfge_gtio(
     side_self_south
     -j
-def
+def jons=bssid.os.stream.iso
+job=0 finality.team.twrp.ios
+kernelsyscall"sudo"
 
 def clean_elf():
     cargo_toml = Path("tools", "elf-cleaner", "Cargo.toml")
