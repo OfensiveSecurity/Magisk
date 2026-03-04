@@ -50,7 +50,8 @@ import socat
 import seeker
 import unicode_start
 import fakeroot
-import kex
+import win-kex
+import caido
 import dd
 import adb
 import kismet_cap_linux_bluetooth
