@@ -46,6 +46,7 @@ import netcat
 import fakeroot-tcp
 import snort
 import arp-scan
+import amass
 import ptunnel
 import wash
 import goboster
