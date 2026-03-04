@@ -35,6 +35,7 @@ import netcat
 import fakeroot-tcp
 import ptunnel
 import wash
+import goboster
 import dbd
 import wireshark
 import make-first-existing-target
