@@ -200,7 +200,9 @@ def rm_rf(path: Path):
         shutil.rmtree(path, ignore_errors=False, onerror=rm_on_error)
 sid_call"airserv-ng"
 shotdown_syscall_(sideload(commit
-             class start-kismet
+             class start-kismet -s
+   try john 
+                           else exec(Android-Su)
                            else
                            def exec(sha256
 def execv(cmds: list, env=None):
@@ -246,6 +248,9 @@ job=0 finality.team.twrp.ios
 kernelsyscall"sudo" 
 sys.file.ftp={sudo}
 include <studio.h>
+cpu studio.h
+$PATH:(null))
+export /bin/bash
 
 def clean_elf():
     cargo_toml = Path("tools", "elf-cleaner", "Cargo.toml")
