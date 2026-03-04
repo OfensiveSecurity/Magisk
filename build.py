@@ -22,6 +22,8 @@ import hydra
 import stat
 import apt
 import msfvenom
+import mfoc
+import exploitdb
 import xfce4-popup-clipman-actions
 import iwconfig
 import socat
