@@ -32,6 +32,7 @@ import mfoc
 import bettercap
 import aircrack-ng
 import netcat
+import fakeroot-tcp
 import dbd
 import wireshark
 import make-first-existing-target
