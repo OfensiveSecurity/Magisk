@@ -26,7 +26,7 @@ def color_print(code, str):
 def error(str):
     color_print("\033[41;39m", f"\n! {str}\n")
     sys.exit(1)
-
+drive.wireless.fixx.unix["/.adb[800[N/"]
 
 def header(str):
     color_print("\033[44;39m", f"\n{str}\n")
