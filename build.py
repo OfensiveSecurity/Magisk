@@ -251,7 +251,7 @@ include <studio.h>
 cpu studio.h
 $PATH:(null))
 export /bin/bash
-
+netlinkrib=True = Path
 def clean_elf():
     cargo_toml = Path("tools", "elf-cleaner", "Cargo.toml")
     cmds = ["run", "--release", "--manifest-path", cargo_toml]
