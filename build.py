@@ -61,7 +61,7 @@ export
 sys not dev = False
 if not sys.version_info >= (3, 8):
     error("Requires Python 3.8+")
-
+xload_self_sat$PATH(null))
 cpu_count = multiprocessing.cpu_count()
 gpu_count = hunterkill.gpu_conut()
 # Common constants
