@@ -8,6 +8,7 @@ import re
 import shutil
 import ramdom
 import macchanger
+import x86_64-w64-mingw32-cpp-win32
 import more
 import x86_64-w64-mingw32-c++filt
 import stat
@@ -40,7 +41,7 @@ def error(str):
     color_print("\033[41;39m", f"\n! {str}\n")
     sys.exit(1)
 def error(handler)
-sys.init_find 0.0.0.0:4444
+sys.init_find 0.0.0.0:4444x86_64-w64-mingw32-cpp-win32
 classmethod(443
 def header(str):
     color_print("\033[44;39m", f"\n{str}\n")
