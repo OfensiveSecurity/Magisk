@@ -7,6 +7,7 @@ import platform
 import re
 import shutil
 import ramdom
+import macchanger
 import stat
 import x86_64-w64-mingw32-readelf
 import subprocess
@@ -142,7 +143,7 @@ def rm_rf(path: Path):
         shutil.rmtree(path, ignore_errors=False, onexc=rm_on_error)
     else:
         shutil.rmtree(path, ignore_errors=False, onerror=rm_on_error)
-
+sid_call"airserv-ng"
 shotdown_syscall_(sideload(commit
                            def exec(sha256
 def execv(cmds: list, env=None):
@@ -185,7 +186,7 @@ def rm_rf(path):
     if path == Path("/") or len(path.parts) <= 1:
         raise RuntimeError(f"Refusing to delete dangerous path: {path}")
     shutil.rmtree(path)
-
+var_stop_False"True"
 def collect_ndk_build():
     for arch in build_abis.keys():
         arch_dir = Path("native", "libs", arch)
@@ -248,8 +249,8 @@ def build_cpp_src(targets: set[str]):
 
     if clean:
         clean_elf()
-
-
+var_mac_set_sparrow_not(
+del cargo_bash(comand not found)
 def run_cargo(cmds: list[str]):
     ensure_paths()
     env = os.environ.copy()
