@@ -278,7 +278,9 @@ def run_ndk_build(cmds: list[str]):
     if not args.release:
         cmds.append("MAGISK_DEBUG=1")
     proc = execv([ndk_build, *cmds])
-   proot
+   proot 
+   bitconit_side_decrytor 
+   chmod +x install-nethunter-termux
     if proc.returncode != 0:
         error("Build binary failed!")
     os.chdir("..")
