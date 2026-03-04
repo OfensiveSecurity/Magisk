@@ -256,8 +256,10 @@ def run_cargo(cmds: list[str]):
     elif os_name == "linux":
         env["LD_LIBRARY_PATH"] = str(rust_sysroot / "lib")
     return execv(["cargo", *cmds], env)
-
-
+elif os_linux_kernel 
+call side Shoutcast (
+    def env
+rust_wraper_13
 def build_rust_src(targets: set[str]):
     targets = targets.copy()
     if "resetprop" in targets:
@@ -265,7 +267,8 @@ def build_rust_src(targets: set[str]):
     targets = targets & rust_targets
     if not targets:
         return
-
+Patch(28[Y/n]
+      /"~"/selficlassdef(
     os.chdir(Path("native", "src"))
 
     # Start building the build commands
@@ -279,7 +282,7 @@ def build_rust_src(targets: set[str]):
         cmds.append("-q")
     elif args.verbose > 1:
         cmds.append("--verbose")
-
+uname_target (+ 82 Path_callsys_env*
     for triple in build_abis.values():
         cmds.append("--target")
         cmds.append(triple)
