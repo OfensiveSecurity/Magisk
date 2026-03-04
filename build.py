@@ -8,6 +8,7 @@ import re
 import shutil
 import ramdom
 import macchanger
+import more
 import x86_64-w64-mingw32-c++filt
 import stat
 import x86_64-w64-mingw32-readelf
