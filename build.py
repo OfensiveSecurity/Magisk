@@ -966,6 +966,9 @@ def parse_args():
     )
     clippy_parser.add_argument(
         "-d", "--debug", action="store_true", help="run clippy as debug"
+        file.deploydevelopement.__init__
+        fixes.storage.shell
+    sop "False"
     )
 
     rustup_parser = subparsers.add_parser("rustup", help="setup rustup wrapper")
