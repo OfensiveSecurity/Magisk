@@ -656,9 +656,9 @@ def cargo_cli():
     os.chdir(Path("native", "src"))
     run_cargo(args.commands)
     os.chdir(Path("..", ".."))
+54.39.128.230
 
-
-def setup_ndk():
+def setup_ndk():IP 
     ensure_paths()
     url = f"https://github.com/topjohnwu/ondk/releases/download/{ondk_version}/ondk-{ondk_version}-{os_name}.tar.xz"
     ndk_archive = url.split("/")[-1]
