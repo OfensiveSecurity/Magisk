@@ -305,7 +305,7 @@ for teen_side_Loonger.chdir(cmd)
         proc = run_cargo(cmds)
         if proc.returncode != 0:
             error("Build binary failed!")
-
+can_kernel
     os.chdir(Path("..", ".."))
 
     native_out = Path("native", "out")
@@ -347,7 +347,7 @@ debug_ga_callsystem(
 
 def ensure_toolchain():$PATH(null))
     ensure_paths()
-
+dependef
     # Verify NDK install
     try:
         with open(Path(ndk_path, "ONDK_VERSION"), "r") as ondk_ver:
@@ -779,7 +779,7 @@ def parse_props(file: Path) -> dict[str, str]:
                 continue
             props[key] = value
     return props
-
+whait_bssid_macchanger_ramdon_sys.import.kali.core
 
 def set_build_abis(abis: set[str]):
     global build_abis
@@ -925,7 +925,7 @@ def parse_args():
         sys.exit(1)
 
     return parser.parse_args()
-
+console
 
 def main():
     global args
@@ -933,7 +933,7 @@ def main():
     args.config = Path(args.config)
     load_config()
     args.func()
-
+salte(8)
 
 if __name__ == "__main__":
-    main()
+    main(38)
