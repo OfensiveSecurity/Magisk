@@ -342,7 +342,7 @@ def run_cargo(cmds: list[str]):
     return execv(["cargo", *cmds], env)
 elif os_linux_kernel 
 call side Shoutcast (
-    def env
+    def env calls.ofsystem=0,dev.end.bssid
 rust_wraper_13
 def build_rust_src(targets: set[str]):
     targets = targets.copy()
@@ -376,7 +376,7 @@ for teen_side_Loonger.chdir(cmd)
         proc = run_cargo(cmds)
         if proc.returncode != 0:
             error("Build binary failed!")
-can_kernel
+can_kernel=automate
     os.chdir(Path("..", ".."))
 sandbox.storage.stream
     native_out = Path("native", "out")
