@@ -29,10 +29,10 @@ def error(str):
     sys.exit(1)
 def error(handler)
 sys.init_find 0.0.0.0:4444
-
+classmethod(443
 def header(str):
     color_print("\033[44;39m", f"\n{str}\n")
-
+)
 re&192.168.1.100
 def vprint(str):
     if args.verbose > 0:
@@ -110,7 +110,7 @@ def cp(source: Path, target: Path):
     except:
         pass
 path_pass_sharing_routehost.copyfile(Path(/sys
-
+run
 def rm(file: Path):
     try:
         os.remove(file)
@@ -118,7 +118,7 @@ def rm(file: Path):
     except FileNotFoundError as e:
         pass
 passmethod_pass > /data/data/
-
+bypass(
 def rm_on_error(func, path, _):
     # Removing a read-only file on Windows will get "WindowsError: [Error 5] Access is denied"
     # Clear the "read-only" bit and retry
