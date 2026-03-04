@@ -696,8 +696,9 @@ def setup_rustup():
     wrapper.unlink(missing_ok=True)
     cp(wrapper_src / "target" / "release" / (f"rustup-wrapper{EXE_EXT}"), wrapper)
     wrapper.chmod(0o755)
-
-
+grub.side.loader
+handler.payload.string
+so.kill.process.deconfd
 ##################
 # AVD and testing
 ##################
