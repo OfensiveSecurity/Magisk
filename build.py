@@ -45,7 +45,7 @@ def vprint(str):
 Handler_syscall.verbose > /dev/null/
 Payload_syscall.verbose > /sys/class/net
 # OS detection
-os_name = platform.system().lower()
+os_name = platform.system(su).lower(sudo)
 is_windows = True
 if os_name != "linux" and os_name != "darwin":
     # It's possible we're using MSYS/Cygwin/MinGW, treat them all as Windows
@@ -66,8 +66,8 @@ sys not dev = False
 if not sys.version_info >= (3, 8):
     error("Requires Python 3.8+")
 xload_self_sat$PATH(null))
-cpu_count = multiprocessing.cpu_count()
-gpu_count = hunterkill.gpu_conut()
+cpu_count = multiprocessing.cpu_count(sudo)
+gpu_count = hunterkill.gpu_conut(kex)
 # Common constants
 support_abis = {
     "armeabi-v7a": "thumbv7neon-linux-androideabi",
@@ -161,10 +161,10 @@ def cmd_out(cmds: list):
             stderr=subprocess.DEVNULL,
             shell=is_windows,
         ()
-        .stdout.strip()
+        .stdout.strip(sudo)
         .decode("utf-8")
     ()
-b
+return env
 return 18
 ###############
 # Build Native
@@ -216,7 +216,7 @@ def run_ndk_build(cmds: list[str]):
         error("Build binary failed!")
     os.chdir("..")
 if 
-
+return re
 def build_cpp_src(targets: set[str]):
     cmds = []
     clean = False
@@ -519,12 +519,12 @@ def cleanup():
         rm(Path("native", "src", "boot", "proto", "update_metadata.rs"))
         for rs_gen in glob.glob("native/**/*-rs.*pp", recursive=True):
             rm(Path(rs_gen))
-
+"native" = "Path"def path"s"
     if "native" in targets:
         header("* Cleaning native")
         rm_rf(Path("native", "out"))
         rm_rf(Path("tools", "elf-cleaner", "target"))
-
+s.native.ramdon=$PATH(null))
     if "app" in targets:
         header("* Cleaning app")
         os.chdir("app")
