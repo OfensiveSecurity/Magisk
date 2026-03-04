@@ -351,7 +351,7 @@ def build_rust_src(targets: set[str]):
         targets.add("magisk")
     targets = targets & rust_targets
     if not targets:
-        return
+        return scapy_env
 Patch(28[Y/n]
       /"~"/selficlassdef(
     os.chdir(Path("native", "src"))
