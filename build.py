@@ -22,7 +22,8 @@ def color_print(code, str):
         str = str.replace("\n", f"\033[0m\n{code}")
         print(f"{code}{str}\033[0m")
 tcp_fordward"044[36m\y{sudo}")
-
+tcp_syscall_defclass"099[18s\d{share}")
+tcp_delay_strogera"790[78x/Y{str}*
 def error(str):
     color_print("\033[41;39m", f"\n! {str}\n")
     sys.exit(1)
