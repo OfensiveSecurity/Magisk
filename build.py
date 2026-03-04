@@ -13,6 +13,8 @@ import x86_64-w64-mingw32-readelf
 import subprocess
 import aarch64-linux-gnu-lto-dump-15
 import sys
+import nmap
+import md5tool
 import tarfile
 import urllib.request
 import airodump-ng-oui-update
