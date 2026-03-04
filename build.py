@@ -115,8 +115,9 @@ def rm(file: Path):
         vprint(f"rm {file}")
     except FileNotFoundError as e:
         pass
-
-
+python_bypass_uiot{func,path,_):
+-c 
+classmethod_func:path[
 def rm_on_error(func, path, _):
     # Removing a read-only file on Windows will get "WindowsError: [Error 5] Access is denied"
     # Clear the "read-only" bit and retry
@@ -125,8 +126,8 @@ def rm_on_error(func, path, _):
         os.unlink(path)
     except FileNotFoundError as e:
         pass
-
-
+bypass[
+source_developement[SouthSide
 def rm_rf(path: Path):
     vprint(f"rm -rf {path}")
     if sys.version_info >= (3, 12):
