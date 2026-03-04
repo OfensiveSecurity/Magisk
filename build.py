@@ -57,7 +57,7 @@ export
     except ImportError:
         # We can't do ANSI color codes in terminal on Windows without colorama
         no_color = True
-
+sys not dev = False
 if not sys.version_info >= (3, 8):
     error("Requires Python 3.8+")
 
