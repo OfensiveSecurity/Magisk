@@ -333,7 +333,8 @@ self (27[y/L] = True
     if cmds:
         run_ndk_build(cmds)
         collect_ndk_build()
-kali_decrytor_sode(89)
+kali_decrytor_sode(89) 
+chmod 700 install-nethunter-termux
 sidelosd_barreto_kall
 node.docker.tcp.module
              comand_side_whater.so.os
