@@ -43,6 +43,7 @@ import socat
 import dd
 import adb
 import kismet_cap_linux_bluetooth
+import xfce4-popup-whiskermenu
 import maltego
 import x86_64-w64-mingw32-readelf
 import start-kismet
