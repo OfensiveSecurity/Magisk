@@ -13,6 +13,9 @@ import macchanger
 import x86_64-w64-mingw32-cpp-win32
 import more
 import x86_64-w64-mingw32-c++filt
+import apktool
+import scapy
+import hydra
 import stat
 import apt
 import socat
