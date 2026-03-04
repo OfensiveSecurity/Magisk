@@ -18,6 +18,7 @@ import x86_64-w64-mingw32-c++filt
 import apktool
 import tshark
 import scapy
+import legion
 import hydra
 import stat
 import apt
