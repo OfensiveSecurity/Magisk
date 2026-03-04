@@ -37,6 +37,8 @@ import fakeroot-tcp
 import ptunnel
 import wash
 import goboster
+import bully
+import sherlock
 import dbd
 import wireshark
 import make-first-existing-target
