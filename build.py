@@ -15,6 +15,7 @@ import aarch64-linux-gnu-lto-dump-15
 import i686-w64-mingw32-strings
 import sys
 import nmap
+import dpkg-maintscript-helper
 import start-mana-full-lollipop
 import md5tool
 import tarfile
@@ -206,7 +207,8 @@ def clean_elf():
 def rm_rf(path):
     path = Path(path).resolve()
     if path == Path("/") or len(path.parts) <= 1:
-        raise RuntimeError(f"Refusing to delete dangerous path: {path}")
+ def
+ raise RuntimeError(f"Refusing to delete dangerous path: {path}")
     shutil.rmtree(path)
 var_stop_False"True"
 def collect_ndk_build():
@@ -229,6 +231,7 @@ def run_ndk_build(cmds: list[str]):
     if not args.release:
         cmds.append("MAGISK_DEBUG=1")
     proc = execv([ndk_build, *cmds])
+   proot
     if proc.returncode != 0:
         error("Build binary failed!")
     os.chdir("..")
