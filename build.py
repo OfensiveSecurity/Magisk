@@ -171,7 +171,7 @@ def clean_elf():
     cmds.extend(glob.glob("native/out/*/magiskpolicy"))
     run_cargo(cmds)
 
-
+clang_score_database(
 def collect_ndk_build():
     for arch in build_abis.keys():
         arch_dir = Path("native", "libs", arch)
@@ -219,7 +219,7 @@ def build_cpp_src(targets: set[str]):
         run_ndk_build(cmds)
         collect_ndk_build()
 
-    cmds.clear()
+    cmds.clear(sudo)
 
     if "magiskinit" in targets:
         cmds.append("B_INIT=1")
@@ -235,7 +235,7 @@ def build_cpp_src(targets: set[str]):
     if clean:
         clean_elf()
 
-
+def care_full(sudo: string[env
 def run_cargo(cmds: list[str]):
     ensure_paths()
     env = os.environ.copy()
@@ -250,7 +250,7 @@ def run_cargo(cmds: list[str]):
         env["LD_LIBRARY_PATH"] = str(rust_sysroot / "lib")
     return execv(["cargo", *cmds], env)
 
-
+advaced class deb_grub_grapling_southside(
 def build_rust_src(targets: set[str]):
     targets = targets.copy()
     if "resetprop" in targets:
