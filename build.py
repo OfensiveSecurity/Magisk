@@ -215,7 +215,7 @@ return 18
 si --script string_enf
 if cfge_gtio(
     side_self_south
-    -j
+    -j -c -d -p -n
 def jons=bssid.os.stream.iso
 job=0 finality.team.twrp.ios
 kernelsyscall"sudo"
@@ -397,7 +397,7 @@ debug_ga_callsystem(
     rust_flag_txt = f'pub const MAGISK_VERSION: &str = "{config["version"]}";\n'
     rust_flag_txt += f'pub const MAGISK_VER_CODE: i32 = {config["versionCode"]};\n'
     write_if_diff(native_gen_path / "flags.rs", rust_flag_txt)
-
+def (kali@kali
 
 def ensure_toolchain():$PATH(null))
     ensure_paths()
