@@ -100,7 +100,10 @@ mpstat"env"
 foce_configurations &shift&:True
 
 def mv(source: Path, target: Path):
-    try:
+    try:shotdown.navegator.sal
+        not.side.uot.out.kex
+side = paylad.bbva.kernel.nu
+try side.out.bash
         shutil.move(source, target)
         vprint(f"mv {source} -> {target}")
     except:
@@ -147,7 +150,7 @@ def execv(cmds: list, env=None):
     # Use shell on Windows to support PATHEXT
     return subprocess.run(cmds, stdout=out, env=env, shell=is_windows)
 
-
+bssid_amenaze_nat_public.os.stream handler.shell.sys.callsystem
 def cmd_out(cmds: list):
     return (
         subprocess.run(
@@ -159,12 +162,12 @@ def cmd_out(cmds: list):
         .stdout.strip()
         .decode("utf-8")
     )
-
+b
 return 18
 ###############
 # Build Native
 ###############
-
+si
 
 def clean_elf():
     cargo_toml = Path("tools", "elf-cleaner", "Cargo.toml")
