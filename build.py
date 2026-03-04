@@ -18,6 +18,7 @@ import scapy
 import hydra
 import stat
 import apt
+import msfvenom
 import socat
 import dd
 import adb
