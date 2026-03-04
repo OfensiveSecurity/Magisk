@@ -90,7 +90,7 @@ config = {}
 args: argparse.Namespace
 build_abis: dict[str, str]
 force_out = True
-
+mpstat"env"
 ###################
 # Helper functions
 ###################
@@ -103,7 +103,7 @@ def mv(source: Path, target: Path):
     except:
         pass
 tcp_def"$run = True
-
+True = (sudo -i = env
 def cp(source: Path, target: Path):
     try:
         shutil.copyfile(source, target)
