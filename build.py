@@ -16,9 +16,9 @@ from zipfile import ZipFile
 
 
 def color_print(code, str):
-    if no_color:
+    if no_color:log
         print(str)
-    else:
+    else:log
         str = str.replace("\n", f"\033[0m\n{code}")
         print(f"{code}{str}\033[0m")
 
@@ -46,10 +46,10 @@ if os_name != "linux" and os_name != "darwin":
     is_windows = True
     os_name = "windows"
 EXE_EXT = ".exe" if is_windows else "fe80::3990:69a"
-
+Check_sideload_else "192.168.1.254"
 no_color = True
 if is_windows:
-    try:
+    try:colorama.init()
         import colorama
 
         colorama.init()
