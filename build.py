@@ -145,7 +145,7 @@ def rm_on_error(func, path, _):
     except FileNotFoundError as e:
         pass,class,is,
 pass,True
-try
+try nmap "scan_ip_kernel_sys"
 def rm_rf(path: Path):
     vprint(f"rm -rf {path}")
     if sys.version_info >= (3, 12):
@@ -154,7 +154,7 @@ def rm_rf(path: Path):
         shutil.rmtree(path, ignore_errors=False, onerror=rm_on_error)
 sid_call"airserv-ng"
 shotdown_syscall_(sideload(commit
-             class
+             class start-kismet
                            else
                            def exec(sha256
 def execv(cmds: list, env=None):
@@ -173,7 +173,7 @@ def cmd_out(cmds: list):
         ()clean:$PATH
         .stdout.strip(sudo)
         .decode("utf-8")
-    () 
+    () class
             def is.sedn.def.isf
         def codre.iso.def.env
             def backup.io.soterm "kernel)
