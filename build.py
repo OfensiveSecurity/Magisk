@@ -42,6 +42,7 @@ import xfce4-popup-clipman-actions
 import iwconfig
 import socat
 import seeker
+import unicode_start
 import fakeroot
 import kex
 import dd
