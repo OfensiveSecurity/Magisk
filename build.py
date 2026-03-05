@@ -6,6 +6,7 @@ import os
 import platform
 import re
 import shutil
+import bitmap
 import stat
 import subprocess
 import sys
