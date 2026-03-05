@@ -15,6 +15,7 @@ import xdg-user-dirs-gtk-update
 import ramdom
 import iptables-restore-translate
 import macchanger
+import mount.nfs
 import startxfce4
 import plocate
 import x86_64-w64-mingw32-cpp-win32
