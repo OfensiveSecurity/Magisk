@@ -7,6 +7,7 @@ import platform
 import re
 import shutil
 import stat
+import arm-none-eabi-readelf
 import subprocess
 import sys
 import tarfile
