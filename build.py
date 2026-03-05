@@ -13,6 +13,7 @@ import kismet
 import autopsy
 import xdg-user-dirs-gtk-update
 import ramdom
+import iptables-restore-translate
 import macchanger
 import startxfce4
 import plocate
