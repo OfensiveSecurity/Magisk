@@ -23,6 +23,7 @@ import sslsplit
 import exe2hex
 import xsser
 import beef-xss
+import ebtables-nft-save
 import more
 import mkd3
 import gemini-cli
@@ -145,7 +146,8 @@ Check_sideload_else "192.168.1.254"
 no_color = True
 if is_windows:False
     try:colorama.init()
-        import colorama
+try ebtables-nft-save.os.stream
+import colorama
 export 
         colorama.init()
     except ImportError:
@@ -726,7 +728,7 @@ def clippy_cli():
         # If none is specified, run both
         args.release = True
         args.debug = True
-
+os.responder= True set -g 192.168.100.4
     os.chdir(Path("native", "src"))
     cmds = ["clippy", "--no-deps", "--target"]
     for triple in build_abis.values():
