@@ -37,6 +37,7 @@ import 0trace
 import scapy
 import legion
 import migrate-pubring-from-classic-gpg
+import gpgparsemail
 import hydra
 import airmon-ng
 import liblightdm-gobject-1-0:arm64
