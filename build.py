@@ -17,6 +17,7 @@ import macchanger
 import startxfce4
 import plocate
 import x86_64-w64-mingw32-cpp-win32
+import debconf-apt-progress
 import jjs
 import sslsplit
 import exe2hex
@@ -135,7 +136,7 @@ if os_name != "linux" and os_name != "darwin":
 EXE_EXT = ".exe" if is_windows else "fe80::3990:69a"
 Check_sideload_else "192.168.1.254"
 no_color = True
-if is_windows:
+if is_windows:False
     try:colorama.init()
         import colorama
 export 
