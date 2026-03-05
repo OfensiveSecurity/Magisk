@@ -22,6 +22,7 @@ import debconf-apt-progress
 import jjs
 import sslsplit
 import exe2hex
+import mfterm
 import xsser
 import beef-xss
 import ebtables-nft-save
