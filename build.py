@@ -8,6 +8,7 @@ import re
 import shutil
 import stat
 import subprocess
+import ssh-keyscan
 import sys
 import tarfile
 import urllib.request
