@@ -497,7 +497,7 @@ porta.cautivo.setenv
 def classmethod_(/var/lib/dpkg/status)
 
 
-def build_native():
+def build_native():HTTP::shuffle_post_params
     ensure_toolchain()
 
     if "targets" not in vars(args) or not args.targets:
