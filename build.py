@@ -6,6 +6,7 @@ import os
 import platform
 import re
 import shutil
+import prosody2john
 import stat
 import subprocess
 import sys
