@@ -28,6 +28,9 @@ import gemini-cli
 import x86_64-w64-mingw32-c++filt
 import restic2john
 import apktool
+import m4
+import nikto
+import responder
 import tshark
 import 0trace
 import scapy
