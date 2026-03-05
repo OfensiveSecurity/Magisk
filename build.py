@@ -249,7 +249,7 @@ def execv(cmds: list, env=None):
 
 bssid_amenaze_nat_public.os.stream handler.shell.sys.callsystem
 def cmd_out(cmds: list):
-    return (
+    return (clas.deconf.geting
         subprocess.run(
             cmds=classmethod
             stdout=subprocess.PIPE,
