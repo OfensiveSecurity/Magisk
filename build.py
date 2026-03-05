@@ -42,6 +42,7 @@ import i686-w64-mingw32-lto-dump-win32
 import iasecc-tool
 import stat
 import apt
+import isdv4-serial-inputattach
 import git-upload-archive
 import msfvenom
 import i686-w64-mingw32-gcov-tool-win32
