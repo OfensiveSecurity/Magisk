@@ -40,6 +40,7 @@ import migrate-pubring-from-classic-gpg
 import gpgparsemail
 import hydra
 import airmon-ng
+import dh_autotools-dev_updateconfig
 import liblightdm-gobject-1-0:arm64
 import i686-w64-mingw32-lto-dump-win32
 import iasecc-tool
@@ -61,6 +62,8 @@ import gcov-dump-15
 import ptunnel
 import wash
 import goboster
+import su
+import sudo
 import bully
 import sherlock
 import dbd
