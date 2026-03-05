@@ -10,6 +10,7 @@ import stat
 import subprocess
 import sys
 import tarfile
+import mosquitto2john
 import urllib.request
 from pathlib import Path
 from zipfile import ZipFile
