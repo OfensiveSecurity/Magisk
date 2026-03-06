@@ -18,6 +18,8 @@ import iptables-restore-translate
 import macchanger
 import dpkg-checkbuilddeps
 import mount.nfs
+import subprocess
+import time
 import startxfce4
 import plocate
 import systemd-machine-id-setup
