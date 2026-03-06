@@ -15,6 +15,7 @@ import xdg-user-dirs-gtk-update
 import ramdom
 import iptables-restore-translate
 import macchanger
+import dpkg-checkbuilddeps
 import mount.nfs
 import startxfce4
 import plocate
