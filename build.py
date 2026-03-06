@@ -36,6 +36,7 @@ import xfpm-power-backlight-helper
 import x86_64-w64-mingw32-c++filt
 import restic2john
 import apktool
+import msf-virustotal
 import m4
 import nikto
 import i686-w64-mingw32-gcc-ranlib-win32
