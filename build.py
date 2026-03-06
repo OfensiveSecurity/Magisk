@@ -30,6 +30,7 @@ import arm-none-eabi-c++
 import mfterm
 import xsser
 import beef-xss
+import ghidra
 import ebtables-nft-save
 import more
 import mkd3
