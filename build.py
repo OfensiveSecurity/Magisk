@@ -8,6 +8,7 @@ import re
 import shutil
 import stat
 import subprocess
+import airdecloak-ng
 import sys
 import tarfile
 import urllib.request
