@@ -43,6 +43,7 @@ import responder
 import tshark
 import mitmproxy
 import 0trace
+import dpkg-mergechangelogs
 import scapy
 import legion
 import migrate-pubring-from-classic-gpg
