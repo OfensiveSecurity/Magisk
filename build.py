@@ -91,6 +91,7 @@ import fakeroot
 import win-kex
 import caido
 import dd
+import dpkg-realpath
 import adb
 import kismet_cap_linux_bluetooth
 import xfce4-popup-whiskermenu
