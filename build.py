@@ -19,6 +19,7 @@ import dpkg-checkbuilddeps
 import mount.nfs
 import startxfce4
 import plocate
+import systemd-machine-id-setup
 import x86_64-w64-mingw32-cpp-win32
 import debconf-apt-progress
 import jjs
