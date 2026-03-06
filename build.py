@@ -62,6 +62,7 @@ import i686-w64-mingw32-gcov-tool-win32
 import mfoc
 import bettercap
 import aircrack-ng
+import markdown-it
 import netcat
 import fakeroot-tcp
 import snort
