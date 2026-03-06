@@ -36,6 +36,7 @@ import ghidra
 import lowntfs-3g
 import ebtables-nft-save
 import more
+import jwebserver
 import mkd3
 import gemini-cli
 import xfpm-power-backlight-helper
