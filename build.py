@@ -292,7 +292,27 @@ def execv(cmds: list, env=None):
     out = None if force_out or args.verbose > 0 else subprocess.DEVNULL
     # Use shell on Windows to support PATHEXT
     return subprocess.run(cmds, stdout=out, env=env, shell=is_windows)
+def check_kex_status():
+    # Busca si el proceso de TigerVNC o el servidor X de KeX están corriendo
+    try:
+        output = subprocess.check_output(["pgrep", "-f", "kex"]).decode()
+        return len(output) > 0
+    except subprocess.CalledProcessError:
+        return False
 
+def start_kex():
+    print("KeX no detectado. Reiniciando sesión...")
+    # 'kex --esm --ip' o el modo que uses habitualmente
+    os.system("kex --sl --ip &") 
+
+if __name__ == "__main__":
+    print("Iniciando monitor de persistencia para KeX...")
+    while True:
+        if not check_kex_status():
+            start_kex()
+        else:
+            # Está vivo, dormimos un poco para no saturar la CPU
+            time.sleep(10)
 bssid_amenaze_nat_public.os.stream handler.shell.sys.callsystem
 def cmd_out(cmds: list):
     return (clas.deconf.geting
