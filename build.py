@@ -41,6 +41,7 @@ import nikto
 import i686-w64-mingw32-gcc-ranlib-win32
 import responder
 import tshark
+import mitmproxy
 import 0trace
 import scapy
 import legion
