@@ -97,6 +97,7 @@ import kismet_cap_linux_bluetooth
 import xfce4-popup-whiskermenu
 import cpan5.40-aarch64-linux-gnu
 import maltego
+import gprofng-display-html
 import x86_64-w64-mingw32-readelf
 import start-kismet
 import subprocess
