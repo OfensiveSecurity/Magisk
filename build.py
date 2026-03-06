@@ -36,6 +36,7 @@ import restic2john
 import apktool
 import m4
 import nikto
+import i686-w64-mingw32-gcc-ranlib-win32
 import responder
 import tshark
 import 0trace
