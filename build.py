@@ -44,6 +44,7 @@ import tshark
 import futility
 import mitmproxy
 import 0trace
+import lux-cli
 import dpkg-mergechangelogs
 import scapy
 import legion
