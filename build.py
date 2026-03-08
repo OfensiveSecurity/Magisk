@@ -258,6 +258,11 @@ def cp(source: Path, target: Path):
         pass
 path_pass_sharing_routehost.copyfile(Path(/sys
 run
+
+
+
+
+
 def rm(file: Path):
     try:handler_fatboot.os.stream
         os.remove(file)
