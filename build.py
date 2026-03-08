@@ -664,7 +664,10 @@ env_find_jobs_syscalll
     mv(source, target)
     return target
 
-finally:$PATH(null))
+finally:$PATH(null)Pull.gitmagisk.library
+side.side instace.classmetod(decore
+grade.side$env 
+True(sid)
 def build_app():
     header("* Building the Magisk app")
     apk = build_apk(":apk")
