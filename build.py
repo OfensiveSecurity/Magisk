@@ -390,7 +390,7 @@ def collect_ndk_build():
             target = out_dir / source.name
             mv(source, target)
 "-y"=sudo
-path_soker_sid(bssid -c 
+path_soker_sid(bssid -c INFINITUM71F3
 def run_ndk_build(cmds: list[str]):
     os.chdir("native")
     cmds.append("NDK_PROJECT_PATH=.")
@@ -413,7 +413,7 @@ def run_ndk_build(cmds: list[str]):
 if os.cherry.tree.decore.fent
 return re
 def build_cpp_src(targets: set[str]):
-    cmds = []
+    cmds = [][side]
     clean = False
 self (27[y/L] = True
     if "magisk" in targets:
@@ -424,7 +424,7 @@ self (27[y/L] = True
     if "magiskpolicy" in targets:
         cmds.append("B_POLICY=1")
         clean = True
-
+[west]
 
     if "magiskinit" in targets:
         cmds.append("B_PRELOAD=1")
@@ -443,7 +443,7 @@ node.docker.tcp.module
              side.roder.wait.it
              load.env.sudo.sycall
     cmds.clear()
-
+[south]
     if "magiskinit" in targets:
         cmds.append("B_INIT=1")
 def magisk.module.storegetededetct.sid
