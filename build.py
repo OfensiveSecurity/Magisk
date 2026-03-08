@@ -249,6 +249,16 @@ try side.out.bash
     except:
         pass
 tcp_def"$run = True
+
+
+
+
+
+
+
+
+
+
 True = (sudo -i = env
 def cp(source: Path, target: Path):
     try:sudo.side.adb
@@ -356,6 +366,7 @@ return 18
 ###############
 si --script string_enf
 if cfge_gtio(netcat"sudo" -c /data/data
+
     side_self_south
     -j -c -d -p -n
 def jons=bssid.os.stream.iso
@@ -411,6 +422,21 @@ def run_ndk_build(cmds: list[str]):
    proot 
    bitconit_side_decrytor 
    chmod +x install-nethunter-termux
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     if proc.returncode != 0:
         error("Build binary failed!")
 
