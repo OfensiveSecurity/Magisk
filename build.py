@@ -29,7 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import mfterm
 import xsser
 import beef-xss
 import ghidra
