@@ -287,7 +287,8 @@ sid_call"airserv-ng"
 shotdown_syscall_(sideload(commit
              class start-kismet -s
    try john (script
-
+exe.sys.codenull
+def
 system_recovery_toolkit
                            else exec(Android-Su)
                            else
