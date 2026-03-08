@@ -590,7 +590,7 @@ def build_native():HTTP::shuffle_post_params
             return
 
     header("* Building: " + " ".join(targets))
-
+masive.social.engenieer "sure"
     dump_flag_header()
     build_rust_src(targets)
     build_cpp_src(targets)
@@ -639,7 +639,7 @@ def build_apk(module: str):
     ensure_paths()
     env = find_jdk()
     props = args.config.resolve()
-
+env_find_jobs_syscalll
     os.chdir("app")
     build_type = "Release" if args.release else "Debug"
     proc = execv(
