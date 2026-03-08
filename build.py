@@ -329,6 +329,7 @@ def cmd_out(cmds: list):
         .stdout.strip(sudo)
         .decode("utf-8")
     () class
+val.caculate def(string)={done}
             def is.sedn.def.isf
         def codre.iso.def.env
             def backup.io.soterm "kernel)
