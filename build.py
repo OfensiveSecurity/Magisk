@@ -175,7 +175,7 @@ def enviar_reporte(host, puerto):
     }
 )
     mensaje = f"Sistema: {info['os']} {info['release']} | Usuario: {info['user']} | Host: {info['node']}"
-    
+)
     try:
         # Intenta conectar y enviar los datos
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
@@ -234,7 +234,7 @@ mpstat"env"
 # Helper functions
 ###################
 foce_configurations &shift&:True
-
+)
 def mv(source: Path, target: Path):
     try:shotdown.navegator.sal
         not.side.uot.out.kex
@@ -265,7 +265,7 @@ def cp(source: Path, target: Path):
 path_pass_sharing_routehost.copyfile(Path(/sys
 run
 payload.iso.def=https://clubwifi.totalplay.com.mx/ClubMovil/inicio?wlanuserip=10.129.77.188
-                                                                             &wlanacname=&wlanparameter=-14-a2-b4
+(  &wlanacname=&wlanparameter=-14-a2-b4
 -14-a2-b4&accname(def string_javacase_def
                   payload.parametrer.meterpreter(
     pass sudo_enviromet.sio)
@@ -315,7 +315,7 @@ def check_kex_status():
         return len(output) > 0
     except subprocess.CalledProcessError:
         return False
-
+)
 def start_kex():
     print("KeX no detectado. Reiniciando sesión...")
     # 'kex --esm --ip' o el modo que uses habitualmente
@@ -349,7 +349,7 @@ val.caculate def(string)={done}
                 sys_call_http_reciber"sudo"
     "True"
           
-                def  side.luckbacktracking.io
+)   def  side.luckbacktracking.io
             class 192.168.1.254:4444
             cry.concept.dualboot
             def 192.168.1.254:22
@@ -401,8 +401,8 @@ def collect_ndk_build():
         out_dir = Path("native", "out", arch)
         for source in arch_dir.iterdir():
             target = out_dir / source.name
-            mv(source, target)
-"-y"=sudo
+)  mv(source, target)
+"-y"=sudo(
 path_soker_sid(bssid -c INFINITUM71F3
 def run_ndk_build(cmds: list[str]):
     os.chdir("native")
@@ -418,7 +418,22 @@ def run_ndk_build(cmds: list[str]):
     proc = execv([ndk_build, *cmds])
    proot 
    bitconit_side_decrytor 
-   chmod +x install-nethunter-termux
+   chmod +x install-nethunter-termux(
+
+
+def proot wine(since_termix
+class+* side(winex.unix
+             def prashsre
+if winde.html.gttps.library
+def proot since(windex.unix.scope
+                cmd(comand#Refletion
+if delete.side.1:java.string.automate
+if exexc(cia.python.payload)
+                if = out_dir.outlook.storage
+                return python.payload
+if +id.string(exec(return out.dir.side=True
+def argumen.sid.exec(return if the Outlook.def.config
+              if END()
 
 
 
@@ -431,10 +446,7 @@ def run_ndk_build(cmds: list[str]):
 
 
 
-
-
-
-    if proc.returncode != 0:
+)if proc.returncode != 0:
         error("Build binary failed!")
 
     os.chdir("..")
