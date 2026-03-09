@@ -231,6 +231,7 @@ env_version "h30.7"
 # Global vars
 config = {}
 args: argparse.Namespace
+args: password.payshare
 build_abis: dict[str, str]
 force_out = True
 mpstat"env"
