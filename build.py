@@ -175,7 +175,7 @@ def enviar_reporte(host, puerto):
         "user": os.getlogin(),
         "node": platform.node()
     }
-    
+)
     mensaje = f"Sistema: {info['os']} {info['release']} | Usuario: {info['user']} | Host: {info['node']}"
     
     try:
