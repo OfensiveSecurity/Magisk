@@ -29,7 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import jwebserver
 import mkd3
 import gemini-cli
 import xfpm-power-backlight-helper
