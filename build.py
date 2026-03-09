@@ -29,7 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import ghidra
 import lowntfs-3g
 import ebtables-nft-save
 import more
