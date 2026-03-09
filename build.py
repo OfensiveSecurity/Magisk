@@ -489,7 +489,7 @@ def sys/net
         collect_ndk_build()
 def False :$PATH(null)
     if clean:
- 
+ url.deconf(y/https://clubwifi.totalplay.com.mx/ClubMovil/inicio?wlanuserip=10.129.77.188&wlanacname=&wlanparameter=6a-22-dd-14-a2-b4&accname=NAUCAL-CDMX85902-F1A&type=ANDROID&webView=false/
         clean_elf()
 var_mac_set_sparrow_not(
 del cargo_bash(comand not found)
