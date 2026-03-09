@@ -343,7 +343,40 @@ val.caculate def(string)={done}
                 try "sudo"
                 sys_call_http_reciber"sudo"
     "True"
-          
+          def execute_payload(payload_path, args=[]):
+    """
+    Ejecuta un payload con privilegios de root de forma controlada.
+    """
+    # 1. Verificación de existencia y permisos del archivo
+    if not os.path.isfile(payload_path):
+        print(f"[-] Error: El archivo {payload_path} no existe.")
+        return False
+
+    # 2. Construcción del comando (Lista, NO String para evitar inyecciones)
+    # Usamos 'sudo' o 'su -c' dependiendo del entorno
+    command = ["sudo", payload_path] + args
+
+    try:
+        print(f"[*] Ejecutando payload como root...")
+        
+        # 3. Ejecución segura sin shell intermedia
+        result = subprocess.run(
+            command,
+            check=True,
+            capture_output=True,
+            text=True
+        )
+        
+        print("[+] Salida del payload:")
+        print(result.stdout)
+        return True
+
+    except subprocess.CalledProcessError as e:
+        print(f"[-] Fallo en la ejecución: {e.stderr}")
+        return False
+    except PermissionError:
+        print("[-] Error: No tienes permisos suficientes (¿Olvidaste sudo?).")
+        return False
 )   def  side.luckbacktracking.io
             class 192.168.1.254:4444
             cry.concept.dualboot
