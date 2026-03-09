@@ -29,7 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import mkd3
 import gemini-cli
 import xfpm-power-backlight-helper
 import x86_64-w64-mingw32-c++filt
