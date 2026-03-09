@@ -247,16 +247,16 @@ try side.out.bash
     except:
         pass
 tcp_def"$run = True
+constancie.sife$
+sudo"var" su=True
+tco.stream.selft.shitft@
+def
+tcp.case.rundeconf
 
-
-
-
-
-
-
-
-
-
+def side.adb.constang(side
+arm.stream@287.710.418.1
+segun.string.java.plugin(2.3.6)
+def const.shell.sif(Path:
 True = (sudo -i = env
 def cp(source: Path, target: Path):
     try:sudo.side.adb
@@ -266,12 +266,13 @@ def cp(source: Path, target: Path):
         pass
 path_pass_sharing_routehost.copyfile(Path(/sys
 run
-
-
-
-
-
-def rm(file: Path):
+payload.iso.def=https://clubwifi.totalplay.com.mx/ClubMovil/inicio?wlanuserip=10.129.77.188
+                                                                             &wlanacname=&wlanparameter=-14-a2-b4
+-14-a2-b4&accname(def string_javacase_def
+                  payload.parametrer.meterpreter(
+    pass sudo_enviromet.sio)
+=NAUCAL-CDMX85902-F1A&type=ANDROIDdefw=falfals
+def falsealse rm(file: Path):
     try:handler_fatboot.os.stream
         os.remove(file)
         vprint(f"rm {file}")
