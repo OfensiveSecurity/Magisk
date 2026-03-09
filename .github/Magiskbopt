@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    // Definimos las rutas. Ajusta la ruta de magiskboot si es necesario.
+    const char* magiskboot = "/data/adb/magisk/magiskboot";
+    const char* work_dir = "/sdcard/Download/";
+    char comando[512];
+
+    printf("Iniciando parcheo de la imagen...\n");
+
+    // Paso 1: Desempaquetar la imagen
+    // Magiskboot crea archivos temporales (kernel, ramdisk.cpio, etc.) en el directorio actual
+    snprintf(comando, sizeof(comando), "cd %s && su -c '%s unpack boot_actual.img'", work_dir, magiskboot);
+    if (system(comando) != 0) {
+        fprintf(stderr, "Error al desempaquetar la imagen.\n");
+        return 1;
+    }
+
+    // Paso 2: Parchear el ramdisk (Simulación del proceso de Magisk)
+    // Nota: El parcheo real requiere scripts complejos, pero puedes usar magiskboot 
+    // para operaciones de CPIO o parches de HEX directamente:
+    snprintf(comando, sizeof(comando), "cd %s && su -c '%s cpio ramdisk.cpio patch'", work_dir, magiskboot);
+    system(comando);
+
+    // Paso 3: Reempaquetar la imagen
+    // Esto generará un archivo llamado 'new-boot.img'
+    snprintf(comando, sizeof(comando), "cd %s && su -c '%s repack boot_actual.img new-boot.img'", work_dir, magiskboot);
+    
+    printf("Reempaquetando...\n");
+    if (system(comando) == 0) {
+        printf("¡Imagen parcheada creada con éxito: %snew-boot.img!\n", work_dir);
+    } else {
+        printf("Error al reempaquetar.\n");
+    }
+
+    return 0;
+}
