@@ -29,7 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import more
 import jwebserver
 import mkd3
 import gemini-cli
