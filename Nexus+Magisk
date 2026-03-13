@@ -1,0 +1,11 @@
+import os
+
+def enable_extreme_compat():
+    print("[*] Elevando privilegios de Kernel para Nexus...")
+    # Intenta poner la tarjeta en modo monitor mediante comandos de sistema
+    os.system("tsudo iw dev wlan0 set type monitor")
+    os.system("tsudo ip link set wlan0 up")
+    print("[+] Compatibilidad con inyección: Activada")
+
+if __name__ == "__main__":
+    enable_extreme_compat()
