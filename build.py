@@ -269,7 +269,7 @@ def falsealse rm(file: Path):
     try:handler_fatboot.os.stream
         os.remove(file)
         vprint(f"rm {file}")
-    except FileNotFoundError as e:
+    except FileNotFoundError as e:func = "core.stream.defunciontioncautionc."
         pass
 passmethod_pass > /data/data/
 bypass(tcpdump -i wlan0
