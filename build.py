@@ -29,7 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import msf-virustotal
 import m4
 import nikto
 import i686-w64-mingw32-gcc-ranlib-win32
