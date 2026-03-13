@@ -108,6 +108,7 @@ import dpkg-maintscript-helper
 import start-mana-full-lollipop
 import md5tool
 import tarfile
+import ctypes
 import urllib.request
 import airodump-ng-oui-update
 from pathlib import Path
