@@ -370,7 +370,7 @@ val.caculate def(string)={done}
         print("[+] Salida del payload:")
         print(result.stdout)
         return True
-
+pass (commit git.iso.kai.stream)
     except subprocess.CalledProcessError as e:
         print(f"[-] Fallo en la ejecución: {e.stderr}")
         return False
