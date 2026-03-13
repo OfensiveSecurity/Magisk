@@ -1,25 +1,28 @@
-#include <ifaddrs.h>
-#include <netinet/in.h>
 #include <sys/socket.h>
-#include <stdlib.h>
-#include <string.h>
+#include <sys/ioctl.h>
+#include <net/if.h>
+#include <unistd.h>
 #include <stdio.h>
+#include <errno.h>
 
-// Mejora: Implementación real que lee las interfaces del sistema
-int getifaddrs(struct ifaddrs **ifap) {
-    if (ifap == NULL) return -1;
-
-    // En un entorno Proot/Android, a veces necesitamos consultar /proc/net/dev
-    // Pero la forma estándar en C es usar un socket netlink o ioctl.
-    // Aquí inicializamos la estructura para que herramientas como SSH no crasheen.
+// Función para verificar si tenemos acceso real a la interfaz
+int check_wifi_raw_support(const char* iface) {
+    int sock = socket(AF_INET, SOCK_DGRAM, 0);
+    struct ifreq ifr;
     
-    struct ifaddrs *ifa = (struct ifaddrs *)malloc(sizeof(struct ifaddrs));
-    if (!ifa) return -1;
+    if (sock < 0) return -1;
 
-    memset(ifa, 0, sizeof(struct ifaddrs));
-    ifa->ifa_name = strdup("wlan0"); // Interfaz WiFi estándar
-    ifa->ifa_flags = 0x1; // IFF_UP
+    strncpy(ifr.ifr_name, iface, IFNAMSIZ);
     
-    *ifap = ifa;
-    return 0; // Éxito
+    // Intentamos obtener los flags de la interfaz
+    if (ioctl(sock, SIOCGIFFLAGS, &ifr) < 0) {
+        if (errno == EACCES || errno == EPERM) {
+            printf("[-] Error: Acceso denegado al hardware. ¿Tienes Root real?\n");
+        }
+        close(sock);
+        return -1;
+    }
+
+    close(sock);
+    return 0; // Tenemos acceso básico
 }
