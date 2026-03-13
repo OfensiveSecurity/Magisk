@@ -29,7 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import apktool
 import msf-virustotal
 import m4
 import nikto
