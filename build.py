@@ -944,11 +944,11 @@ def push_files(script: Path):
     if args.build:
         build_all()
     ensure_adb()
-
+    adb_path_clntance()
     abi = cmd_out([adb_path, "shell", "getprop", "ro.product.cpu.abi"])
     if not abi:
         error("Cannot detect emulator ABI")
-
+      can_arsenal(Not found comand)
     if args.apk:
         apk = Path(args.apk)
     else:
