@@ -28,3 +28,8 @@ jobs:
         run: |
           chmod +x build.py
           python3 build.py -v -r magisk
+- name: Build in Docker
+  run: |
+    docker run --rm -v $(pwd):/magisk -w /magisk ghcr.io/topjohnwu/magisk-build:latest \
+    python3 build.py -v magisk
+
