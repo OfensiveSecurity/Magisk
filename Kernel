@@ -1,0 +1,38 @@
+#include <iostream>
+#include <pcap.h>          // Auditoría WiFi (Carros)
+#include <openssl/evp.h>   // Desencriptación de archivos
+#include <CL/cl.h>         // Soporte GPU/CPU
+#include <libssh/libssh.h> // Soporte SSH
+
+// Función para usar la GPU en desencriptación (Evita lag en el sistema)
+void init_gpu_accelerator() {
+    cl_uint num_platforms;
+    clGetPlatformIDs(0, NULL, &num_platforms);
+    if (num_platforms > 0) {
+        std::cout << "[+] GPU detectada: Soporte de aceleración listo." << std::endl;
+    } else {
+        std::cout << "[!] GPU no detectada: Usando optimización por CPU." << std::endl;
+    }
+}
+
+// Función para abrir carros/auditar redes
+void start_wifi_audit(const char* dev) {
+    char errbuf[PCAP_ERRBUF_SIZE];
+    pcap_t* handle = pcap_open_live(dev, BUFSIZ, 1, 1000, errbuf);
+    if (handle == NULL) {
+        std::cerr << "[-] No se pudo abrir " << dev << ": " << errbuf << std::endl;
+        return;
+    }
+    std::cout << "[+] Escuchando en " << dev << " para señales de vehículos..." << std::endl;
+    pcap_close(handle);
+}
+
+int main() {
+    std::cout << "=== NEXUS CORE v2.0 - SISTEMA RECUPERADO ===" << std::endl;
+    init_gpu_accelerator();
+    
+    // Intenta usar la interfaz wlan0 que vimos antes
+    start_wifi_audit("wlan0");
+    
+    return 0;
+}
