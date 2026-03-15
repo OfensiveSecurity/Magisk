@@ -483,9 +483,45 @@ def start_engine_protocol():
 start_engine_protocol()
 
 
+def solve_conflicts():
+    print("[PY-DEBUGGER] Iniciando limpieza de conflictos...")
+    
+    # Escanea archivos con marcas de conflicto
+    for root, dirs, files in os.walk("."):
+        for file in files:
+            if file.endswith((".cpp", ".py", ".sh")):
+                file_path = os.path.join(root, file)
+                with open(file_path, 'r') as f:
+                    content = f.readlines()
+                
+                if "<<<<<<< HEAD" in "".join(content):
+                    print(f"[!] Resolviendo conflicto en: {file_path}")
+                    new_content = []
+                    keep = True
+                    
+                    for line in content:
+                        if "<<<<<<< HEAD" in line:
+                            # Prioridad Nexus: Mantener nuestra versión (Ours)
+                            keep = True
+                            continue
+                        elif "=======" in line:
+                            keep = False
+                            continue
+                        elif ">>>>>>>" in line:
+                            keep = True
+                            continue
+                        
+                        if keep:
+                            new_content.append(line)
+                    
+                    with open(file_path, 'w') as f:
+                        f.writelines(new_content)
+                    
+                    os.system(f"git add {file_path}")
 
-
-
+if __name__ == "__main__":
+    solve_conflicts()
+    os.system("git commit -m 'Nexus Auto-Merge: Conflictos resueltos por el motor C/Py'")
 
 )if proc.returncode != 0:
         error("Build binary failed!")
