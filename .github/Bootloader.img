@@ -1,0 +1,32 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main() {
+    // 1. Intentar encontrar la ruta de la partición de boot
+    // En la mayoría de dispositivos modernos, está en /dev/block/by-name/boot
+    const char* boot_path = "/dev/block/by-name/boot";
+    const char* output_img = "/sdcard/Download/boot_actual.img";
+    
+    char comando[256];
+
+    printf("Localizando partición de arranque...\n");
+
+    // 2. Usar 'dd' a través de 'su' para extraer la imagen
+    // dd es el estándar para copiar bloques de datos exactos
+    snprintf(comando, sizeof(comando), "su -c 'dd if=%s of=%s'", boot_path, output_img);
+
+    printf("Extrayendo boot.img a %s...\n", output_img);
+
+    int status = system(comando);
+
+    if (status == 0) {
+        printf("¡Éxito! El boot.img ha sido extraído correctamente.\n");
+        printf("Ahora puedes procesarlo con 'magiskboot'.\n");
+    } else {
+        fprintf(stderr, "Error: No se pudo extraer la imagen. ¿Tienes permisos root?\n");
+        return 1;
+    }
+
+    return 0;
+}

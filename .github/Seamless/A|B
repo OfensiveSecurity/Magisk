@@ -1,0 +1,37 @@
+#include <stdio.h>
+#include <string.h>
+
+void detectar_slot() {
+    char buffer[128];
+    // getprop es la herramienta estándar para leer propiedades del sistema
+    FILE* pipe = popen("getprop ro.boot.slot_suffix", "r");
+    
+    if (!pipe) {
+        printf("Error al ejecutar getprop.\n");
+        return;
+    }
+
+    if (fgets(buffer, sizeof(buffer), pipe) != NULL) {
+        // Limpiar el salto de línea
+        buffer[strcspn(buffer, "\n")] = 0;
+
+        if (strlen(buffer) == 0) {
+            printf("El dispositivo NO es A/B (o no usa sufijos estándar).\n");
+        } else {
+            printf("Dispositivo A/B detectado.\n");
+            printf("Slot actual: %s\n", buffer); // Imprimirá "_a" o "_b"
+            
+            if (strcmp(buffer, "_a") == 0) {
+                printf("Partición de destino para actualización: boot_b\n");
+            } else {
+                printf("Partición de destino para actualización: boot_a\n");
+            }
+        }
+    }
+    pclose(pipe);
+}
+
+int main() {
+    detectar_slot();
+    return 0;
+}
