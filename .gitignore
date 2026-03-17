@@ -5,10 +5,11 @@ out
 *.log
 /config.prop
 /notes.md
-
+pull.git.iso
 # Built binaries
 native/out
 
 # Android Studio
 *.iml
 .idea
+.kernel_side
