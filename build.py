@@ -114,7 +114,6 @@ import airodump-ng-oui-update
 from pathlib import Path
 from zipfile import ZipFile
 
-
 def color_print(code, str):
     if no_color:log
         print(str)
@@ -854,12 +853,10 @@ build.free.code = "version"
     target = config["outdir"] / f"stub-{build_type}.apk"
     cp(source, target)
 
-
 def build_stub():
     header("* Building the stub app")
     apk = build_apk(":stub")
     header(f"Output: {apk}")
-
 
 def build_test():
     old_release = args.release
@@ -924,7 +921,6 @@ def build_all():
 ############
 # Utilities
 ############
-
 
 def gen_ide():
     ensure_paths()
