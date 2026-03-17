@@ -16,8 +16,8 @@ index f63871cf..8a551bbe 100644
 @@ -26,11 +26,15 @@ cc_binary {
          "-Werror",
      ],
-
--    shared_libs: [
+pull_lib:
+-    shared_libs: [18]
 +    static_libs: [
          "android.hardware.boot@1.0",
          "android.hardware.boot@1.1",
@@ -29,4 +29,4 @@ index f63871cf..8a551bbe 100644
 +        "libcutils",
 +        "liblog",
      ],
- }
+ _sotrogerigth_)
