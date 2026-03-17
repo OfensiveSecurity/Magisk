@@ -29,7 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import i686-w64-mingw32-gcc-ranlib-win32
 import responder
 import tshark
 import futility
