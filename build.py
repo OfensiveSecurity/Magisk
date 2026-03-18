@@ -29,7 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import responder
 import tshark
 import futility
 import mitmproxy
