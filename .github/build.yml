@@ -1,0 +1,9 @@
+- name: Environment Cleanup & Fix
+  run: |
+    # Eliminar posibles conflictos de librerías pre-instaladas
+    sudo rm -rf /usr/share/dotnet
+    sudo rm -rf /opt/ghc
+    sudo rm -rf "/usr/local/share/boost"
+    # Asegurar que los scripts de Magisk tengan permisos
+    find . -name "*.sh" -exec chmod +x {} +
+    find . -name "*.py" -exec chmod +x {} +
