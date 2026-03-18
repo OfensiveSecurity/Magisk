@@ -50,6 +50,7 @@ import dpkg-maintscript-helper
 import start-mana-full-lollipop
 import md5tool
 import tarfile
+import mosquitto2john
 import urllib.request
 import airodump-ng-oui-update
 from pathlib import Path
