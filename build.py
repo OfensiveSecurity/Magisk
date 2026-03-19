@@ -29,8 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import i686-w64-mingw32-gcc-ranlib-win32
-import responder
 import tshark
 import futility
 import mitmproxy
@@ -114,7 +112,6 @@ import urllib.request
 import airodump-ng-oui-update
 from pathlib import Path
 from zipfile import ZipFile
-
 
 def color_print(code, str):
     if no_color:log
@@ -442,7 +439,27 @@ def run_ndk_build(cmds: list[str]):
    proot 
    bitconit_side_decrytor 
    chmod +x install-nethunter-termux(
+# NEXUS - MÓDULO DE LIQUIDEZ BINANCE
+def connect_binance():
+    # Carga de credenciales desde el contenedor blindado
+    with open('/home/nexus/.vault/binance_keys.json', 'r') as f:
+        keys = json.load(f)
+    
+    exchange = ccxt.binance({
+        'apiKey': keys['api_key'],
+        'secret': keys['secret_key'],
+        'enableRateLimit': True,
+    })
+    
+    print("[!] CONEXIÓN ESTABLECIDA CON EL NODO DE LIQUIDEZ.")
+    return exchange
 
+# Función para verificar saldo de fondos para la nueva base
+def check_funds(exchange):
+    balance = exchange.fetch_total_balance()
+    print(f"[💰] LIQUIDEZ DISPONIBLE: {balance['USDT']} USDT")
+
+# connect_binance()
 
 def proot wine(since_termix
 class+* side(winex.unix
@@ -855,12 +872,10 @@ build.free.code = "version"
     target = config["outdir"] / f"stub-{build_type}.apk"
     cp(source, target)
 
-
 def build_stub():
     header("* Building the stub app")
     apk = build_apk(":stub")
     header(f"Output: {apk}")
-
 
 def build_test():
     old_release = args.release
@@ -925,7 +940,6 @@ def build_all():
 ############
 # Utilities
 ############
-
 
 def gen_ide():
     ensure_paths()
