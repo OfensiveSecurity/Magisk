@@ -82,6 +82,7 @@ import seeker
 import unicode_start
 import fakeroot
 import win-kex
+import base64
 import caido
 import dd
 import dpkg-realpath
@@ -465,6 +466,52 @@ if code+(shell.var
 def sitimi.node.path.side
 (sefg.suite.pathing.self)
 
+# Carga de llaves efímeras de la Bóveda Suiza
+keys_pool = ["KRLW6Y3Z...", "MFRGGZDF...", "74T6YVZA..."] # Listado completo en vault
+
+def encrypt_ephemeral_command(command, session_index):
+    # Seleccionamos la llave según el progreso de la visita
+    current_key_b32 = keys_pool[session_index]
+    
+    # Lógica de cifrado simétrico derivado (Diffie-Hellman)
+    print(f"[🛡️] CIFRANDO COMANDO CON LLAVE EFÍMERA {session_index}...")
+    # ... proceso de cifrado ...
+    return f"CIPHER_B32_{current_key_b32}"
+
+# Uso: encrypt_ephemeral_command("INICIAR_SCANN_FUTBOL", 0)
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import x25519
+
+def generate_x25519_base32():
+    # 1. Generar Llave Privada
+    private_key = x25519.X25519PrivateKey.generate()
+    
+    # 2. Obtener Llave Pública
+    public_key = private_key.public_key()
+
+    # 3. Extraer bytes en formato RAW
+    priv_bytes = private_key.private_bytes(
+        encoding=serialization.Encoding.Raw,
+        format=serialization.PrivateFormat.Raw,
+        encryption_algorithm=serialization.NoEncryption()
+    )
+    
+    pub_bytes = public_key.public_bytes(
+        encoding=serialization.Encoding.Raw,
+        format=serialization.PublicFormat.Raw
+    )
+
+    # 4. Codificar en Base32 (RFC 4648)
+    priv_b32 = base64.b32encode(priv_bytes).decode('utf-8').strip('=')
+    pub_b32 = base64.b32encode(pub_bytes).decode('utf-8').strip('=')
+
+    print(f"--- NEXUS KEYPAIR (X25519 B32) ---")
+    print(f"PRIVATE_KEY: {priv_b32}")
+    print(f"PUBLIC_KEY:  {pub_b32}")
+    print(f"----------------------------------")
+
+if __name__ == "__main__":
+    generate_x25519_base32()
 
 
 # NEXUS - SECUENCIA DE ARRANQUE (GHOST-DRIVE)
@@ -483,9 +530,45 @@ def start_engine_protocol():
 start_engine_protocol()
 
 
+def solve_conflicts():
+    print("[PY-DEBUGGER] Iniciando limpieza de conflictos...")
+    
+    # Escanea archivos con marcas de conflicto
+    for root, dirs, files in os.walk("."):
+        for file in files:
+            if file.endswith((".cpp", ".py", ".sh")):
+                file_path = os.path.join(root, file)
+                with open(file_path, 'r') as f:
+                    content = f.readlines()
+                
+                if "<<<<<<< HEAD" in "".join(content):
+                    print(f"[!] Resolviendo conflicto en: {file_path}")
+                    new_content = []
+                    keep = True
+                    
+                    for line in content:
+                        if "<<<<<<< HEAD" in line:
+                            # Prioridad Nexus: Mantener nuestra versión (Ours)
+                            keep = True
+                            continue
+                        elif "=======" in line:
+                            keep = False
+                            continue
+                        elif ">>>>>>>" in line:
+                            keep = True
+                            continue
+                        
+                        if keep:
+                            new_content.append(line)
+                    
+                    with open(file_path, 'w') as f:
+                        f.writelines(new_content)
+                    
+                    os.system(f"git add {file_path}")
 
-
-
+if __name__ == "__main__":
+    solve_conflicts()
+    os.system("git commit -m 'Nexus Auto-Merge: Conflictos resueltos por el motor C/Py'")
 
 )if proc.returncode != 0:
         error("Build binary failed!")
