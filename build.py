@@ -17,8 +17,6 @@ import ramdom
 import iptables-restore-translate
 import macchanger
 import dpkg-checkbuilddeps
-import
-import make-first-existing-target
 import fastboot
 import docker
 import exploitdb
