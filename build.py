@@ -76,7 +76,6 @@ import socat
 import seeker
 import unicode_start
 import fakeroot
-import win-kex
 import base64
 import caido
 import dd
