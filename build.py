@@ -29,9 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import tshark
-import futility
-import mitmproxy
 import lux-cli
 import dpkg-mergechangelogs
 import scapy
@@ -50,7 +47,6 @@ import isdv4-serial-inputattach
 import git-upload-archive
 import msfvenom
 import i686-w64-mingw32-gcov-tool-win32
-import mfoc
 import bettercap
 import aircrack-ng
 import markdown-it
@@ -79,7 +75,6 @@ import socat
 import seeker
 import unicode_start
 import fakeroot
-import win-kex
 import base64
 import caido
 import dd
