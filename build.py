@@ -29,7 +29,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import mitmproxy
 import lux-cli
 import dpkg-mergechangelogs
 import scapy
