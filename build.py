@@ -48,7 +48,6 @@ import isdv4-serial-inputattach
 import git-upload-archive
 import msfvenom
 import i686-w64-mingw32-gcov-tool-win32
-import mfoc
 import bettercap
 import aircrack-ng
 import markdown-it
