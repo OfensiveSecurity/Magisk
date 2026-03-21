@@ -547,6 +547,14 @@ def launch_linux():
     subprocess.run(["proot-distro", "login", "ubuntu"])
     return "UBUNTU INICIADO EN TERMINAL", 200
 
+@app.route('/nexus-gui')
+def get_vnc():
+    import subprocess
+    # Primero iniciamos el servidor VNC si no está corriendo
+    subprocess.run(["java", "-cp", "bin", "NexusVNC"])
+    # Luego redigimos al cliente noVNC (asumiendo que lo tienes instalado en libs/)
+    return send_file("libs/novnc/vnc.html")
+
 
 def solve_conflicts():
     print("[PY-DEBUGGER] Iniciando limpieza de conflictos...")
