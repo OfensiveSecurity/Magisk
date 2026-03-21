@@ -540,6 +540,13 @@ def start_engine_protocol():
 
 start_engine_protocol()
 
+@app.route('/launch-black-ubuntu')
+def launch_linux():
+    import subprocess
+    # Lanza Ubuntu en una sesión de proot aislada
+    subprocess.run(["proot-distro", "login", "ubuntu"])
+    return "UBUNTU INICIADO EN TERMINAL", 200
+
 
 def solve_conflicts():
     print("[PY-DEBUGGER] Iniciando limpieza de conflictos...")
