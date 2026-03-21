@@ -817,6 +817,14 @@ desable_encrypt-dm_universal
     except FileNotFoundError:
         no_jdk = True
 
+@app.route('/audit-mode', methods=['POST'])
+def start_audit():
+    import subprocess
+    # Ejecutamos el cargador de herramientas
+    subprocess.run(["java", "-cp", "bin", "NexusToolLoader"])
+    # Enviamos notificación al Bot de Telegram que ya tienes configurado
+    subprocess.run(["java", "-cp", "bin", "NexusTelegram", "Entorno Black Ubuntu listo para la PEN-200"])
+    return "HERRAMIENTAS CARGADAS", 200
 
     if no_jdk:
         error(
