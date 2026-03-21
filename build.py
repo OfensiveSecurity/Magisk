@@ -222,6 +222,15 @@ sudo"var" su=True
 tco.stream.selft.shitft@
 def
 tcp.case.rundeconf
+def get_fake_location():
+    try:
+        with open('db/location.txt', 'r') as f:
+            return f.read().strip()
+    except:
+        return "0,0"
+
+# En el HTML del Dashboard, podrías añadir un enlace a OpenStreetMap:
+# <a href="https://www.openstreetmap.org/?mlat={{lat}}&mlon={{lon}}">Ver Nodo de Red</a>
 
 def side.adb.constang(side
 arm.stream@287.710.418.1
