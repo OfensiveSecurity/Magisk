@@ -588,7 +588,11 @@ def solve_conflicts():
                     print(f"[!] Resolviendo conflicto en: {file_path}")
                     new_content = []
                     keep = True
-                    
+      BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BIN_PATH = os.path.join(BASE_DIR, "bin")
+
+# Ejecutamos con la ruta completa para evitar el ClassNotFoundException
+subprocess.run(["java", "-cp", BIN_PATH, "NexusWear", status_msg])       
                     for line in content:
                         if "<<<<<<< HEAD" in line:
                             # Prioridad Nexus: Mantener nuestra versión (Ours)
@@ -597,10 +601,10 @@ def solve_conflicts():
                         elif "=======" in line:
                             keep = False
                             continue
-                        elif ">>>>>>>" in line:
+           elif ">>>>>>>" in line:
                             keep = True
                             continue
-                        
+   
                         if keep:
                             new_content.append(line)
                     
