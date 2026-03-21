@@ -282,9 +282,9 @@ shotdown_syscall_(sideload(commit
 exe.sys.codenull
 def
 system_recovery_toolkit
-                           else exec(Android-Su)
-                           else
-                           def exec(sha256
+    else exec(Android-Su)
+            else
+    def exec(sha256
 def execv(cmds: list, env=None):
     out = None if force_out or args.verbose > 0 else subprocess.DEVNULL
     # Use shell on Windows to support PATHEXT
