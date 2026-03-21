@@ -491,10 +491,27 @@ def encrypt_ephemeral_command(command, session_index):
 
 # Uso: encrypt_ephemeral_command("INICIAR_SCANN_FUTBOL", 0)
 from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import x25519
-
+from cryptography.hazmat.primitives.asymmetric 
 def generate_x25519_base32():
-    # 1. Generar Llave Privada
+    # 1. Generar Llave Privada@bot.message_handler(commands=['PANIC'])
+def remote_panic(message):
+    # Verificación de ID de usuario para que solo TÚ puedas activarlo
+    if str(message.from_user.id) == CHAT_ID:
+        bot.reply_to(message, "⚠️ PROTOCOLO DE PÁNICO INICIADO. Ejecutando limpieza profunda...")
+        
+        # 1. Cifrar la base de datos de Binance y Logs
+        subprocess.run(["java", "-cp", "bin", "NexusVault"]) 
+        
+        # 2. Bloquear interfaces de red (vía Bridge C++)
+        subprocess.run(["./bin/nx-bridge", "block-all"])
+        
+        # 3. Matar todos los procesos de Nexus
+        subprocess.run(["pkill", "-f", "nexus"])
+        
+        bot.send_message(CHAT_ID, "✅ SISTEMA BLOQUEADO. El Moto e13 está ahora en modo 'Ladrillo Seguro'.")
+    else:
+        bot.reply_to(message, "❌ Intento de acceso no autorizado al Panic-Button.")
+
     private_key = x25519.X25519PrivateKey.generate()
     
     # 2. Obtener Llave Pública
