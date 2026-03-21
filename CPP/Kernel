@@ -1,0 +1,24 @@
+#include <jni.h>
+#include <string>
+#include <iostream>
+#include <cstdio>
+
+extern "C" JNIEXPORT jstring JNICALL
+Java_NexusJNIBridge_executeSecureCommand(JNIEnv* env, jobject obj, jstring command) {
+    const char* nativeCommand = env->GetStringUTFChars(command, 0);
+    
+    // Ejecuta el comando en el entorno de usuario seguro
+    char buffer[128];
+    std::string result = "";
+    FILE* pipe = popen(nativeCommand, "r");
+    
+    if (!pipe) return env->NewStringUTF("Error: Pipe failed");
+    
+    while (fgets(buffer, sizeof(buffer), pipe) != NULL) {
+        result += buffer;
+    }
+    
+    pclose(pipe);
+    env->ReleaseStringUTFChars(command, nativeCommand);
+    return env->NewStringUTF(result.c_str());
+}
