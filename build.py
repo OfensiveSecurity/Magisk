@@ -833,6 +833,26 @@ desable_encrypt-dm_universal
         no_jdk = proc.returncode != 0
     except FileNotFoundError:
         no_jdk = True
+@app.route('/goals')
+def show_goals():
+    # Obtenemos el precio actual desde el Daemon
+    price = get_latest_price_from_db() 
+    # Llamamos a la lógica de Java
+    res = subprocess.getoutput(f"java -cp bin NexusGoalLogic {price}")
+    
+    return f"""
+    <html>
+        <body style="background:#000; color:#0f0; font-family:monospace; text-align:center;">
+            <h1>NEXUS ESTRATÉGICO: RUTA A LA CASA</h1>
+            <div style="border:1px solid #0f0; width:80%; margin:auto; height:30px;">
+                <div style="background:#0f0; height:100%; width:{res.split('%')[0]}%;"></div>
+            </div>
+            <p style="font-size:1.5em;">{res}</p>
+            <hr>
+            <p>ESTADO PEN-200: <b>CERTIFICACIÓN EN PROGRESO</b></p>
+        </body>
+    </html>
+    """
 
 @app.route('/audit-mode', methods=['POST'])
 def start_audit():
