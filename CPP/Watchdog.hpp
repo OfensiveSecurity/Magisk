@@ -29,3 +29,19 @@ public:
 
 // Instancia del puntero al hardware
 Watchdog::IWDG_Regs* const Watchdog::iwdg = (Watchdog::IWDG_Regs*)IWDG_BASE;
+extern "C" void main_cpp() {
+    // Iniciamos el Watchdog con un margen de 1 segundo
+    Watchdog::iniciar(1000); 
+    
+    while(1) {
+        // 1. Recibir datos (Posible punto de ataque de Fuzzing)
+        // 2. Procesar con IA
+        
+        // 3. Si todo salió bien, alimentamos al Watchdog
+        Watchdog::alimentar();
+        
+        // Si el procesamiento se bloquea por un ataque, 
+        // el Watchdog reiniciará el sistema en 1000ms.
+    }
+}
+
