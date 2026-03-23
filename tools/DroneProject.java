@@ -817,3 +817,93 @@ public class DroneProject {
         reader.close();
     }
 }
+class NokiaDronePhone {
+    private double posX = 0.0, posY = 0.0, posZ = 0.0;
+    private boolean isFlying = false;
+    private int batteryLife = 100;
+    private Random sensorSim = new Random();
+    private final String LOG_FILE = "vuelo_log.txt";
+
+    private void logAction(String action) {
+        try (FileWriter fw = new FileWriter(LOG_FILE, true);
+             PrintWriter pw = new PrintWriter(fw)) {
+            pw.println("[" + LocalDateTime.now() + "] " + action + " | Bat: " + batteryLife + "%");
+        } catch (IOException e) { System.out.println("[ERR LOG]"); }
+    }
+
+    // --- NUEVO MÉTODO: ESCÁNER DE PROXIMIDAD ---
+    private boolean isPathClear() {
+        // Simula la lectura de un sensor LiDAR (distancia en metros)
+        double distanceToObstacle = 1.0 + (10.0 - 1.0) * sensorSim.nextDouble();
+        
+        System.out.printf("[SENSORES] Escaneando entorno... Objeto más cercano a: %.2f m\n", distanceToObstacle);
+
+        if (distanceToObstacle < 2.0) {
+            System.out.println("[ALERTA] ¡OBSTÁCULO DETECTADO! Maniobra de frenado activo.");
+            logAction("EVITACIÓN DE COLISIÓN ACTIVADA");
+            return false;
+        }
+        return true;
+    }
+
+    public void takeoff() {
+        if (!isFlying && batteryLife > 10) {
+            isFlying = true;
+            posZ = 2.0;
+            System.out.println("[SISTEMA] Drone en el aire.");
+            logAction("DESPEGUE");
+            batteryLife -= 5;
+        }
+    }
+
+    public void moveGPS(double x, double y, double z) {
+        if (isFlying) {
+            // Antes de mover, verificamos si el camino está despejado
+            if (isPathClear()) {
+                this.posX = x; this.posY = y; this.posZ = z;
+                System.out.printf("[SISTEMA] Movimiento exitoso a (%.1f, %.1f, %.1f)\n", posX, posY, posZ);
+                batteryLife -= 3;
+            } else {
+                System.out.println("[SISTEMA] Movimiento cancelado para evitar choque.");
+            }
+        }
+    }
+
+    public void land() {
+        if (isFlying) {
+            isFlying = false;
+            System.out.println("[SISTEMA] Aterrizado.");
+            logAction("ATERRIZAJE");
+        }
+    }
+}
+
+public class DroneProject {
+    public static void main(String[] args) {
+        NokiaDronePhone myDrone = new NokiaDronePhone();
+        Scanner reader = new Scanner(System.in);
+        String command = "";
+
+        System.out.println("--- Nokia Drone 5G (v8.0 - Escáner de Obstáculos) ---");
+
+        while (!command.equals("salir")) {
+            System.out.print("\nComando (despegar, mover, aterrizar, salir) > ");
+            command = reader.nextLine().toLowerCase();
+
+            switch (command) {
+                case "despegar": myDrone.takeoff(); break;
+                case "mover":
+                    System.out.print("Nueva X: "); double x = reader.nextDouble();
+                    System.out.print("Nueva Y: "); double y = reader.nextDouble();
+                    System.out.print("Nueva Z: "); double z = reader.nextDouble();
+                    reader.nextLine();
+                    myDrone.moveGPS(x, y, z);
+                    break;
+                case "aterrizar": myDrone.land(); break;
+                case "salir": break;
+                default: System.out.println("Comando inválido.");
+            }
+        }
+        reader.close();
+    }
+}
