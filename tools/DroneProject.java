@@ -725,3 +725,95 @@ public class DroneProject {
         reader.close();
     }
 }
+class NokiaDronePhone {
+    private double posX = 0.0, posY = 0.0, posZ = 0.0;
+    private boolean isFlying = false;
+    private int batteryLife = 100;
+    private final String LOG_FILE = "vuelo_log.txt";
+
+    private void logAction(String action) {
+        try (FileWriter fw = new FileWriter(LOG_FILE, true);
+             PrintWriter pw = new PrintWriter(fw)) {
+            pw.println("[" + LocalDateTime.now() + "] " + action + " | Pos:(" + posX + "," + posY + ") | Bat: " + batteryLife + "%");
+        } catch (IOException e) { System.out.println("[ERROR LOG]"); }
+    }
+
+    // --- NUEVO MÉTODO: RETURN TO HOME ---
+    public void returnToHome() {
+        if (!isFlying) {
+            System.out.println("[ERROR] El drone ya está en tierra.");
+            return;
+        }
+
+        System.out.println("\n[SISTEMA] !!! RTH ACTIVADO !!!");
+        System.out.println("[GPS] Calculando ruta de regreso al punto (0,0)...");
+
+        // Simulamos el trayecto de regreso
+        this.posX = 0.0;
+        this.posY = 0.0;
+        this.posZ = 2.0; // Baja a altura de seguridad antes de aterrizar
+
+        System.out.println("[GPS] Llegada a punto de inicio confirmada.");
+        logAction("EJECUTADO RETURN TO HOME (RTH)");
+        
+        land(); // Aterrizaje automático al llegar
+    }
+
+    public void takeoff() {
+        if (!isFlying && batteryLife > 10) {
+            isFlying = true;
+            posZ = 2.0;
+            System.out.println("[SISTEMA] Despeje completado.");
+            logAction("DESPEGUE");
+            batteryLife -= 5;
+        }
+    }
+
+    public void moveGPS(double x, double y, double z) {
+        if (isFlying) {
+            this.posX = x; this.posY = y; this.posZ = z;
+            System.out.printf("[GPS] Ubicación: (%.1f, %.1f) Altura: %.1f m\n", posX, posY, posZ);
+            batteryLife -= 3;
+        }
+    }
+
+    public void land() {
+        if (isFlying) {
+            isFlying = false;
+            posX = 0; posY = 0; posZ = 0;
+            System.out.println("[SISTEMA] Motores apagados. Drone a salvo.");
+        }
+    }
+}
+
+public class DroneProject {
+    public static void main(String[] args) {
+        NokiaDronePhone myDrone = new NokiaDronePhone();
+        Scanner reader = new Scanner(System.in);
+        String command = "";
+
+        System.out.println("--- Nokia Drone 5G (v7.0 - Sistema RTH) ---");
+
+        while (!command.equals("salir")) {
+            System.out.print("\nComando (despegar, mover, rth, salir) > ");
+            command = reader.nextLine().toLowerCase();
+
+            switch (command) {
+                case "despegar": myDrone.takeoff(); break;
+                case "mover":
+                    System.out.print("X: "); double x = reader.nextDouble();
+                    System.out.print("Y: "); double y = reader.nextDouble();
+                    System.out.print("Z: "); double z = reader.nextDouble();
+                    reader.nextLine();
+                    myDrone.moveGPS(x, y, z);
+                    break;
+                case "rth":
+                    myDrone.returnToHome();
+                    break;
+                case "salir": break;
+                default: System.out.println("Comando no reconocido.");
+            }
+        }
+        reader.close();
+    }
+}
