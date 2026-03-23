@@ -7,6 +7,115 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener
+import javax.swing.*;
+import java.awt.*;
+
+public class DroneGui extends JFrame {
+    private int battery = 100;
+    private double altitude = 0.0;
+    private boolean isFlying = false;
+
+    // Componentes visuales
+    private JLabel statusLabel;
+    private JTextArea logArea;
+    private JProgressBar batteryBar; // Nueva barra de progreso
+
+    public DroneGui() {
+        setTitle("Nokia Drone Phone 5G - Flight Control");
+        setSize(450, 550);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout(10, 10));
+
+        // 1. Panel Superior: Estado y Barra de Batería
+        JPanel topPanel = new JPanel(new GridLayout(2, 1));
+        statusLabel = new JLabel("Estado: En Tierra | Altitud: 0m", SwingConstants.CENTER);
+        
+        batteryBar = new JProgressBar(0, 100);
+        batteryBar.setValue(100);
+        batteryBar.setStringPainted(true); // Muestra el texto "%"
+        batteryBar.setForeground(Color.GREEN);
+        
+        topPanel.add(statusLabel);
+        topPanel.add(batteryBar);
+        add(topPanel, BorderLayout.NORTH);
+
+        // 2. Panel Central: Log
+        logArea = new JTextArea();
+        logArea.setEditable(false);
+        add(new JScrollPane(logArea), BorderLayout.CENTER);
+
+        // 3. Panel Inferior: Botones de colores
+        JPanel buttonPanel = new JPanel(new GridLayout(2, 2, 5, 5));
+        JButton btnTakeoff = createStyledButton("DESPEGAR", Color.GREEN);
+        JButton btnLand = createStyledButton("ATERRIZAR", Color.RED);
+        JButton btnPhoto = createStyledButton("FOTO", new Color(30, 144, 255));
+        JButton btnCharge = createStyledButton("CARGAR", Color.YELLOW);
+
+        buttonPanel.add(btnTakeoff);
+        buttonPanel.add(btnLand);
+        buttonPanel.add(btnPhoto);
+        buttonPanel.add(btnCharge);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        // --- LÓGICA ---
+        btnTakeoff.addActionListener(e -> {
+            if (!isFlying && battery > 10) {
+                isFlying = true;
+                altitude = 2.0;
+                consumeEnergy(10);
+                updateUI("Despegue iniciado.");
+            }
+        });
+
+        btnLand.addActionListener(e -> {
+            if (isFlying) {
+                isFlying = false;
+                altitude = 0;
+                updateUI("Aterrizaje completado.");
+            }
+        });
+
+        btnCharge.addActionListener(e -> {
+            if (!isFlying) {
+                battery = 100;
+                batteryBar.setValue(100);
+                batteryBar.setForeground(Color.GREEN);
+                updateUI("Batería recargada.");
+            }
+        });
+
+        setVisible(true);
+    }
+
+    // Método auxiliar para crear botones con estilo
+    private JButton createStyledButton(String text, Color bg) {
+        JButton btn = new JButton(text);
+        btn.setBackground(bg);
+        btn.setOpaque(true);
+        btn.setBorderPainted(false);
+        return btn;
+    }
+
+    private void consumeEnergy(int amount) {
+        battery -= amount;
+        if (battery < 0) battery = 0;
+        batteryBar.setValue(battery);
+        
+        // Cambiar color de la barra según nivel
+        if (battery < 25) batteryBar.setForeground(Color.RED);
+        else if (battery < 50) batteryBar.setForeground(Color.ORANGE);
+    }
+
+    private void updateUI(String msg) {
+        statusLabel.setText(String.format("Estado: %s | Altitud: %.1fm", 
+                            (isFlying ? "VOLANDO" : "TIERRA"), altitude));
+        logArea.append("> " + msg + "\n");
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new DroneGui());
+    }
+}
 
 public class DroneGui extends JFrame {
     // Variables del Drone
