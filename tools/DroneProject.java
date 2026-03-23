@@ -167,3 +167,93 @@ class NokiaDronePhone implements FlightControl {
         if (has5GSignal && isFlying) {
             this.currentAltitude = z;
             System.out.println("Navegando a
+interface FlightControl {
+    void takeoff();
+    void land();
+    void moveTo(double z);
+    void takeSnapshot();
+}
+
+class NokiaDronePhone implements FlightControl {
+    private double currentAltitude = 0.0;
+    private boolean isFlying = false;
+
+    @Override
+    public void takeoff() {
+        if (!isFlying) {
+            isFlying = true;
+            currentAltitude = 2.0;
+            System.out.println("[SISTEMA] Motores encendidos. Altura actual: " + currentAltitude + "m");
+        } else {
+            System.out.println("[ERROR] El drone ya está en el aire.");
+        }
+    }
+
+    @Override
+    public void moveTo(double z) {
+        if (isFlying) {
+            this.currentAltitude = z;
+            System.out.println("[SISTEMA] Ajustando altitud a: " + z + "m");
+        } else {
+            System.out.println("[ERROR] Debe despegar primero.");
+        }
+    }
+
+    @Override
+    public void takeSnapshot() {
+        if (isFlying && currentAltitude >= 5.0) {
+            System.out.println("[CÁMARA] ¡Foto capturada a " + currentAltitude + "m! Enviando por 5G...");
+        } else {
+            System.out.println("[AVISO] No se pudo tomar la foto. Verifique que la altura sea mayor a 5m.");
+        }
+    }
+
+    @Override
+    public void land() {
+        if (isFlying) {
+            isFlying = false;
+            currentAltitude = 0;
+            System.out.println("[SISTEMA] Aterrizaje completado con éxito.");
+        }
+    }
+}
+
+public class DroneProject {
+    public static void main(String[] args) {
+        NokiaDronePhone myDrone = new NokiaDronePhone();
+        Scanner reader = new Scanner(System.in);
+        String command = "";
+
+        System.out.println("--- Panel de Control Nokia Drone Phone 5G ---");
+        System.out.println("Comandos: despegar, subir, foto, aterrizar, salir");
+
+        while (!command.equals("salir")) {
+            System.out.print("\nIngrese comando > ");
+            command = reader.nextLine().toLowerCase();
+
+            switch (command) {
+                case "despegar":
+                    myDrone.takeoff();
+                    break;
+                case "subir":
+                    System.out.print("¿A qué altura (metros)?: ");
+                    double alt = reader.nextDouble();
+                    reader.nextLine(); // Limpiar el buffer
+                    myDrone.moveTo(alt);
+                    break;
+                case "foto":
+                    myDrone.takeSnapshot();
+                    break;
+                case "aterrizar":
+                    myDrone.land();
+                    break;
+                case "salir":
+                    System.out.println("Cerrando conexión 5G... ¡Adiós!");
+                    break;
+                default:
+                    System.out.println("Comando no reconocido.");
+            }
+        }
+        reader.close();
+    }
+}
