@@ -1304,3 +1304,43 @@ buttonPanel.add(btnLand);
 buttonPanel.add(btnPhoto);
 buttonPanel.add(btnCharge);
 add(buttonPanel, BorderLayout.SOUTH);
+// ... dentro de la clase DroneGui ...
+private Timer autonomousTimer;
+private double angle = 0;
+private final int RADIUS = 50;
+
+// En el constructor, añade el botón y la lógica:
+JButton btnAuto = createStyledButton("VUELO AUTÓNOMO", Color.MAGENTA);
+buttonPanel.add(btnAuto);
+
+// Lógica del Timer
+autonomousTimer = new Timer(100, e -> {
+    if (isFlying && battery > 0) {
+        angle += 0.1; // Incrementa el ángulo
+        double x = Math.cos(angle) * RADIUS;
+        double y = Math.sin(angle) * RADIUS;
+        
+        // Actualizamos la interfaz con las coordenadas circulares
+        statusLabel.setText(String.format("AUTÓNOMO | GPS: (%.1f, %.1f) | Bat: %d%%", x, y, battery));
+        
+        if (angle % 5 < 0.1) consumeEnergy(1); // Consume 1% de batería cada cierto tiempo
+    } else if (battery <= 0) {
+        autonomousTimer.stop();
+        isFlying = false;
+        updateUI("BATERÍA AGOTADA. DESCENSO DE EMERGENCIA.");
+    }
+});
+
+btnAuto.addActionListener(e -> {
+    if (isFlying) {
+        if (autonomousTimer.isRunning()) {
+            autonomousTimer.stop();
+            updateUI("Modo Autónomo: DESACTIVADO");
+        } else {
+            autonomousTimer.start();
+            updateUI("Modo Autónomo: ACTIVADO (Órbita)");
+        }
+    } else {
+        updateUI("Error: Despegue primero.");
+    }
+});
