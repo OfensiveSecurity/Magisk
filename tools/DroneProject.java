@@ -259,3 +259,98 @@ public class DroneProject {
         reader.close();
     }
 }
+interface FlightControl {
+    void takeoff();
+    void land();
+    void moveTo(double z);
+    void takeSnapshot();
+}
+
+class NokiaDronePhone implements FlightControl {
+    private double currentAltitude = 0.0;
+    private boolean isFlying = false;
+    private int batteryLife = 100; // Nueva variable de energía
+
+    // Método interno para reducir batería y verificar estado crítico
+    private void consumeBattery(int amount) {
+        batteryLife -= amount;
+        if (batteryLife < 0) batteryLife = 0;
+        
+        System.out.println("[ENERGÍA] Nivel actual: " + batteryLife + "%");
+
+        if (batteryLife <= 5 && isFlying) {
+            System.out.println("[CRÍTICO] Batería al 5%. Iniciando aterrizaje de emergencia...");
+            land();
+        } else if (batteryLife <= 20) {
+            System.out.println("[ALERTA] Batería baja. Por favor, regrese al punto de inicio.");
+        }
+    }
+
+    @Override
+    public void takeoff() {
+        if (!isFlying && batteryLife > 10) {
+            isFlying = true;
+            currentAltitude = 2.0;
+            System.out.println("[SISTEMA] Despeje exitoso.");
+            consumeBattery(5); // El despegue consume más energía
+        } else {
+            System.out.println("[ERROR] Batería insuficiente para despegar.");
+        }
+    }
+
+    @Override
+    public void moveTo(double z) {
+        if (isFlying) {
+            this.currentAltitude = z;
+            System.out.println("[SISTEMA] Volando a " + z + "m.");
+            consumeBattery(2); // Moverse consume energía constante
+        }
+    }
+
+    @Override
+    public void takeSnapshot() {
+        if (isFlying && currentAltitude >= 5.0) {
+            System.out.println("[CÁMARA] Procesando foto 5G...");
+            consumeBattery(3); // El procesamiento de imagen consume energía
+        }
+    }
+
+    @Override
+    public void land() {
+        if (isFlying) {
+            isFlying = false;
+            currentAltitude = 0;
+            System.out.println("[SISTEMA] Drone en tierra. Motores apagados.");
+        }
+    }
+}
+
+public class DroneProject {
+    public static void main(String[] args) {
+        NokiaDronePhone myDrone = new NokiaDronePhone();
+        Scanner reader = new Scanner(System.in);
+        String command = "";
+
+        System.out.println("--- Panel Nokia Drone 5G (v2.0 - Gestión de Energía) ---");
+
+        while (!command.equals("salir")) {
+            System.out.print("\nComando (despegar, subir, foto, aterrizar, salir) > ");
+            command = reader.nextLine().toLowerCase();
+
+            switch (command) {
+                case "despegar": myDrone.takeoff(); break;
+                case "subir":
+                    System.out.print("Altura: ");
+                    double alt = reader.nextDouble();
+                    reader.nextLine();
+                    myDrone.moveTo(alt);
+                    break;
+                case "foto": myDrone.takeSnapshot(); break;
+                case "aterrizar": myDrone.land(); break;
+                case "salir": System.out.println("Cerrando..."); break;
+                default: System.out.println("Comando inválido.");
+            }
+        }
+        reader.close();
+    }
+}
