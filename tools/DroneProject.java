@@ -12,7 +12,70 @@ import java.awt.*;
 import javax.swing.Timer;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.Statement;
+import java.sql.ResultSet;
+import java.sql.SQLException
 
+public class PilotosDB {
+    private static final String URL = "jdbc:sqlite:nokia_drones.db";
+
+    public static void main(String[] args) {
+        crearTabla();
+        registrarPiloto("Juan Nokia", 12, 150.5);
+        registrarPiloto("Ana Drone", 8, 200.0);
+        mostrarRecords();
+    }
+
+    public static void crearTabla() {
+        String sql = "CREATE TABLE IF NOT EXISTS Pilotos ("
+                   + "id INTEGER PRIMARY KEY AUTOINCREMENT,"
+                   + "nombre TEXT NOT NULL,"
+                   + "vuelos_completados INTEGER,"
+                   + "record_distancia REAL"
+                   + ");";
+
+        try (Connection conn = DriverManager.getConnection(URL);
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("[DB] Tabla de Pilotos lista.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void registrarPiloto(String nombre, int vuelos, double dist) {
+        String sql = "INSERT INTO Pilotos(nombre, vuelos_completados, record_distancia) "
+                   + "VALUES('" + nombre + "', " + vuelos + ", " + dist + ")";
+
+        try (Connection conn = DriverManager.getConnection(URL);
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("[DB] Piloto " + nombre + " registrado.");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void mostrarRecords() {
+        String sql = "SELECT * FROM Pilotos ORDER BY record_distancia DESC";
+
+        try (Connection conn = DriverManager.getConnection(URL);
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            
+            System.out.println("\n--- RANKING DE PILOTOS NOKIA ---");
+            while (rs.next()) {
+                System.out.println(rs.getString("nombre") + " | Vuelos: " 
+                                   + rs.getInt("vuelos_completados") + " | Récord: " 
+                                   + rs.getDouble("record_distancia") + "m");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+}
 // ... dentro del constructor DroneGui() ...
 
 this.addWindowListener(new WindowAdapter() {
