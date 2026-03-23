@@ -3,7 +3,106 @@ import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.io.IOException;
 import java.time.LocalDateTime
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener
 
+public class DroneGui extends JFrame {
+    // Variables del Drone
+    private int battery = 100;
+    private double altitude = 0.0;
+    private boolean isFlying = false;
+
+    // Elementos de la Interfaz
+    private JLabel statusLabel;
+    private JTextArea logArea;
+
+    public DroneGui() {
+        // Configuración de la Ventana
+        setTitle("Nokia Drone Phone 5G - Panel de Control");
+        setSize(400, 500);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // 1. Panel Superior: Estado
+        statusLabel = new JLabel("Estado: En Tierra | Batería: 100% | Altitud: 0m", SwingConstants.CENTER);
+        statusLabel.setFont(new Font("Arial", Font.BOLD, 14));
+        add(statusLabel, BorderLayout.NORTH);
+
+        // 2. Panel Central: Log de actividad
+        logArea = new JTextArea();
+        logArea.setEditable(false);
+        add(new JScrollPane(logArea), BorderLayout.CENTER);
+
+        // 3. Panel Inferior: Botones
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
+
+        JButton btnTakeoff = new JButton("DESPEGAR");
+        JButton btnLand = new JButton("ATERRIZAR");
+        JButton btnPhoto = new JButton("TOMAR FOTO");
+        JButton btnCharge = new JButton("CARGAR");
+
+        buttonPanel.add(btnTakeoff);
+        buttonPanel.add(btnLand);
+        buttonPanel.add(btnPhoto);
+        buttonPanel.add(btnCharge);
+        add(buttonPanel, BorderLayout.SOUTH);
+
+        // --- LÓGICA DE LOS BOTONES ---
+
+        btnTakeoff.addActionListener(e -> {
+            if (!isFlying && battery > 10) {
+                isFlying = true;
+                altitude = 2.0;
+                battery -= 5;
+                updateUI("¡Despegue exitoso!");
+            } else {
+                updateUI("ERROR: No se puede despegar.");
+            }
+        });
+
+        btnLand.addActionListener(e -> {
+            if (isFlying) {
+                isFlying = false;
+                altitude = 0;
+                updateUI("Drone aterrizado.");
+            }
+        });
+
+        btnPhoto.addActionListener(e -> {
+            if (isFlying && altitude >= 2.0) {
+                battery -= 3;
+                updateUI("FOTO CAPTURADA Y ENVIADA POR 5G.");
+            } else {
+                updateUI("ERROR: El drone debe estar en el aire.");
+            }
+        });
+
+        btnCharge.addActionListener(e -> {
+            if (!isFlying) {
+                battery = 100;
+                updateUI("Batería cargada al 100%.");
+            } else {
+                updateUI("ERROR: ¡No cargues en pleno vuelo!");
+            }
+        });
+
+        setVisible(true);
+    }
+
+    private void updateUI(String message) {
+        statusLabel.setText(String.format("Estado: %s | Batería: %d%% | Alt: %.1fm", 
+                            (isFlying ? "VOLANDO" : "TIERRA"), battery, altitude));
+        logArea.append("> " + message + "\n");
+    }
+
+    public static void main(String[] args) {
+        // Ejecutar la interfaz en el hilo de despacho de eventos
+        SwingUtilities.invokeLater(() -> new DroneGui());
+    }
+}
 // Interfaz para definir el comportamiento de vuelo
 interface FlightControl {
     void takeoff();
