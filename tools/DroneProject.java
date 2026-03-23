@@ -358,3 +358,96 @@ public class DroneProject {
         reader.close();
     }
 }
+class NokiaDronePhone {
+    private double currentAltitude = 0.0;
+    private boolean isFlying = false;
+    private int batteryLife = 100;
+    private final String LOG_FILE = "vuelo_log.txt";
+
+    // Método para escribir en el archivo de texto
+    private void logAction(String action) {
+        try (FileWriter fw = new FileWriter(LOG_FILE, true);
+             PrintWriter pw = new PrintWriter(fw)) {
+            String timestamp = LocalDateTime.now().toString();
+            pw.println("[" + timestamp + "] " + action + " | Batería: " + batteryLife + "%");
+        } catch (IOException e) {
+            System.out.println("[ERROR] No se pudo escribir en el log: " + e.getMessage());
+        }
+    }
+
+    private void consumeBattery(int amount) {
+        batteryLife -= amount;
+        if (batteryLife < 0) batteryLife = 0;
+        
+        System.out.println("[ENERGÍA] " + batteryLife + "%");
+        if (batteryLife <= 5 && isFlying) {
+            logAction("ATERRIZAJE FORZOSO POR BATERÍA CRÍTICA");
+            land();
+        }
+    }
+
+    public void takeoff() {
+        if (!isFlying && batteryLife > 10) {
+            isFlying = true;
+            currentAltitude = 2.0;
+            System.out.println("[SISTEMA] Despeje.");
+            logAction("DESPEGE EXITOSO");
+            consumeBattery(5);
+        }
+    }
+
+    public void moveTo(double z) {
+        if (isFlying) {
+            this.currentAltitude = z;
+            System.out.println("[SISTEMA] Altura: " + z + "m");
+            logAction("CAMBIO ALTITUD A " + z + "m");
+            consumeBattery(2);
+        }
+    }
+
+    public void takeSnapshot() {
+        if (isFlying && currentAltitude >= 5.0) {
+            System.out.println("[CÁMARA] Foto capturada.");
+            logAction("FOTO TOMADA A " + currentAltitude + "m");
+            consumeBattery(3);
+        }
+    }
+
+    public void land() {
+        if (isFlying) {
+            isFlying = false;
+            currentAltitude = 0;
+            System.out.println("[SISTEMA] Aterrizado.");
+            logAction("ATERRIZAJE MANUAL");
+        }
+    }
+}
+
+public class DroneProject {
+    public static void main(String[] args) {
+        NokiaDronePhone myDrone = new NokiaDronePhone();
+        Scanner reader = new Scanner(System.in);
+        String command = "";
+
+        System.out.println("--- Nokia Drone 5G (v3.0 - Log de Vuelo Activo) ---");
+
+        while (!command.equals("salir")) {
+            System.out.print("\nComando > ");
+            command = reader.nextLine().toLowerCase();
+
+            switch (command) {
+                case "despegar": myDrone.takeoff(); break;
+                case "subir":
+                    System.out.print("Altura: ");
+                    double alt = reader.nextDouble(); reader.nextLine();
+                    myDrone.moveTo(alt);
+                    break;
+                case "foto": myDrone.takeSnapshot(); break;
+                case "aterrizar": myDrone.land(); break;
+                case "salir": break;
+                default: System.out.println("Comando inválido.");
+            }
+        }
+        reader.close();
+    }
+}
