@@ -1,0 +1,78 @@
+import java.util.Scanner;
+
+public class ProyectoTV98 {
+
+    // --- Configuración de la TV (Hardware) ---
+    // Samsung Crystal UHD 98" - Precio estimado en USD (ajusta según tu país)
+    static final double PRECIO_TV = 3500.0; 
+    // Consumo eléctrico estimado (Wattios)
+    static final double CONSUMO_WATTS = 280.0; 
+    // Horas de uso al día estimadas
+    static final double HORAS_USO_DIA = 4.0;
+    // Costo promedio de kWh (ajusta según tu recibo de luz local)
+    static final double COSTO_KWH = 0.15; 
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        System.out.println("--- PROYECTO: ADQUISICIÓN SAMSUNG CRYSTAL 98\" ---");
+        System.out.println("Precio Objetivo: $" + PRECIO_TV + " USD\n");
+
+        // 1. Entrada de Datos Financieros
+        System.out.print("Introduce tus ingresos mensuales netos (USD): ");
+        double ingresos = sc.nextDouble();
+
+        System.out.print("Introduce tus gastos fijos totales (renta, comida, etc.): ");
+        double gastos = sc.nextDouble();
+        
+        System.out.print("¿Cuánto tienes ahorrado actualmente para este fin?: ");
+        double ahorroActual = sc.nextDouble();
+
+        // 2. Cálculos de Ahorro
+        double capacidadAhorro = ingresos - gastos;
+
+        if (capacidadAhorro <= 0) {
+            System.err.println("\n[ERROR] Tus gastos son iguales o mayores que tus ingresos.");
+            System.err.println("No es posible iniciar el proyecto de ahorro actual.");
+            return;
+        }
+
+        double faltante = PRECIO_TV - ahorroActual;
+        
+        if (faltante <= 0) {
+            System.out.println("\n¡FELICIDADES! Ya tienes el dinero suficiente.");
+            imprimirEspecificaciones();
+            return;
+        }
+
+        double mesesAhorro = Math.ceil(faltante / capacidadAhorro);
+
+        // 3. Cálculos de Costo Operativo (Consumo de Luz)
+        // kWh al mes = (Watts * Horas/día * 30 días) / 1000
+        double kwhMes = (CONSUMO_WATTS * HORAS_USO_DIA * 30) / 1000;
+        double costoLuzMes = kwhMes * COSTO_KWH;
+
+        // 4. Reporte Final del Proyecto
+        System.out.println("\n===========================================");
+        System.out.println("      RESULTADOS DEL PLAN DE EJECUCIÓN      ");
+        System.out.println("===========================================");
+        System.out.printf("Capacidad de Ahorro Mensual: $%.2f USD\n", capacidadAhorro);
+        System.out.printf("Dinero Faltante:             $%.2f USD\n", faltante);
+        System.out.println("-------------------------------------------");
+        System.out.println("TIEMPO ESTIMADO DE ESPERA:   " + (int)mesesAhorro + " meses");
+        System.out.println("-------------------------------------------");
+        System.out.println("IMPACTO EN GASTOS FUTUROS (Luz):");
+        System.out.printf("Aumento estimado en recibo: $%.2f USD/mes\n", costoLuzMes);
+        System.out.println("===========================================");
+        
+        imprimirEspecificaciones();
+    }
+
+    private static void imprimirEspecificaciones() {
+        System.out.println("\n[RECOMENDACIONES TÉCNICAS DE INSTALACIÓN]:");
+        System.out.println("1. Pared: Concreto sólido o ladrillo reforzado (Pesa ~55kg).");
+        System.out.println("2. Soporte: VESA 600x400 reforzado.");
+        System.out.println("3. Espacio: Requiere una pared de al menos 2.2m de ancho.");
+        System.out.println("4. Distancia de visionado ideal: 3.5 a 4.0 metros.");
+    }
+}
