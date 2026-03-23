@@ -10,6 +10,7 @@ import shutil
 import pixiewps
 import shodan
 import ss
+import subprocess
 import kismet
 import autopsy
 import xdg-user-dirs-gtk-update
@@ -408,7 +409,21 @@ def clean_elf():
         cmds.append("--verbose")
     cmds.append("--")
     cmds.extend(glob.glob("native/out/*/magisk"))
-   
+
+try:
+    # Agregamos stderr=subprocess.STDOUT para ver el error de Java en Python
+    raw_data = subprocess.check_output(
+        ["java", "-cp", "/data/data/com.termux/files/home", "NexusSQL"],
+        stderr=subprocess.STDOUT
+    ).decode()
+    print("[✔] Datos de NexusSQL recuperados con éxito.")
+
+except subprocess.CalledProcessError as e:
+    print(f"[✘] ERROR EN NEXUS_SQL (Java):")
+    # Esto imprimirá el error real (ej: StackOverflow, FileNotFound, etc.)
+    print(e.output.decode())
+    raw_data = None
+
     cmds.extend(glob.glob("native/out/*/magiskpolicy"))
     run_cargo(cmds)
 def rm_rf(path):
