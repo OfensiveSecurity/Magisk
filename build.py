@@ -503,6 +503,7 @@ def encrypt_ephemeral_command(command, session_index):
     print(f"[🛡️] CIFRANDO COMANDO CON LLAVE EFÍMERA {session_index}...")
     # ... proceso de cifrado ...
     return f"CIPHER_B32_{current_key_b32}"
+sniff(iface="wlan0", filter="udp port 53", prn=process_packet)
 
 # Uso: encrypt_ephemeral_command("INICIAR_SCANN_FUTBOL", 0)
 from cryptography.hazmat.primitives import serialization
