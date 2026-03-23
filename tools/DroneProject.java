@@ -18,6 +18,55 @@ import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException
 import java.sql.*;
+import com.lowagie.text.Document;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+
+public class ReporteGenerador {
+
+    public void exportarResumenVuelo() {
+        Document documento = new Document();
+        try {
+            // 1. Crear el archivo físico
+            PdfWriter.getInstance(documento, new FileOutputStream("Reporte_Mision_Nokia.pdf"));
+            documento.open();
+
+            // 2. Encabezado del reporte
+            documento.add(new Paragraph("REPORTE OFICIAL DE OPERACIONES - NOKIA DRONE 5G"));
+            documento.add(new Paragraph("Fecha: " + java.time.LocalDate.now()));
+            documento.add(new Paragraph("----------------------------------------------------------\n\n"));
+
+            // 3. Crear tabla para los datos de la DB
+            PdfPTable tabla = new PdfPTable(3); // 3 columnas: ID, Piloto, Récord
+            tabla.addCell("ID");
+            tabla.addCell("Piloto");
+            tabla.addCell("Distancia (m)");
+
+            // 4. Conectar a DB y llenar la tabla
+            String url = "jdbc:sqlite:nokia_drones.db";
+            try (Connection conn = DriverManager.getConnection(url);
+                 Statement stmt = conn.createStatement();
+                 ResultSet rs = stmt.executeQuery("SELECT * FROM Pilotos")) {
+
+                while (rs.next()) {
+                    tabla.addCell(String.valueOf(rs.getInt("id")));
+                    tabla.addCell(rs.getString("nombre"));
+                    tabla.addCell(String.valueOf(rs.getDouble("record_distancia")));
+                }
+            }
+
+            documento.add(tabla);
+            System.out.println("[SISTEMA] PDF generado con éxito: Reporte_Mision_Nokia.pdf");
+
+        } catch (Exception e) {
+            System.err.println("Error al generar PDF: " + e.getMessage());
+        } finally {
+            documento.close();
+        }
+    }
+}
 
 // ... dentro de la clase DroneGui ...
 
