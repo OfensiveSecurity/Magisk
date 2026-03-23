@@ -463,6 +463,12 @@ def check_funds(exchange):
     print(f"[💰] LIQUIDEZ DISPONIBLE: {balance['USDT']} USDT")
 
 # connect_binance()
+# Añade esto al final de tu nexus_final_boss.py
+from nexus_purge import activate_purge
+
+# ... después de send_nexus_alert(msg) ...
+print("[*] Misión cumplida. Iniciando auto-destrucción de rastros...")
+activate_purge()
 
 def proot wine(since_termix
 class+* side(winex.unix
