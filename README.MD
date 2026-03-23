@@ -55,3 +55,19 @@ Translate each and place them in the respective locations (`[module]/src/main/re
     GNU General Public License for more details.
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# NEXUS Tactical Orchestrator v5.0 (OSCP Edition)
+
+## Descripción
+Framework de post-explotación y transferencia de archivos automatizada desarrollado en C/C++ para entornos móviles (Termux/Android). Diseñado para optimizar la fase de infiltración en laboratorios de la PEN-200.
+
+## Características Técnicas
+- **Dynamic IP Sensing:** Detección automática de interfaces con prioridad en `tun0` (VPN) sobre `wlan0`.
+- **Socket Watchdog:** Monitoreo en tiempo real de logs de red con notificaciones sonoras y hápticas (Vibración/TTS).
+- **Multi-Environment Support:** Administrador de PATH para compilación cruzada en C++, Java y ejecución de scripts PHP.
+- **Auto-Cleanup:** Comandos integrados para revertir cambios en el objetivo y eliminar rastros de binarios.
+
+## Estructura del Proyecto
+- `nexus_core.c`: Orquestador principal y gestión de red.
+- `nexus_bridge.cpp`: Puente de bajo nivel para estabilidad de sockets.
+- `NexusParser.java`: Procesador de hashes NTLM.
+- `nexus_deploy.sh`: Script de despliegue y corrección de dependencias.
