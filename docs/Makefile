@@ -10,3 +10,4 @@ all: kernel.elf
 
 kernel.elf: main.o startup.o
 	$(CPP) $(CPPFLAGS) -T linker_script.ld main.o startup.o -o kernel.elf
+CFLAGS += -fstack-protector-all
