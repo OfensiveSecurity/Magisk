@@ -1,3 +1,5 @@
+import java.util.Scanner;
+
 // Interfaz para definir el comportamiento de vuelo
 interface FlightControl {
     void takeoff();
