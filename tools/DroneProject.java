@@ -1169,3 +1169,28 @@ public class DroneProject {
         reader.close();
     }
 }
+// --- Panel Inferior: Botones con Colores ---
+JPanel buttonPanel = new JPanel();
+buttonPanel.setLayout(new GridLayout(2, 2, 10, 10));
+
+JButton btnTakeoff = new JButton("DESPEGAR");
+btnTakeoff.setBackground(Color.GREEN);
+btnTakeoff.setForeground(Color.BLACK); // Texto negro sobre fondo verde
+
+JButton btnLand = new JButton("ATERRIZAR");
+btnLand.setBackground(Color.RED);
+btnLand.setForeground(Color.WHITE); // Texto blanco sobre fondo rojo
+
+JButton btnPhoto = new JButton("TOMAR FOTO");
+btnPhoto.setBackground(new Color(30, 144, 255)); // Azul brillante
+btnPhoto.setForeground(Color.WHITE);
+
+JButton btnCharge = new JButton("CARGAR");
+btnCharge.setBackground(Color.YELLOW);
+btnCharge.setForeground(Color.BLACK);
+
+buttonPanel.add(btnTakeoff);
+buttonPanel.add(btnLand);
+buttonPanel.add(btnPhoto);
+buttonPanel.add(btnCharge);
+add(buttonPanel, BorderLayout.SOUTH);
