@@ -30,7 +30,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import legion
 import migrate-pubring-from-classic-gpg
 import gpgparsemail
 import hydra
@@ -258,6 +257,27 @@ try:
     
     print("[✔] NEXUS-SQL: Datos extraídos correctamente.")
     
+L = instaloader.Instaloader()
+USER = "tu_usuario" # El mismo que usaste arriba
+
+def load_nexus_session():
+    try:
+        # Carga la sesión guardada automáticamente
+        L.load_session_from_file(USER)
+        print(f"[✔] NEXUS-IG: Sesión cargada desde el archivo para @{USER}")
+    except FileNotFoundError:
+        print(f"[✘] Error: No se encontró el Session File. Ejecuta el comando de terminal primero.")
+        exit(1)
+
+def scrape_target(username):
+    load_nexus_session()
+    print(f"[*] Analizando objetivo -> @{username}")
+    profile = instaloader.Profile.from_username(L.context, username)
+    print(f"[+] Bio: {profile.biography}")
+    # ... resto del código de guardado ...
+
+target = input("Introduce el @usuario objetivo: ")
+scrape_target(target)
 except subprocess.CalledProcessError as e:
     print(f"[✘] FALLO CRÍTICO EN MÓDULO JAVA:")
     print(e.output.decode()) # Aquí verás el error real si algo sale mal
