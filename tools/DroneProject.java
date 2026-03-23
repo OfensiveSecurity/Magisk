@@ -542,3 +542,97 @@ public class DroneProject {
         reader.close();
     }
 }
+class NokiaDronePhone {
+    private double currentAltitude = 0.0;
+    private boolean isFlying = false;
+    private int batteryLife = 100;
+    private final String LOG_FILE = "vuelo_log.txt";
+    private Random random = new Random();
+
+    private void logAction(String action) {
+        try (FileWriter fw = new FileWriter(LOG_FILE, true);
+             PrintWriter pw = new PrintWriter(fw)) {
+            pw.println("[" + LocalDateTime.now() + "] " + action + " | Bat: " + batteryLife + "%");
+        } catch (IOException e) {
+            System.out.println("[ERROR LOG]");
+        }
+    }
+
+    // Nuevo método para detectar si es de noche
+    private void checkNightMode() {
+        LocalTime now = LocalTime.now();
+        // Definimos la noche de 18:00 a 06:00
+        if (now.isAfter(LocalTime.of(18, 0)) || now.isBefore(LocalTime.of(6, 0))) {
+            System.out.println("[SENSOR] Poca luz detectada. ACTIVANDO LUCES LED NOCTURNAS.");
+            logAction("LUCES LED: ENCENDIDAS (MODO NOCTURNO)");
+        } else {
+            System.out.println("[SENSOR] Luz diurna detectada. Luces LED en modo ahorro.");
+        }
+    }
+
+    private boolean isWeatherSafe() {
+        int windSpeed = random.nextInt(50);
+        System.out.println("[METEOROLOGÍA] Viento: " + windSpeed + " km/h");
+        return windSpeed <= 25;
+    }
+
+    public void takeoff() {
+        if (!isFlying && batteryLife > 10) {
+            checkNightMode(); // Verificamos luces al despegar
+            if (isWeatherSafe()) {
+                isFlying = true;
+                currentAltitude = 2.0;
+                System.out.println("[SISTEMA] En el aire.");
+                logAction("DESPEGUE EXITOSO");
+                batteryLife -= 5;
+            } else {
+                System.out.println("[PELIGRO] Viento fuerte. Abortando.");
+            }
+        }
+    }
+
+    public void moveTo(double z) {
+        if (isFlying) {
+            this.currentAltitude = z;
+            System.out.println("[SISTEMA] Altura: " + z + "m");
+            batteryLife -= 2;
+        }
+    }
+
+    public void land() {
+        if (isFlying) {
+            isFlying = false;
+            currentAltitude = 0;
+            System.out.println("[SISTEMA] Aterrizado.");
+            logAction("ATERRIZAJE");
+        }
+    }
+}
+
+public class DroneProject {
+    public static void main(String[] args) {
+        NokiaDronePhone myDrone = new NokiaDronePhone();
+        Scanner reader = new Scanner(System.in);
+        String command = "";
+
+        System.out.println("--- Nokia Drone 5G (v5.0 - Sensor de Luz) ---");
+
+        while (!command.equals("salir")) {
+            System.out.print("\nComando (despegar, subir, aterrizar, salir) > ");
+            command = reader.nextLine().toLowerCase();
+
+            switch (command) {
+                case "despegar": myDrone.takeoff(); break;
+                case "subir":
+                    System.out.print("Altura: ");
+                    double alt = reader.nextDouble(); reader.nextLine();
+                    myDrone.moveTo(alt);
+                    break;
+                case "aterrizar": myDrone.land(); break;
+                case "salir": break;
+                default: System.out.println("Comando inválido.");
+            }
+        }
+        reader.close();
+    }
+}
