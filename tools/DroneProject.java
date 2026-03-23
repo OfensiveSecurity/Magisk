@@ -636,3 +636,92 @@ public class DroneProject {
         reader.close();
     }
 }
+
+class NokiaDronePhone {
+    private double posX = 0.0, posY = 0.0, posZ = 0.0; // Coordenadas GPS
+    private boolean isFlying = false;
+    private int batteryLife = 100;
+    private final String LOG_FILE = "vuelo_log.txt";
+
+    private void logAction(String action) {
+        try (FileWriter fw = new FileWriter(LOG_FILE, true);
+             PrintWriter pw = new PrintWriter(fw)) {
+            pw.println("[" + LocalDateTime.now() + "] " + action + " | GPS:(" + posX + "," + posY + ") | Bat: " + batteryLife + "%");
+        } catch (IOException e) { System.out.println("[ERROR LOG]"); }
+    }
+
+    // Método para calcular distancia al punto de inicio (0,0)
+    public double getDistanceFromHome() {
+        return Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
+    }
+
+    public void takeoff() {
+        if (!isFlying && batteryLife > 10) {
+            isFlying = true;
+            posZ = 2.0;
+            System.out.println("[GPS] Punto de inicio fijado en (0,0).");
+            logAction("DESPEGUE");
+            batteryLife -= 5;
+        }
+    }
+
+    public void moveGPS(double x, double y, double z) {
+        if (isFlying) {
+            this.posX = x;
+            this.posY = y;
+            this.posZ = z;
+            
+            double dist = getDistanceFromHome();
+            System.out.printf("[GPS] Nueva posición: (%.1f, %.1f) | Altura: %.1f m\n", posX, posY, posZ);
+            System.out.printf("[GPS] Distancia a casa: %.2f metros\n", dist);
+
+            if (dist > 100) {
+                System.out.println("[ALERTA] Límite de rango 5G alcanzado (100m).");
+            }
+            
+            logAction("MOVIMIENTO GPS");
+            batteryLife -= 3;
+        } else {
+            System.out.println("[ERROR] El drone está en el suelo.");
+        }
+    }
+
+    public void land() {
+        if (isFlying) {
+            isFlying = false;
+            posZ = 0;
+            System.out.println("[SISTEMA] Aterrizado en: (" + posX + ", " + posY + ")");
+            logAction("ATERRIZAJE");
+        }
+    }
+}
+
+public class DroneProject {
+    public static void main(String[] args) {
+        NokiaDronePhone myDrone = new NokiaDronePhone();
+        Scanner reader = new Scanner(System.in);
+        String command = "";
+
+        System.out.println("--- Nokia Drone 5G (v6.0 - Geolocalización GPS) ---");
+
+        while (!command.equals("salir")) {
+            System.out.print("\nComando (despegar, mover, aterrizar, salir) > ");
+            command = reader.nextLine().toLowerCase();
+
+            switch (command) {
+                case "despegar": myDrone.takeoff(); break;
+                case "mover":
+                    System.out.print("Coordenada X: "); double x = reader.nextDouble();
+                    System.out.print("Coordenada Y: "); double y = reader.nextDouble();
+                    System.out.print("Altura Z: "); double z = reader.nextDouble();
+                    reader.nextLine(); // Limpiar buffer
+                    myDrone.moveGPS(x, y, z);
+                    break;
+                case "aterrizar": myDrone.land(); break;
+                case "salir": break;
+                default: System.out.println("Comando no reconocido.");
+            }
+        }
+        reader.close();
+    }
+}
