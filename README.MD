@@ -71,3 +71,24 @@ Framework de post-explotación y transferencia de archivos automatizada desarrol
 - `nexus_bridge.cpp`: Puente de bajo nivel para estabilidad de sockets.
 - `NexusParser.java`: Procesador de hashes NTLM.
 - `nexus_deploy.sh`: Script de despliegue y corrección de dependencias.
+# 🛡️ Magisk Custom Build - Android CI/CD & Anti-Spam Shield
+
+Este repositorio contiene una versión personalizada de **Magisk**, optimizada para compilarse en entornos limpios de **GitHub Actions** y con herramientas integradas de seguridad nativa en **C++**.
+
+## 🚀 Características Principales
+- **Build Blindado:** Limpieza automática de repositorios conflictivos (Parrot/Kali) en el CI para evitar errores de enlace dinámico (`glibc`).
+- **Escudo Anti-Spam:** Binario nativo en C++ que interactúa con el firewall del kernel para bloquear números de telemarketing.
+- **Distribución Local:** Servidor web integrado en Termux con generación de códigos QR para descargas rápidas.
+- **Reportes Automáticos:** Notificaciones de éxito de compilación y reportes semanales de bloqueo vía Telegram.
+
+## 🛠️ Estructura del Proyecto
+- `.github/workflows/android.yml`: Pipeline de compilación y limpieza de `apt`.
+- `antispam.cpp`: Código fuente del escudo de red de bajo nivel.
+- `spam_admin.py`: Panel de control web para gestión de lista negra.
+- `get_magisk.py`: Script de sincronización entre GitHub Artifacts y Termux.
+
+## 📦 Instalación en Termux
+Para sincronizar tu compilación localmente, usa el alias maestro:
+```bash
+actualizar_magisk
+
