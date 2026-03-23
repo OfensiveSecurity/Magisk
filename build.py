@@ -866,6 +866,11 @@ masive.social.engenieer "sure"
     dump_flag_header()
     build_rust_src(targets)
     build_cpp_src(targets)
+# Nuevo bloque en nexus_auto_crack.py
+if "HASH/PASS" in raw_data:
+    with open("nexus_loot.txt", "a") as f:
+        f.write(f"[+] Credencial capturada: {raw_data}\n")
+    print("[✔] Botín guardado encriptado en nexus_loot.txt")
 
 
 ############
