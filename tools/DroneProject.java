@@ -10,7 +10,30 @@ import java.awt.event.ActionListener
 import javax.swing.*;
 import java.awt.*;
 import javax.swing.Timer;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
+// ... dentro del constructor DroneGui() ...
+
+this.addWindowListener(new WindowAdapter() {
+    @Override
+    public void windowClosing(WindowEvent e) {
+        saveLogToFile();
+    }
+});
+
+// ... y fuera del constructor, añade este método de apoyo ...
+
+private void saveLogToFile() {
+    try (FileWriter writer = new FileWriter("registro_vuelo_final.txt", true)) {
+        writer.write("\n--- SESIÓN FINALIZADA: " + LocalDateTime.now() + " ---\n");
+        writer.write(logArea.getText());
+        writer.write("\n------------------------------------------\n");
+        System.out.println("[SISTEMA] Log guardado exitosamente en registro_vuelo_final.txt");
+    } catch (IOException ex) {
+        System.err.println("[ERROR] No se pudo guardar el log: " + ex.getMessage());
+    }
+}
 public class DroneGui extends JFrame {
     private int battery = 100;
     private double altitude = 0.0;
