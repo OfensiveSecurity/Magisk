@@ -1,0 +1,22 @@
+android {
+    // ... otras configuraciones
+    defaultConfig {
+        externalNativeBuild {
+            cmake {
+                // Forzamos el uso de la STL de Android para evitar conflictos con la de Parrot/Kali
+                arguments "-DANDROID_STL=libc++_static", 
+                          "-DANDROID_TOOLCHAIN=clang"
+                
+                // Aseguramos que solo compile para las arquitecturas necesarias
+                abiFilters "armeabi-v7a", "arm64-v8a", "x86_64"
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+            version "3.22.1+" // Usa una versión estable del SDK
+        }
+    }
+}
