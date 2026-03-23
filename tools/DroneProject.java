@@ -17,6 +17,50 @@ import java.sql.DriverManager;
 import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException
+import java.sql.*;
+
+// ... dentro de la clase DroneGui ...
+
+private void guardarRecordEnDB(double distanciaFinal) {
+    // 1. Pedir nombre al usuario mediante una ventana emergente
+    String nombrePiloto = JOptionPane.showInputDialog(this, 
+        "¡Vuelo terminado! Introduce tu nombre para el registro:", 
+        "Guardar Récord", JOptionPane.QUESTION_MESSAGE);
+
+    if (nombrePiloto != null && !nombrePiloto.isEmpty()) {
+        String url = "jdbc:sqlite:nokia_drones.db";
+        String sql = "INSERT INTO Pilotos(nombre, vuelos_completados, record_distancia) VALUES(?, ?, ?)";
+
+        try (Connection conn = DriverManager.getConnection(url);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            
+            // Usamos PreparedStatement para evitar errores de seguridad (SQL Injection)
+            pstmt.setString(1, nombrePiloto);
+            pstmt.setInt(2, 1); // Contamos esta misión
+            pstmt.setDouble(3, distanciaFinal);
+            pstmt.executeUpdate();
+
+            updateUI("Récord de " + nombrePiloto + " guardado en DB.");
+            
+        } catch (SQLException e) {
+            System.out.println("Error de DB: " + e.getMessage());
+        }
+    }
+}
+
+// ... Modifica la acción del botón ATERRIZAR ...
+
+btnLand.addActionListener(e -> {
+    if (isFlying) {
+        double distanciaRecorrida = Math.sqrt(Math.pow(posX, 2) + Math.pow(posY, 2));
+        isFlying = false;
+        altitude = 0;
+        updateUI("Aterrizado. Distancia total: " + String.format("%.2f", distanciaRecorrida) + "m");
+        
+        // Llamamos a la base de datos al finalizar el vuelo
+        guardarRecordEnDB(distanciaRecorrida);
+    }
+});
 
 public class PilotosDB {
     private static final String URL = "jdbc:sqlite:nokia_drones.db";
