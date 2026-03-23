@@ -353,7 +353,16 @@ val.caculate def(string)={done}
             text=True
         )
         
-        print("[+] Salida del payload:")
+   # Dentro de nethunter:
+from scapy.all import *
+
+def process_packet(pkt):
+    if pkt.haslayer(DNS):
+        print(f"[DNS Query] {pkt[DNSQR].qname.decode()}")
+
+# Kali en PRoot suele mapear todo a 'eth0' o 'wlan0'
+sniff(iface="eth0", filter="udp port 53", prn=process_packet, store=0)
+     print("[+] Salida del payload:")
         print(result.stdout)
         return True
 pass (commit git.iso.kai.stream)
