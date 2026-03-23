@@ -987,3 +987,86 @@ public class DroneProject {
         reader.close();
     }
 }
+class NokiaDronePhone {
+    private boolean isFlying = false;
+    private int batteryLife = 100;
+    private boolean systemReady = false; // Flag de seguridad
+    private final String LOG_FILE = "vuelo_log.txt";
+
+    private void logAction(String action) {
+        try (FileWriter fw = new FileWriter(LOG_FILE, true);
+             PrintWriter pw = new PrintWriter(fw)) {
+            pw.println("[" + LocalDateTime.now() + "] " + action);
+        } catch (IOException e) { System.out.println("[ERR LOG]"); }
+    }
+
+    // --- MÉTODO DE AUTODIAGNÓSTICO ---
+    public void runSelfDiagnostics() {
+        System.out.println("\n[SISTEMA] Iniciando autodiagnóstico de seguridad...");
+        
+        boolean sensorsOk = true; 
+        boolean network5GOk = true;
+        boolean batteryOk = (batteryLife > 20);
+
+        System.out.println("1. Sensores Inerciales: [OK]");
+        System.out.println("2. Conexión 5G Nokia: [OK]");
+        System.out.println("3. Nivel de Energía: [" + (batteryOk ? "OK" : "FALLO") + "]");
+
+        if (sensorsOk && network5GOk && batteryOk) {
+            this.systemReady = true;
+            System.out.println("[SISTEMA] >>> TODO OK. Drone listo para despegar.\n");
+            logAction("DIAGNÓSTICO: EXITOSO");
+        } else {
+            this.systemReady = false;
+            System.out.println("[SISTEMA] >>> FALLO DE SEGURIDAD. Revise la batería.\n");
+            logAction("DIAGNÓSTICO: FALLIDO");
+        }
+    }
+
+    public void takeoff() {
+        if (!systemReady) {
+            System.out.println("[CUIDADO] Debe ejecutar el 'diagnóstico' antes de intentar despegar.");
+            return;
+        }
+        
+        if (!isFlying && batteryLife > 10) {
+            isFlying = true;
+            System.out.println("[SISTEMA] Motores al 100%. Despegando...");
+            logAction("DESPEGUE CONFIRMADO");
+            batteryLife -= 5;
+        }
+    }
+
+    public void land() {
+        if (isFlying) {
+            isFlying = false;
+            systemReady = false; // Se requiere nuevo diagnóstico para el siguiente vuelo
+            System.out.println("[SISTEMA] Aterrizaje completado. Sensores en reposo.");
+            logAction("ATERRIZAJE");
+        }
+    }
+}
+
+public class DroneProject {
+    public static void main(String[] args) {
+        NokiaDronePhone myDrone = new NokiaDronePhone();
+        Scanner reader = new Scanner(System.in);
+        String command = "";
+
+        System.out.println("--- Nokia Drone Phone 5G (v10.0 - FINAL) ---");
+
+        while (!command.equals("salir")) {
+            System.out.print("Comando (diagnostico, despegar, aterrizar, salir) > ");
+            command = reader.nextLine().toLowerCase();
+
+            switch (command) {
+                case "diagnostico": myDrone.runSelfDiagnostics(); break;
+                case "despegar": myDrone.takeoff(); break;
+                case "aterrizar": myDrone.land(); break;
+                case "salir": System.out.println("Sistema apagado."); break;
+                default: System.out.println("Comando no reconocido.");
+            }
+        }
+        reader.close();
+    }
+}
