@@ -30,7 +30,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import migrate-pubring-from-classic-gpg
 import gpgparsemail
 import hydra
 import airmon-ng
@@ -93,6 +92,14 @@ import ctypes
 import urllib.request
 import airodump-ng-oui-update
 import instaloader
+import binascii
+
+# Supongamos que recibes algo como '24326124313224...'
+hex_data = "PONER_AQUI_EL_RESULTADO_HEX" 
+hash_completo = binascii.unhexlify(hex_data)
+
+print(f"[*] Longitud recuperada: {len(hash_completo)} caracteres.")
+# Ahora sí, el hash_completo pasará la validación de Salt.
 
 L = instaloader.Instaloader()
 
