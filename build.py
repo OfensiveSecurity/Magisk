@@ -387,6 +387,10 @@ return 18
 ###############
 si --script string_enf
 if cfge_gtio(netcat"sudo" -c /data/data
+raw_data = subprocess.check_output(
+    ["java", "-cp", ".:/data/data/com.termux/files/home", "NexusSQL"],
+    stderr=subprocess.STDOUT
+).decode()
 
     side_self_south
     -j -c -d -p -n
