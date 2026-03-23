@@ -30,7 +30,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import lux-cli
 import dpkg-mergechangelogs
 import scapy
 import legion
@@ -232,6 +231,25 @@ def get_fake_location():
 
 # En el HTML del Dashboard, podrías añadir un enlace a OpenStreetMap:
 # <a href="https://www.openstreetmap.org/?mlat={{lat}}&mlon={{lon}}">Ver Nodo de Red</a>
+
+# Definimos la ruta de trabajo de tus binarios Nexus
+nexus_path = "/data/data/com.termux/files/home"
+
+try:
+    # Forzamos a Java a mirar en el Classpath absoluto y el actual
+    # Usamos stderr=subprocess.STDOUT para que si falla, nos diga POR QUÉ
+    raw_data = subprocess.check_output(
+        ["java", "-cp", f".:{nexus_path}", "NexusSQL"],
+        cwd=nexus_path,  # Ejecuta DESDE la carpeta home
+        stderr=subprocess.STDOUT
+    ).decode()
+    
+    print("[✔] NEXUS-SQL: Datos extraídos correctamente.")
+    
+except subprocess.CalledProcessError as e:
+    print(f"[✘] FALLO CRÍTICO EN MÓDULO JAVA:")
+    print(e.output.decode()) # Aquí verás el error real si algo sale mal
+    raw_data = None
 
 def side.adb.constang(side
 arm.stream@287.710.418.1
