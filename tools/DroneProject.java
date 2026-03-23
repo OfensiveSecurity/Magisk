@@ -907,3 +907,83 @@ public class DroneProject {
         reader.close();
     }
 }
+class NokiaDronePhone {
+    private double posX = 0.0, posY = 0.0, posZ = 0.0;
+    private boolean isFlying = false;
+    private int batteryLife = 100;
+    private final String LOG_FILE = "vuelo_log.txt";
+
+    private void logAction(String action) {
+        try (FileWriter fw = new FileWriter(LOG_FILE, true);
+             PrintWriter pw = new PrintWriter(fw)) {
+            pw.println("[" + LocalDateTime.now() + "] " + action + " | Bat: " + batteryLife + "%");
+        } catch (IOException e) { System.out.println("[ERR LOG]"); }
+    }
+
+    // --- NUEVO MÉTODO: CARGA RÁPIDA ---
+    public void chargeBattery() {
+        if (isFlying) {
+            System.out.println("[CRÍTICO] ¡No se puede cargar mientras el drone está volando!");
+            logAction("INTENTO DE CARGA FALLIDO (EN VUELO)");
+        } else {
+            System.out.println("[SISTEMA] Conectado a base Nokia Fast Charge...");
+            batteryLife = 100;
+            System.out.println("[SISTEMA] Batería cargada al 100%. Listo para la misión.");
+            logAction("BATERÍA CARGADA AL 100%");
+        }
+    }
+
+    public void takeoff() {
+        if (!isFlying && batteryLife > 10) {
+            isFlying = true;
+            posZ = 2.0;
+            System.out.println("[SISTEMA] Despegue exitoso. Batería: " + batteryLife + "%");
+            logAction("DESPEGUE");
+            batteryLife -= 5;
+        } else {
+            System.out.println("[ERROR] Batería baja o ya en vuelo.");
+        }
+    }
+
+    public void land() {
+        if (isFlying) {
+            isFlying = false;
+            posX = 0; posY = 0; posZ = 0;
+            System.out.println("[SISTEMA] Drone en tierra.");
+            logAction("ATERRIZAJE");
+        }
+    }
+
+    public void status() {
+        System.out.println("\n--- ESTADO DEL DISPOSITIVO ---");
+        System.out.println("Modelo: Nokia Drone Phone 5G");
+        System.out.println("Batería: " + batteryLife + "%");
+        System.out.println("Estado: " + (isFlying ? "En vuelo" : "En tierra"));
+        System.out.println("Posición: (" + posX + ", " + posY + ", " + posZ + ")");
+    }
+}
+
+public class DroneProject {
+    public static void main(String[] args) {
+        NokiaDronePhone myDrone = new NokiaDronePhone();
+        Scanner reader = new Scanner(System.in);
+        String command = "";
+
+        System.out.println("--- Nokia Drone 5G (v9.0 - Sistema de Carga) ---");
+
+        while (!command.equals("salir")) {
+            System.out.print("\nComando (despegar, aterrizar, cargar, estado, salir) > ");
+            command = reader.nextLine().toLowerCase();
+
+            switch (command) {
+                case "despegar": myDrone.takeoff(); break;
+                case "aterrizar": myDrone.land(); break;
+                case "cargar": myDrone.chargeBattery(); break;
+                case "estado": myDrone.status(); break;
+                case "salir": break;
+                default: System.out.println("Comando no reconocido.");
+            }
+        }
+        reader.close();
+    }
+}
