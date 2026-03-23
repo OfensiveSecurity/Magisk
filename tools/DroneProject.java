@@ -1,4 +1,8 @@
 import java.util.Scanner;
+import java.io.FileWriter;
+import java.io.PrintWriter;
+import java.io.IOException;
+import java.time.LocalDateTime
 
 // Interfaz para definir el comportamiento de vuelo
 interface FlightControl {
