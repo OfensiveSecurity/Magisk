@@ -57,3 +57,70 @@ public class DroneProject {
         myDrone.land();
     }
 }
+interface FlightControl {
+    void takeoff();
+    void land();
+    void moveTo(double x, double y, double z);
+    void takeSnapshot(); // Nueva funcionalidad
+}
+
+class NokiaDronePhone implements FlightControl {
+    private String model = "Nokia Drone Phone 5G";
+    private double currentAltitude = 0.0;
+    private boolean isFlying = false;
+
+    @Override
+    public void takeoff() {
+        if (!isFlying) {
+            isFlying = true;
+            currentAltitude = 2.0; // Despega a 2 metros por defecto
+            System.out.println(model + " en el aire a " + currentAltitude + "m.");
+        }
+    }
+
+    @Override
+    public void moveTo(double x, double y, double z) {
+        if (isFlying) {
+            this.currentAltitude = z;
+            System.out.println("Navegando a Altura: " + z + "m");
+        }
+    }
+
+    @Override
+    public void takeSnapshot() {
+        if (isFlying && currentAltitude >= 5.0) {
+            System.out.println("[CÁMARA] Capturando foto de alta resolución a " + currentAltitude + "m...");
+            System.out.println("[5G] Enviando imagen a la nube Nokia en tiempo real...");
+        } else if (!isFlying) {
+            System.out.println("Error: El drone está en el suelo.");
+        } else {
+            System.out.println("Error: Altura insuficiente para foto panorámica (mínimo 5m).");
+        }
+    }
+
+    @Override
+    public void land() {
+        if (isFlying) {
+            isFlying = false;
+            currentAltitude = 0;
+            System.out.println(model + " ha aterrizado.");
+        }
+    }
+}
+
+public class DroneProject {
+    public static void main(String[] args) {
+        NokiaDronePhone myDrone = new NokiaDronePhone();
+
+        myDrone.takeoff();
+        
+        // Intentar tomar foto a baja altura (fallará)
+        myDrone.takeSnapshot(); 
+
+        // Subir y tomar foto (tendrá éxito)
+        myDrone.moveTo(0, 0, 8.5); 
+        myDrone.takeSnapshot();
+
+        myDrone.land();
+    }
+}
