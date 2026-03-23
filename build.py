@@ -93,6 +93,20 @@ import tarfile
 import ctypes
 import urllib.request
 import airodump-ng-oui-update
+import instaloader
+
+L = instaloader.Instaloader()
+
+USER = "tu_usuario_de_ig"
+# Nota: Es mejor usar variables de entorno para la contraseña por seguridad
+PASS = "tu_password_de_ig" 
+
+try:
+    L.login(USER, PASS)
+    print(f"[✔] NEXUS-IG: Sesión iniciada como @{USER}")
+except Exception as e:
+    print(f"[✘] Error de Login: {e}")
+
 from pathlib import Path
 from zipfile import ZipFile
 
