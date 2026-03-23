@@ -124,3 +124,46 @@ public class DroneProject {
         myDrone.land();
     }
 }
+interface FlightControl {
+    void takeoff();
+    void land();
+    void moveTo(double x, double y, double z);
+    void takeSnapshot();
+}
+
+class NokiaDronePhone implements FlightControl {
+    private String model = "Nokia Drone Phone 5G";
+    private double currentAltitude = 0.0;
+    private boolean isFlying = false;
+    private boolean has5GSignal = true; // Estado de la conexión
+
+    // Método para simular pérdida de señal externa
+    public void simulateSignalLoss() {
+        System.out.println("\n[ALERTA] !!! SEÑAL 5G PERDIDA !!!");
+        this.has5GSignal = false;
+        emergencyProcedure();
+    }
+
+    private void emergencyProcedure() {
+        if (isFlying) {
+            System.out.println("[SEGURIDAD] Iniciando protocolo de aterrizaje automático por pérdida de enlace...");
+            land();
+        }
+    }
+
+    @Override
+    public void takeoff() {
+        if (has5GSignal && !isFlying) {
+            isFlying = true;
+            currentAltitude = 2.0;
+            System.out.println(model + " despechando exitosamente.");
+        } else {
+            System.out.println("Error: No se puede despegar sin señal o ya está en vuelo.");
+        }
+    }
+
+    @Override
+    public void moveTo(double x, double y, double z) {
+        if (has5GSignal && isFlying) {
+            this.currentAltitude = z;
+            System.out.println("Navegando a
