@@ -30,7 +30,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import scapy
 import legion
 import migrate-pubring-from-classic-gpg
 import gpgparsemail
