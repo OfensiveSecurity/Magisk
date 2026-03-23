@@ -1,0 +1,55 @@
+name: Magisk Android CI - Rescate y Compilacion
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+  workflow_dispatch: # Permite ejecutarlo manualmente
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del Codigo
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: 🛡️ Limpieza de Emergencia (Fix Not a Dynamic Executable)
+        run: |
+          echo "[*] Eliminando repositorios conflictivos..."
+          # Borramos los archivos .list de Parrot/Kali que rompen base-files
+          sudo rm -f /etc/apt/sources.list.d/parrot.list
+          sudo rm -f /etc/apt/sources.list.d/kali.list
+          
+          # Eliminamos desvíos de dpkg que bloquean el cargador de librerías
+          sudo dpkg-divert --remove /lib64 || true
+          
+          # Forzamos la reconstrucción de la caché de apt con los repos oficiales de Ubuntu
+          sudo apt-get update || true
+          sudo apt-get install -y -f
+          sudo apt-get install -y build-essential libstdc++6
+
+      - name: 🛠️ Configurar JDK y NDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: 🏗️ Compilar Magisk (Gradle)
+        run: |
+          # Limpiamos cualquier caché previa de C++ que pueda estar corrupta
+          chmod +x gradlew
+          ./gradlew clean
+          
+          # Compilamos el APK y los binarios nativos (su, magiskinit)
+          # Usamos --stacktrace para ver detalles si algo vuelve a fallar
+          ./gradlew assembleRelease --stacktrace
+
+      - name: 📤 Subir Artefactos (Magisk APK)
+        uses: actions/upload-artifact@v4
+        with:
+          name: Magisk-Build-${{ github.run_number }}
+          path: app/build/outputs/apk/release/*.apk
