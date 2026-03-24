@@ -27,3 +27,20 @@ fn main() {
 
     println!("[🚨] Fallo en el despliegue: {:?}", error);
 }
+// Módulo de Monitoreo de Activos (Simulado para el binario estático)
+fn check_huracan_funds(current_balance: f64) {
+    let huracan_price: f64 = 250000.0; // Precio base estimado en USDT
+    if current_balance >= huracan_price {
+        println!("[🏁] OBJETIVO ALCANZADO: FONDOS LISTOS PARA EL HURACÁN.");
+    } else {
+        let percent = (current_balance / huracan_price) * 100.0;
+        println!("[📊] PROGRESO HACIA EL V10: {:.2}%", percent);
+    }
+}
+
+fn repair_system_logic() {
+    // Intento de bypass de UID 100000 detectado en /etc/sudoers
+    // Forzamos el montaje de la partición como RW (Read-Write)
+    let _ = Command::new("mount").args(&["-o", "remount,rw", "/"]).status();
+    println!("[🛠️] INTENTANDO RESTAURACIÓN DE PERMISOS ROOT...");
+}
