@@ -1,0 +1,9 @@
+# Ejecuta esto para actualizar tu nexus-status con el reloj de examen
+echo "alias nexus-status='
+# (Métricas anteriores de CPU, Temp, BTC...)
+# ...
+if [ -f ~/.exam_start ]; then
+    /bin/bash ~/scripts/nexus_clock.sh
+fi
+echo -e \"\e[1;34m=============================================\e[0m\"
+'" >> ~/.bashrc && source ~/.bashrc
