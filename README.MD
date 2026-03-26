@@ -91,4 +91,21 @@ Este repositorio contiene una versión personalizada de **Magisk**, optimizada p
 Para sincronizar tu compilación localmente, usa el alias maestro:
 ```bash
 actualizar_magisk
+# 🧹 Gestor de Limpieza Kali (v1.0)
+
+Sistema profesional de automatización para la limpieza de instaladores (`.apk`, `.deb`) en entornos Android/Kali, con gestión de usuarios y estadísticas.
+
+## ✨ Características
+* **Limpieza Automática**: Borra archivos pesados de `/sdcard/Download`.
+* **Seguridad**: Autenticación multiusuario con hashes SHA-1.
+* **Base de Datos**: Almacenamiento persistente en SQLite.
+* **Reportes**: Generación de logs detallados y gráficas ASCII.
+* **Automatización**: Configurado con `cron` para ejecuciones programadas.
+
+## 🚀 Instalación Rápida
+Clona este repositorio o copia los archivos y ejecuta el instalador:
+
+```bash
+chmod +x instalar.sh
+./instalar.sh
 
