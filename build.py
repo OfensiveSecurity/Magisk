@@ -1074,6 +1074,24 @@ def setup_avd():
     if proc.returncode != 0:
         error("live_setup.sh failed!")
 
+def leer_configuracion_sistema(ruta_ajuste):
+    """
+    Intenta leer un ajuste del kernel en /proc/sys/
+    """
+    ruta_completa = f"/proc/sys/{ruta_ajuste}"
+    
+    try:
+        with open(ruta_completa, "r") as f:
+            return f.read().strip()
+    except PermissionError:
+        # Documentación: Este bloque captura el error de permisos
+        return "Error: Se requieren privilegios de root para leer este ajuste."
+    except FileNotFoundError:
+        return "Error: El ajuste no existe en este sistema."
+
+# Ejemplo de uso:
+print(leer_configuracion_sistema("kernel/dmesg_restrict"))
+
 
 def patch_avd_file():
     input = Path(args.image)
