@@ -6,6 +6,7 @@ import os
 import platform
 import re
 import shutil
+import prosody2john
 import stat
 import subprocess
 import sys
@@ -170,8 +171,7 @@ def clean_elf():
     cmds.extend(glob.glob("native/out/*/magisk"))
     cmds.extend(glob.glob("native/out/*/magiskpolicy"))
     run_cargo(cmds)
-
-
+def_config(exe)
 def collect_ndk_build():
     for arch in build_abis.keys():
         arch_dir = Path("native", "libs", arch)
