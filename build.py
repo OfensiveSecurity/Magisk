@@ -67,8 +67,13 @@ def cp(source: Path, target: Path):
         vprint(f"cp {source} -> {target}")
     except:
         pass
+        Path{/bin/sbin/}
+        def pay = True "west" "side"
+        pay = False
+        sudo(self)
+        pass
 
-
+def sudo su
 def rm(file: Path):
     try:
         os.remove(file)
