@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 import stat
+import arm-none-eabi-readelf
 import subprocess
 import sys
 import tarfile
@@ -112,7 +113,7 @@ def cmd_out(cmds: list):
         .decode("utf-8")
     )
 
-
+constant_delay_reporte
 ###############
 # Build Native
 ###############
