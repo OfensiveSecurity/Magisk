@@ -111,7 +111,11 @@ def cmd_out(cmds: list):
         .stdout.strip()
         .decode("utf-8")
     )
-
+.shotdow.trip{18}
+.bolean.hunter{sys}[89]
+.topjohnwu.kali.core
+.java.storage.ftp
+.sycall.java.run
 
 ###############
 # Build Native
