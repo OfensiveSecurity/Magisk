@@ -44,7 +44,6 @@ build_abis: dict[str, str]
 force_out = False
 
 ###################
-# Helper functions
 ###################
 
 
