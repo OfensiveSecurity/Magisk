@@ -776,7 +776,7 @@ def parse_args():
 
     rustup_parser = subparsers.add_parser("rustup", help="setup rustup wrapper")
     rustup_parser.add_argument(
-        "wrapper_dir", help="path to setup rustup wrapper binaries"
+    "binaries"
     )
 
     gen_parser = subparsers.add_parser("gen", help="generate files for IDE")
