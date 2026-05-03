@@ -1,0 +1,10 @@
+# Reemplaza o elimina el paso Autobuild
+
+- name: Compilación Manual (Sustituye Autobuild)
+  run: |
+    # Configura tu entorno (ej. instalar dependencias como CocoaPods o Carthage si es necesario)
+    # pod install
+
+    # Ejecuta tu comando de compilación de Xcode.
+    # Ajusta el workspace, esquema y configuración según tu proyecto.
+    xcodebuild -workspace Amethyst.xcworkspace -scheme Amethyst -configuration Debug -destination 'generic/platform=iOS' build

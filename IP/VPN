@@ -1,0 +1,33 @@
+import time
+import requests
+import subprocess
+import json
+
+def get_crypto_price(symbol="BTCUSDT"):
+    try:
+        r = requests.get(f"https://api.binance.com/api/v3/ticker/price?symbol={symbol}")
+        return r.json()['price'][:8]
+    except: return "Error"
+
+def get_sys_info():
+    # Obtener IP de la interfaz VPN o WLAN
+    ip = subprocess.getoutput("hostname -I | awk '{print $1}'")
+    # Obtener batería del Moto e13
+    bat = subprocess.getoutput("cat /sys/class/power_supply/battery/capacity")
+    return ip, bat
+
+def update_watch():
+    while True:
+        ip, bat = get_sys_info()
+        price = get_crypto_price()
+        
+        # Formatear string táctico para la esfera del TicWatch
+        status = f"IP:{ip} | BTC:{price} | BAT:{bat}%"
+        
+        # Enviar al reloj vía el puente de Java que ya compilamos
+        subprocess.run(["java", "-cp", "bin", "NexusWear", status])
+        
+        time.sleep(60) # Actualizar cada minuto para ahorrar batería del TicWatch
+
+if __name__ == "__main__":
+    update_watch()

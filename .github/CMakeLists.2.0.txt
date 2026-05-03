@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.22.1)
+
+project("magisk_native_core")
+
+# 1. EVITAR RUTAS ABSOLUTAS: 
+# No uses /usr/lib o /lib64, eso rompe la compilación cruzada.
+set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+
+# 2. Definir flags de compilación para C++17 (Estándar de Magisk)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+# 3. Localizar librerías internas de Android NDK
+find_library(log-lib log)
+find_library(android-lib android)
+
+# 4. Añadir tus archivos fuente (.cpp)
+add_executable(magisk_bin 
+    src/main/cpp/main.cpp 
+    src/main/cpp/utils.cpp
+)
+
+# 5. Enlace Estático vs Dinámico:
+# Para Magisk, el enlace ESTÁTICO con la STL es preferible para evitar 
+# errores de "Library not found" al arrancar el teléfono.
+target_link_libraries(magisk_bin
+    ${log-lib}
+    ${android-lib}
+    -static-libstdc++ 
+)
