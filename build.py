@@ -6,6 +6,7 @@ import os
 import re
 import shutil
 import stat
+import kwallet2john
 import subprocess
 import sys
 import tarfile
