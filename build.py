@@ -14,7 +14,6 @@ import urllib.request
 from pathlib import Path
 from zipfile import ZipFile
 
-
 def color_print(code, str):
     if no_color:
         print(str)
@@ -22,15 +21,12 @@ def color_print(code, str):
         str = str.replace("\n", f"\033[0m\n{code}")
         print(f"{code}{str}\033[0m")
 
-
 def error(str):
     color_print("\033[41;39m", f"\n! {str}\n")
     sys.exit(1)
 
-
 def header(str):
     color_print("\033[44;39m", f"\n{str}\n")
-
 
 def vprint(str):
     if args.verbose > 0:
