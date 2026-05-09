@@ -1,0 +1,17 @@
+services:
+  c2-db:
+    image: mariadb:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: "PasswordSeguro123"
+      MYSQL_DATABASE: "c2_intelligence"
+    volumes:
+      - ./data/db:/var/lib/mysql
+
+  c2-panel:
+    image: php:8.2-apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./panel:/var/www/html
+    depends_on:
+      - c2-db

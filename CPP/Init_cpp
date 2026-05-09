@@ -1,0 +1,20 @@
+#include <unistd.h>
+#include <sys/reboot.h>
+#include <linux/kexec.h>
+#include <iostream>
+
+// Función para preparar el salto al Kernel de Auditoría
+void trigger_grub_jump() {
+    std::cout << "[NEXUS-BOOT] Preparando salto de Kernel..." << std::endl;
+    // Aquí se pasan los parámetros de arranque (bootargs)
+    // root=/dev/mmcblk0p50 indica la partición de tu Black Ubuntu
+    system("kexec -l /boot/vmlinuz --initrd=/boot/initrd.img --append='root=/dev/mmcblk0p50 quiet'");
+    
+    std::cout << "[OK] Kernel cargado. Reiniciando en Modo Auditoría..." << std::endl;
+    reboot(LINUX_REBOOT_CMD_KEXEC);
+}
+
+int main() {
+    trigger_grub_jump();
+    return 0;
+}

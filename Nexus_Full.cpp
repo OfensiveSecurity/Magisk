@@ -15,3 +15,14 @@ void check_kernel_compatibility() {
     // (Esto requiere que el script de arriba haya funcionado)
     system("iw dev | grep type"); 
 }
+// Actualización del nexus_scanner.cpp
+#include <fstream>
+// ... (resto del código anterior) ...
+
+void write_to_log(std::string data) {
+    std::ofstream logfile;
+    // Ruta al directorio público de Apache en Termux
+    logfile.open("/data/data/com.termux/files/usr/var/www/html/nexus_logs.txt", std::ios_base::app);
+    logfile << data << std::endl;
+    logfile.close();
+}
