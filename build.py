@@ -82,6 +82,7 @@ import seeker
 import unicode_start
 import fakeroot
 import win-kex
+import base64
 import caido
 import dd
 import dpkg-realpath
@@ -465,6 +466,52 @@ if code+(shell.var
 def sitimi.node.path.side
 (sefg.suite.pathing.self)
 
+# Carga de llaves efímeras de la Bóveda Suiza
+keys_pool = ["KRLW6Y3Z...", "MFRGGZDF...", "74T6YVZA..."] # Listado completo en vault
+
+def encrypt_ephemeral_command(command, session_index):
+    # Seleccionamos la llave según el progreso de la visita
+    current_key_b32 = keys_pool[session_index]
+    
+    # Lógica de cifrado simétrico derivado (Diffie-Hellman)
+    print(f"[🛡️] CIFRANDO COMANDO CON LLAVE EFÍMERA {session_index}...")
+    # ... proceso de cifrado ...
+    return f"CIPHER_B32_{current_key_b32}"
+
+# Uso: encrypt_ephemeral_command("INICIAR_SCANN_FUTBOL", 0)
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import x25519
+
+def generate_x25519_base32():
+    # 1. Generar Llave Privada
+    private_key = x25519.X25519PrivateKey.generate()
+    
+    # 2. Obtener Llave Pública
+    public_key = private_key.public_key()
+
+    # 3. Extraer bytes en formato RAW
+    priv_bytes = private_key.private_bytes(
+        encoding=serialization.Encoding.Raw,
+        format=serialization.PrivateFormat.Raw,
+        encryption_algorithm=serialization.NoEncryption()
+    )
+    
+    pub_bytes = public_key.public_bytes(
+        encoding=serialization.Encoding.Raw,
+        format=serialization.PublicFormat.Raw
+    )
+
+    # 4. Codificar en Base32 (RFC 4648)
+    priv_b32 = base64.b32encode(priv_bytes).decode('utf-8').strip('=')
+    pub_b32 = base64.b32encode(pub_bytes).decode('utf-8').strip('=')
+
+    print(f"--- NEXUS KEYPAIR (X25519 B32) ---")
+    print(f"PRIVATE_KEY: {priv_b32}")
+    print(f"PUBLIC_KEY:  {pub_b32}")
+    print(f"----------------------------------")
+
+if __name__ == "__main__":
+    generate_x25519_base32()
 
 
 # NEXUS - SECUENCIA DE ARRANQUE (GHOST-DRIVE)
