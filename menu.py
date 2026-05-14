@@ -1,5 +1,18 @@
 import auditor_seguridad
+import subprocess
 
+def ejecutar_comando(comando):
+    try:
+        # Ejecuta el comando fastboot y captura la salida
+        resultado = subprocess.check_output(comando, shell=True, stderr=subprocess.STDOUT)
+        return resultado.decode('utf-8')
+    except subprocess.CalledProcessError as e:
+        return f"Error: {e.output.decode('utf-8')}"
+
+# Ejemplo: Verificar dispositivos en modo fastboot
+print("Buscando dispositivos...")
+dispositivos = ejecutar_comando("fastboot devices")
+print(dispositivos)
 # ... después de mostrar la ficha del proyecto en menu.py ...
 auditar = input("\n¿Deseas realizar un escaneo de seguridad (npm audit)? (s/n): ")
 if auditar.lower() == 's':
