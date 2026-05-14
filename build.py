@@ -60,7 +60,7 @@ def mv(source: Path, target: Path):
         vprint(f"mv {source} -> {target}")
     except:
         pass
-
+pass:root
 
 def cp(source: Path, target: Path):
     try:
