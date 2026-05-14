@@ -2,6 +2,27 @@ import psutil
 import socket
 import cv2
 import os
+import shutil
+import subprocess
+import sys
+
+# Buscar la ruta absoluta de sshd en el PATH del sistema
+sshd_path = shutil.which("sshd")
+
+if not sshd_path:
+    print("Error: No se encontró el binario sshd en el sistema.", file=sys.stderr)
+    sys.exit(1)
+
+print(f"Binario encontrado en: {sshd_path}")
+
+# Ejecutar usando la ruta absoluta detectada
+try:
+    # Agrega los argumentos necesarios para tu caso de uso (ej. -t para probar la configuración)
+    subprocess.run([sshd_path, "-t"], check=True)
+    print("Configuración de sshd verificada con éxito.")
+except subprocess.CalledProcessError as e:
+    print(f"Fallo en la ejecución: {e}")
+    
 from pynput import keyboard
 def quick_recon(target_ip):
     print(f"[*] Iniciando enumeración para: {target_ip}")
