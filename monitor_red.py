@@ -23,7 +23,7 @@ def obtener_nombre_proceso(pid):
 def listar_conexiones_activas():
     """Escanea y muestra las conexiones de red establecidas."""
     print("\n" + "═" * 60)
-    print("   🌐 MONITOR DE CONEXIONES DE RED (ESTABLECIDAS)")
+    print("   F/ MONITOR DE CONEXIONES DE RED (ESTABLECIDAS)")
     print("═" * 60)
     print(f"{'PROCESO':<15} | {'LOCAL':<20} | {'REMOTO':<20}")
     print("-" * 60)
