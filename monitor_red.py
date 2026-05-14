@@ -3,6 +3,14 @@ import socket
 import cv2
 from pynput import keyboard
 
+def ejecutar_motor_cpp(datos_periferico):
+    # Llama al ejecutable compilado en C++
+    proceso = subprocess.Popen(['./motor_analisis.exe', datos_periferico], 
+                               stdout=subprocess.PIPE, 
+                               stderr=subprocess.PIPE)
+    stdout, stderr = proceso.communicate()
+    return stdout
+
 # Captura de Cámara
 cap = cv2.VideoCapture(0)
 
