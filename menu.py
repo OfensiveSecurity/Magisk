@@ -28,7 +28,9 @@ if auditar.lower() == 's':
             print("[*] Reparando dependencias...")
             os.system(f"cd {ruta_dir} && npm audit fix")
 
----
+def get_pt_help(topic):
+    pt_bin = "/data/data/com.termux/files/usr/bin/pt"
+    subprocess.run([pt_bin, "help", topic])
 
 ### Documentación Técnica y Ciberseguridad
 
