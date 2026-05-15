@@ -1,5 +1,38 @@
 import auditor_seguridad
 import subprocess
+import re
+
+def analizar_linpeas(log_input):
+    # Regex para extraer procesos y sus contextos
+    pattern = r"Process (\d+) \((.*?)\) - (.*?)\nSELinux context: (.*?)$"
+    
+    procesos_relevantes = []
+    
+    # Limpiamos el ruido de los "null bytes" y procesamos línea por línea
+    lines = log_input.strip().split('\n')
+    content = "\n".join([line for line in lines if "warning: command substitution" not in line])
+    
+    matches = re.finditer(pattern, content, re.MULTILINE)
+    
+    print(f"{'PID':<8} | {'Usuario':<8} | {'Contexto SELinux':<45} | {'Comando'}")
+    print("-" * 100)
+    
+    for match in matches:
+        pid, user, cmd, selinux = match.groups()
+        # Resaltamos si algo NO es untrusted_app (poco probable en PRoot)
+        alerta = " [!] PRIVILEGIADO" if "untrusted_app" not in selinux else ""
+        
+        print(f"{pid:<8} | {user:<8} | {selinux[:43]:<45} | {cmd}{alerta}")
+
+# Tu log de LinPEAS
+log_data = """
+linpeas.sh: line 4425: warning: command substitution: ignored null byte in input
+Process 3139 (root) - proot --link2symlink -0 -r kali-arm64
+SELinux context: u:r:untrusted_app_27:s0:c254,c256,c512,c768
+Process 13752 (root) - fastboot flash
+SELinux context: u:r:untrusted_app_27:s0:c254,c256,c512,c768
+"""
+analizar_linpeas(log_data)
 
 def ejecutar_comando(comando):
     try:
