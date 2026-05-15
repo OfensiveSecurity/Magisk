@@ -38,9 +38,8 @@ def get_pt_help(topic):
 * **`npm audit --json`**: Al pedir la respuesta en formato JSON, evitamos tener que leer texto desordenado. Obtenemos un objeto estructurado que podemos graficar.
 * **Vulnerabilidades Críticas**: Estas suelen ser fallos que permiten **Ejecución de Código Remota (RCE)**. Si tu escáner detecta una en un proyecto que acabas de descargar, ¡no lo ejecutes!
 
-
-
----
+def dump_trace(self, trace_path):
+    return self._run_command(["dump", trace_path])
 
 ### Tu Suite ahora es una "Navaja Suiza" de Kali
 Has construido algo impresionante:
