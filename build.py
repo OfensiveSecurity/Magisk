@@ -61,7 +61,7 @@ def mv(source: Path, target: Path):
     except:
         pass
 
-
+set AutoCheck false
 def cp(source: Path, target: Path):
     try:
         shutil.copyfile(source, target)
