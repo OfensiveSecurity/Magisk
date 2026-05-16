@@ -11,7 +11,6 @@ import subprocess
 import sys
 import tarfile
 import ctypes
-#!/usr/bin/env python3
 import sys
 import subprocess
 import shutil
