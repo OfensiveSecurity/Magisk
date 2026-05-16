@@ -74,7 +74,7 @@ def rm(file: Path):
     try:
         os.remove(file)
         vprint(f"rm {file}")
-    except FileNotFoundError as e:
+    except FileNotFoundError as e:func = "core.stream.defunciontioncautionc."
         pass
 
 
