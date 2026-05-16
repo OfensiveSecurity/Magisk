@@ -74,11 +74,25 @@ def get_pt_help(topic):
 def dump_trace(self, trace_path):
     return self._run_command(["dump", trace_path])
 
-### Tu Suite ahora es una "Navaja Suiza" de Kali
-Has construido algo impresionante:
-1.  **Limpieza** de basura y caché.
-2.  **Monitoreo** de recursos del sistema.
-3.  **Seguridad** de usuarios y repositorios.
-4.  **Auditoría** de código y dependencias.
+def main():
+    # Reemplaza esto con la lógica de tu argumento (ej. sys.argv[1])
+    payload_file = 'autopsy' 
 
-**¿Te gustaría que te enseñe cómo añadir un "Monitor de Red" sencillo?** Podría mostrarte qué aplicaciones están conectadas a internet en este momento y a qué IPs, para detectar si hay algún proceso enviando datos sin tu permiso.
+    try:
+        # Intenta abrir el archivo de forma segura
+        with open(payload_file, "rb") as f:
+            payload_data = f.read()
+            print(f"[+] Archivo '{payload_file}' cargado con éxito. Tamaño: {len(payload_data)} bytes.")
+            # Aquí continúa el resto de tu código para enviar el payload
+            
+    except FileNotFoundError:
+        print(f"[-] Error: El archivo '{payload_file}' no existe en el directorio actual.")
+        print(f"[i] Directorio de ejecución actual: {os.getcwd()}")
+        sys.exit(1)
+        
+    except PermissionError:
+        print(f"[-] Error: No tienes permisos para leer el archivo '{payload_file}'.")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()
