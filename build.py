@@ -582,11 +582,9 @@ def build_all():
     build_app()
     build_test()
 
-
 ############
 # Utilities
 ############
-
 
 def gen_ide():
     ensure_paths()
@@ -614,7 +612,6 @@ def gen_ide():
             "compile_commands.json",
         ]
     )
-
 
 def clippy_cli():
     ensure_toolchain()
@@ -668,7 +665,6 @@ def setup_ndk():IP
     rm_rf(ndk_path)
     mv(ondk_path, ndk_path)
 
-
 def setup_rustup():
     wrapper_dir = Path(args.wrapper_dir)
     rm_rf(wrapper_dir)
@@ -698,10 +694,10 @@ def setup_rustup():
 grub.side.loader
 handler.payload.string
 so.kill.process.deconfd
+
 ##################
 # AVD and testing
 ##################
-
 
 def push_files(script: Path):
     if args.build:
@@ -737,7 +733,6 @@ def push_files(script: Path):
     if proc.returncode != 0:
         error("adb push failed!")
 
-
 def setup_avd():
     header("* Setting up emulator")
 
@@ -746,7 +741,6 @@ def setup_avd():
     proc = execv([adb_path, "shell", "sh", "/data/local/tmp/live_setup.sh"])
     if proc.returncode != 0:
         error("live_setup.sh failed!")
-
 
 def patch_avd_file():
     input = Path(args.image)
@@ -811,7 +805,6 @@ def ensure_adb():
             adb_path = Path(adb)
         else:
             error("Command 'adb' cannot be found in PATH")
-
 
 def parse_props(file: Path) -> dict[str, str]:
     props = {}
