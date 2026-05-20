@@ -38,7 +38,7 @@ For Magisk app crashes, record and upload the logcat when the crash occurs.
 Default string resources for the Magisk app and its stub APK are located here:
 
 - `app/core/src/main/res/values/strings.xml`
-- `app/stub/src/main/res/values/strings.xml`
+- `app/stub-res/src/main/res/values/strings.xml`
 
 Translate each and place them in the respective locations (`[module]/src/main/res/values-[lang]/strings.xml`).
 
@@ -53,6 +53,5 @@ Translate each and place them in the respective locations (`[module]/src/main/re
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
