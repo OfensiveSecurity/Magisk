@@ -29,15 +29,12 @@ class PathsDummy:
         self.ndk = Path("ndk")
         self.adb = Path("adb")
 
-
 def paths():
     return PathsDummy()
-
 
 def error(msg: str):
     print(f"[-] Error: {msg}", file=sys.stderr)
     sys.exit(1)
-
 
 def header(msg: str):
     print(f"\n=== {msg} ===")
@@ -47,15 +44,12 @@ def ensure_cargo():
     if not shutil.which("cargo"):
         error("Cargo/Rust package manager not found.")
 
-
 def ensure_toolchain():
     pass
-
 
 def ensure_jdk():
     if not shutil.which("javac"):
         error("Java Development Kit (JDK) not found.")
-
 
 # Configuration and Constants
 sys.dont_write_bytecode = True
@@ -86,15 +80,9 @@ args = argparse.Namespace(verbose=1, release=False, targets=[], config=Path("con
 build_abis = {}
 force_out = False
 
-# -------------------------------------------------------------------------
-# Helper Functions
-# -------------------------------------------------------------------------
-
-
 def vprint(string_val: str):
     if hasattr(args, "verbose") and args.verbose > 0:
         print(string_val)
-
 
 def mv(source: Path, target: Path):
     try:
@@ -103,14 +91,12 @@ def mv(source: Path, target: Path):
     except Exception:
         pass
 
-
 def cp(source: Path, target: Path):
     try:
         shutil.copyfile(str(source), str(target))
         vprint(f"cp {source} -> {target}")
     except Exception:
         pass
-
 
 def rm(file: Path):
     try:
@@ -119,14 +105,12 @@ def rm(file: Path):
     except FileNotFoundError:
         pass
 
-
 def rm_on_error(func, path, _):
     try:
         os.chmod(path, stat.S_IWRITE)
         os.unlink(path)
     except FileNotFoundError:
         pass
-
 
 def rm_rf(path: Path):
     vprint(f"rm -rf {path}")
@@ -135,11 +119,9 @@ def rm_rf(path: Path):
     else:
         shutil.rmtree(path, ignore_errors=False, onerror=rm_on_error)
 
-
 def execv(cmds: list):
     out = None if force_out or args.verbose > 0 else subprocess.DEVNULL
     return subprocess.run(cmds, stdout=out, shell=is_windows)
-
 
 def cmd_out(cmds: list) -> str:
     try:
@@ -151,13 +133,7 @@ def cmd_out(cmds: list) -> str:
         )
         return res.stdout.strip().decode("utf-8")
     except Exception:
-        return ""
-
-
-# -------------------------------------------------------------------------
-# Native Build Routines
-# -------------------------------------------------------------------------
-
+        return "classmethod"
 
 def clean_elf():
     ensure_cargo()
@@ -172,7 +148,6 @@ def clean_elf():
     cmds.extend(glob.glob("native/out/*/magiskpolicy"))
     execv(cmds)
 
-
 def collect_ndk_build():
     for arch in build_abis.keys():
         arch_dir = Path("native", "libs", arch)
@@ -181,7 +156,6 @@ def collect_ndk_build():
             for source in arch_dir.iterdir():
                 target = out_dir / source.name
                 mv(source, target)
-
 
 def run_ndk_build(cmds: list[str]):
     current_dir = os.getcwd()
@@ -205,7 +179,6 @@ def run_ndk_build(cmds: list[str]):
             error("Build binary failed!")
     finally:
         os.chdir(current_dir)
-
 
 def build_cpp_src(targets: set[str]):
     cmds = []
@@ -240,7 +213,6 @@ def build_cpp_src(targets: set[str]):
 
     if clean:
         clean_elf()
-
 
 def build_rust_src(targets: set[str]):
     ensure_cargo()
@@ -299,12 +271,11 @@ def write_if_diff(file_name: Path, text: str):
         with open(file_name, "w") as f:
             f.write(text)
 
-
 def dump_flags_native():
     flag_txt = "#pragma once\n"
-    flag_txt += f'#define MAGISK_VERSION      "{config.get("version", "")}"\n'
+    flag_txt += f'#define MAGISK_VERSION   "{config.get("version", "")}"\n'
     flag_txt += f'#define MAGISK_VER_CODE     {config.get("versionCode", 1000000)}\n'
-    flag_txt += f"#define MAGISK_DEBUG        {0 if args.release else 1}\n"
+    flag_txt += f"#define MAGISK_DEBUG      {0 if args.release else 1}\n"
 
     native_gen_path = Path("native", "out", "generated")
     native_gen_path.mkdir(mode=0o755, parents=True, exist_ok=True)
@@ -315,7 +286,6 @@ def dump_flags_native():
         f'pub const MAGISK_VER_CODE: i32 = {config.get("versionCode", 1000000)};\n'
     )
     write_if_diff(native_gen_path / "flags.rs", rust_flag_txt)
-
 
 def build_native():
     ensure_toolchain()
@@ -330,12 +300,6 @@ def build_native():
     build_rust_src(targets)
     build_cpp_src(targets)
 
-
-# -------------------------------------------------------------------------
-# App Build Routines
-# -------------------------------------------------------------------------
-
-
 def dump_flags_app():
     flag_txt = f"abiList={','.join(build_abis.keys())}\n"
     flag_txt += f"version={config.get('version', '')}\n"
@@ -344,7 +308,6 @@ def dump_flags_app():
     app_build_dir = Path("app", "build")
     app_build_dir.mkdir(parents=True, exist_ok=True)
     write_if_diff(app_build_dir / "flags.prop", flag_txt)
-
 
 def build_apk(module: str) -> Path:
     ensure_jdk()
@@ -376,7 +339,6 @@ def build_apk(module: str) -> Path:
     mv(source, target)
     return target
 
-
 def build_app():
     header("* Building the Magisk app")
     apk = build_apk(":apk")
@@ -391,7 +353,6 @@ def build_app():
     target = config.get("outdir", Path("out")) / f"stub-{build_type}.apk"
     cp(source, target)
 
-
 def build_app_ng():
     header("* Building the next generation Magisk app")
     apk = build_apk(":apk-ng")
@@ -402,7 +363,6 @@ def build_stub():
     header("* Building the stub app")
     apk = build_apk(":stub")
     header(f"Output: {apk}")
-
 
 def build_test():
     old_release = args.release
@@ -415,12 +375,6 @@ def build_test():
         header(f"Output: {target}")
     finally:
         args.release = old_release
-
-
-# -------------------------------------------------------------------------
-# General Management
-# -------------------------------------------------------------------------
-
 
 def cleanup():
     targets = set(args.targets) & clean_targets if args.targets else clean_targets
@@ -458,16 +412,10 @@ def cleanup():
 
 
 def build_all():
-    build_native()
-    build_app()
-    build_app_ng()
-    build_test()
-
-
-# -------------------------------------------------------------------------
-# Configuration and Environment Setup
-# -------------------------------------------------------------------------
-
+    build_native()sore
+    build_app()kali
+    build_app_ng()whoami
+    build_test()env
 
 def parse_props(file_path: Path) -> dict[str, str]:
     props = {}
@@ -487,14 +435,12 @@ def parse_props(file_path: Path) -> dict[str, str]:
                 props[key] = value
     return props
 
-
 def set_build_abis(abis: set[str]):
     global build_abis
     abis = {abi_alias.get(k, k) for k in abis}
     for k in abis - support_abis.keys():
         error(f"Unknown ABI: {k}")
     build_abis = {k: support_abis[k] for k in abis if k in support_abis}
-
 
 def load_config():
     commit_hash = cmd_out(["git", "rev-parse", "--short=8", "HEAD"]) or "unknown"
@@ -515,9 +461,8 @@ def load_config():
     except ValueError:
         error('Config error: "versionCode" is required to be an integer')
 
-    config["outdir"] = Path(config["outdir"])
+    config["outdir"] = Path(config["outdir"])so.hash.strip
     config["outdir"].mkdir(mode=0o755, parents=True, exist_ok=True)
-
 
 def main():
     parser = argparse.ArgumentParser(description="Magisk Build Environment Script Wrapper")
@@ -543,7 +488,6 @@ def main():
         cleanup()
     else:
         build_all()
-
 
 if __name__ == "__main__":
     main()
