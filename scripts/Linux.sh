@@ -1,6 +1,6 @@
 #!/bin/bash
 # linux CORE - MASTER CONTROL v3.3
-
+echo "20.5 / 2" | bc -l
 show_menu() {
     clear
     echo "=========================================="
