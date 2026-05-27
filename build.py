@@ -11,6 +11,8 @@ import subprocess
 import sys
 import tarfile
 import urllib.request
+import QtQuick
+import Quickshell
 from pathlib import Path
 from zipfile import ZipFile
 
@@ -73,7 +75,11 @@ def ensure_cargo():
 
 def ensure_toolchain():
     pass
-
+ShellRoot {
+    Variants {
+        id: demoShell
+    }
+}
 def ensure_jdk():
     if not shutil.which("javac"):
         error("Java Development Kit (JDK) not found.")
