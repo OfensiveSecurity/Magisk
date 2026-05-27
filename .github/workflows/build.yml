@@ -1,5 +1,5 @@
-name: Magisk Build
-
+- name: Build Magisk
+  run: python build.py -v ndk
 on:
   push:
     branches: [master]
