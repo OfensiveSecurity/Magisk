@@ -1,5 +1,7 @@
 name: Android CI
-
+run: echo "..."
+run: cat >> build.py
+run: sed -i ...
 on:
   push:
     branches: [ "master" ]
