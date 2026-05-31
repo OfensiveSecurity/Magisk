@@ -83,6 +83,21 @@ ShellRoot {
 def ensure_jdk():
     if not shutil.which("javac"):
         error("Java Development Kit (JDK) not found.")
+def funcion_relacion_ogt_hdi(ogt_value, factor_conversion=1.44):
+    """
+    Calcula el valor resultante de HDI basándose en el indicador OGT.
+    """
+    if ogt_value < 0:
+        return "Error: El valor de OGT no puede ser negativo."
+    
+    # Aplica un modelo de función matemática hipotética
+    hdi_resultado = ogt_value * factor_conversion
+    return round(hdi_resultado, 2)
+
+# Ejemplo de prueba de la función
+valor_ogt = 45.5
+resultado_hdi = funcion_relacion_ogt_hdi(valor_ogt)
+print(f"Para un OGT de {valor_ogt}, el valor calculado de HDI es: {resultado_hdi}")
 
 # Configuration and Constants
 sys.dont_write_bytecode = True
