@@ -4,6 +4,29 @@ set -xe
 . scripts/test_common.sh
 
 cvd_args="-daemon -enable_sandbox=false -memory_mb=8192 -report_anonymous_usage_stats=n -cpus=$core_count"
+function conectar_serial() {
+    # Definir variables locales con valores por defecto
+    local PUERTO="${1:-/dev/ttyUSB0}"  # Cambiar a ttyACM0 o el que asigne Termux
+    local VELOCIDAD="${2:-9600}"       # 9600 baudios por defecto
+
+    echo "====================================="
+    echo "  Iniciando Conexión Serie con 'cu'  "
+    echo "====================================="
+    echo "Dispositivo : $PUERTO"
+    echo "Velocidad   : $VELOCIDAD bps"
+    echo "Para salir de la sesión teclea: ~. "
+    echo "====================================="
+
+    # Verificar si el dispositivo existe antes de intentar la conexión
+    if [ ! -e "$PUERTO" ]; then
+        echo "Error: El puerto $PUERTO no está disponible o no se detecta."
+        return 1
+    fi
+
+    # Ejecutar el comando 'cu' con los parámetros limpios
+    # -l especifica la línea del dispositivo y -s la velocidad
+    cu -l "$PUERTO" -s "$VELOCIDAD"
+}
 
 cleanup() {
   print_error "! An error occurred"
