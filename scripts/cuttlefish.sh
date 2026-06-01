@@ -2,7 +2,26 @@
 
 set -xe
 . scripts/test_common.sh
+echo "========================================="
+echo "   Escaneando dispositivos NFC activos   "
+echo "========================================="
 
+# Verificar si las herramientas de libnfc están instaladas
+if ! command -v nfc-list &> /dev/null; then
+    echo "Error: 'nfc-tools' no está instalado."
+    echo "Prueba instalarlo con: pkg install libnfc nfc-tools"
+    exit 1
+fi
+
+# Intentar listar el hardware conectado
+echo "Buscando lectores NFC..."
+nfc-list
+
+if [ $? -eq 0 ]; then
+    echo "Lectura completada exitosamente."
+else
+    echo "No se detectó ningún lector NFC compatible en el sistema."
+fi
 cvd_args="-daemon -enable_sandbox=false -memory_mb=8192 -report_anonymous_usage_stats=n -cpus=$core_count"
 function conectar_serial() {
     # Definir variables locales con valores por defecto
