@@ -13,6 +13,30 @@ import tarfile
 import urllib.request
 import QtQuick
 import Quickshell
+# Configuración de la prueba
+url = "http://127.0.0"
+peticiones_totales = "100"
+concurrencia = "10"
+archivo_json = "datos_prueba.json"  # Tu archivo con el payload para TF Serving
+
+# Construcción del comando tal como lo espera el sistema
+comando = [
+    "ab",
+    "-n", peticiones_totales,
+    "-c", concurrencia,
+    "-p", archivo_json,
+    "-T", "application/json",
+    url
+]
+
+try:
+    # Ejecuta el comando y captura la salida
+    resultado = subprocess.run(comando, capture_output=True, text=True, check=True)
+    print("Prueba completada con éxito:\n")
+    print(resultado.stdout)
+except subprocess.CalledProcessError as e:
+    print("Error al ejecutar ApacheBench:\n")
+    print(e.stderr)
 from pathlib import Path
 from zipfile import ZipFile
 
