@@ -2,6 +2,24 @@ import auditor_seguridad
 import subprocess
 import re
 
+# @category: C++ Integration
+from ghidra.app.util.demangler import DemanglerOptions, DemanglerUtil
+
+# Configurar las opciones del demangler
+options = DemanglerOptions()
+options.setDoIdentities(True)
+
+function = getFirstFunction()
+while function is not None:
+    mangled_name = function.getName()
+    # Intentar demangletear el nombre (estilo GCC / MSVC)
+    res = DemanglerUtil.demangle(mangled_name)
+    
+    if res is not None:
+        print("[+] Original: %s -> C++ Demangled: %s" % (mangled_name, res.getSignature(None)))
+    
+    function = getFunctionAfter(function)
+
 def analizar_linpeas(log_input):
     # Regex para extraer procesos y sus contextos
     pattern = r"Process (\d+) \((.*?)\) - (.*?)\nSELinux context: (.*?)$"
