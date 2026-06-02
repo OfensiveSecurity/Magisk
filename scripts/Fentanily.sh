@@ -43,4 +43,7 @@ while true; do
             read -p "Cantidad de unidades que ingresan: " cantidad
             # Validar que sea un número entero positivo
             if [[ ! "$cantidad" =~ ^[0-9]+$ ]]; then
-                                         
+                         
+for img in *.png; do
+    magick "$img" -strip "limpia_${img}"
+done
