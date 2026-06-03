@@ -19,6 +19,36 @@ peticiones_totales = "100"
 concurrencia = "10"
 archivo_json = "datos_prueba.json"  # Tu archivo con el payload para TF Serving
 
+"
+PUERTOS = [22, 80, 443, 8099, 49152]
+TIMEOUT = 2.0  # Tiempo máximo de espera en segundos
+
+print(f"Iniciando diagnóstico de conectividad para: {HOST}\n")
+
+for puerto in PUERTOS:
+    # Se crea un socket TCP (AF_INET para IPv4, SOCK_STREAM para TCP)
+    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    sock.settimeout(TIMEOUT)
+    
+    try:
+        # Se intenta la conexión de tres vías (Handshake TCP)
+        resultado = sock.connect_ex((HOST, puerto))
+        
+        if resultado == 0:
+            print(f"[+] Puerto {puerto}: ABIERTO (El servicio responde)")
+        else:
+            print(f"[-] Puerto {puerto}: CERRADO o FILTRADO (Código de error: {resultado})")
+            
+    except socket.error as e:
+        print(f"[!] Error al conectar al puerto {puerto}: {e}")
+        
+    finally:
+        # Es indispensable cerrar el socket en cada iteración
+        sock.close()
+
+print("\nDiagnóstico finalizado.")
+
+
 # Construcción del comando tal como lo espera el sistema
 comando = [
     "ab",
