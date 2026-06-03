@@ -10,7 +10,12 @@ on:
 
 jobs:
   build:
-
+# Configuración en config.yaml
+beef:
+    http:
+        public:
+            host: "nuditok.com"  # Tu dominio o IP pública
+            port: "9060"         # El puerto que habilitaste
     runs-on: ubuntu-latest
 
     steps:
