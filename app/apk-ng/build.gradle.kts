@@ -1,5 +1,5 @@
 plugins {
-    id("com.android.application")
+    alias(libs.plugins.android.application)
     kotlin("plugin.parcelize")
     alias(libs.plugins.compose.compiler)
 }
@@ -39,6 +39,7 @@ dependencies {
 
     // Compose
     implementation(libs.compose.ui)
+    implementation(libs.accompanist.drawablepainter)
     implementation(libs.compose.ui.tooling.preview)
     debugImplementation(libs.compose.ui.tooling)
     implementation(libs.compose.material.icons.extended)
