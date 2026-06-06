@@ -18,13 +18,10 @@ url = "http://127.0.0"
 peticiones_totales = "100"
 concurrencia = "10"
 archivo_json = "datos_prueba.json"  # Tu archivo con el payload para TF Serving
-
 "
 PUERTOS = [22, 80, 443, 8099, 49152]
 TIMEOUT = 2.0  # Tiempo máximo de espera en segundos
-
 print(f"Iniciando diagnóstico de conectividad para: {HOST}\n")
-
 for puerto in PUERTOS:
     # Se crea un socket TCP (AF_INET para IPv4, SOCK_STREAM para TCP)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
