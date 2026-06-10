@@ -1,0 +1,54 @@
+name: Magisk Android CI con Notificaciones
+
+on:
+  push:
+    branches: [ master ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del Codigo
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: 🛡️ Limpieza de Emergencia (Fix Not a Dynamic Executable)
+        run: |
+          sudo rm -f /etc/apt/sources.list.d/parrot.list
+          sudo rm -f /etc/apt/sources.list.d/kali.list
+          sudo dpkg-divert --remove /lib64 || true
+          sudo apt-get update || true
+          sudo apt-get install -f
+
+      - name: 🛠️ Configurar JDK y NDK
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - name: 🏗️ Compilar Magisk (Gradle)
+        run: |
+          chmod +x gradlew
+          ./gradlew clean
+          ./gradlew assembleRelease --stacktrace
+
+      - name: 📤 Subir Artefactos
+        uses: actions/upload-artifact@v4
+        with:
+          name: Magisk-Build
+          path: app/build/outputs/apk/release/*.apk
+
+      - name: 🔔 Notificar a Telegram
+        if: always() # Se ejecuta aunque la compilación falle
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            🚀 Proyecto: Magisk (Android CI)
+            Status: ${{ job.status == 'success' && '✅ Éxito' || '❌ Falló' }}
+            Commit: ${{ github.event.head_commit.message }}
+            Link: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
