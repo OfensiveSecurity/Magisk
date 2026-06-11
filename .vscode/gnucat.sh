@@ -11,3 +11,5 @@ set(CMAKE_CXX_STANDARD 17)
 
 add_executable(nfc_app nfc_reader.cpp)
 target_link_libraries(nfc_app PRIVATE winscard.lib)
+pkg install clang cmake ninja
+clang++ -std=c++20 oreo.cpp -o oreo
