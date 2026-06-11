@@ -1,0 +1,7 @@
+- name: Initialize CodeQL
+  uses: github/codeql-action/init@v3
+  with:
+    languages: ${{ matrix.language }}
+    # Configurar compilación manual para C/C++
+    build-mode: ${{ matrix.language == 'cpp' && 'manual' || 'none' }}
+    # ... otras configuraciones

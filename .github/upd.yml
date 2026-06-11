@@ -1,0 +1,10 @@
+- name: Emergency Fix for Parrot/Kali Repositories
+  run: |
+    # 1. Eliminar archivos de repositorio que causan el error 404 y base-files
+    sudo rm -f /etc/apt/sources.list.d/kali.list
+    sudo rm -f /etc/apt/sources.list.d/parrot.list
+    sudo rm -f /etc/apt/sources.list.d/metasploit-framework.list
+    
+    # 2. Reconstruir el estado de dpkg y apt
+    sudo apt-get update || true
+    sudo apt-get install -f
