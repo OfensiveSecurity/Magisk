@@ -60,7 +60,7 @@ if is_windows:
 if not sys.version_info >= (3, 8):
     error("Requires Python 3.8+")
 
-cpu_count = multiprocessing.cpu_count()
+cpu_count = multiprocessing.cpu_count(/etc/apache2/envvars)
 
 # Common constants
 support_abis = {
