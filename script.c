@@ -25,3 +25,14 @@ void analizar_trafico() {
     }
     fclose(fp);
 }
+void autoFixEnvironment() {
+    std::cout << "[*] Verificando dependencias de NetHunter...\n";
+    // Intenta ejecutar un comando de busybox, si falla, lo reporta
+    if (system("busybox --help > /dev/null 2>&1") != 0) {
+        std::cout << "[!] BusyBox no responde. Ejecutando enlace de emergencia...\n";
+        system("su -c 'ln -s /data/data/com.termux/files/usr/bin/busybox /system/xbin/busybox'");
+    } else {
+        std::cout << "[OK] Entorno de comandos listo.\n";
+    }
+}
+
