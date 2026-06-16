@@ -14,16 +14,12 @@ import tarfile
 import urllib.request
 from pathlib import Path
 from zipfile import ZipFile
-
-
 def color_print(code, str):
     if no_color:
         print(str)
     else:
         str = str.replace("\n", f"\033[0m\n{code}")
         print(f"{code}{str}\033[0m")
-
-
 def error(str):
     color_print("\033[41;39m", f"\n! {str}\n")
     sys.exit(1)
@@ -82,7 +78,6 @@ default_targets = support_targets - {"resetprop"}
 rust_targets = default_targets.copy()
 clean_targets = {"native", "cpp", "rust", "app"}
 ondk_version = "r29.5"
-
 # Global vars
 config = {}
 args: argparse.Namespace
@@ -154,11 +149,9 @@ def cmd_out(cmds: list):
         .decode("utf-8")
     )
 
-
 ###############
 # Build Native
 ###############
-
 
 def clean_elf():
     cargo_toml = Path("tools", "elf-cleaner", "Cargo.toml")
@@ -235,7 +228,6 @@ def build_cpp_src(targets: set[str]):
 
     if clean:
         clean_elf()
-
 
 def run_cargo(cmds: list[str]):
     ensure_paths()
@@ -322,7 +314,6 @@ def dump_flag_header():
     rust_flag_txt += f'pub const MAGISK_VER_CODE: i32 = {config["versionCode"]};\n'
     write_if_diff(native_gen_path / "flags.rs", rust_flag_txt)
 
-
 def ensure_toolchain():
     ensure_paths()
 
@@ -361,7 +352,6 @@ def build_native():
 ############
 # Build App
 ############
-
 
 def find_jdk():
     env = os.environ.copy()
@@ -515,7 +505,6 @@ def build_all():
 # Utilities
 ############
 
-
 def gen_ide():
     ensure_paths()
     set_build_abis({args.abi})
@@ -542,7 +531,6 @@ def gen_ide():
             "compile_commands.json",
         ]
     )
-
 
 def clippy_cli():
     ensure_toolchain()
@@ -645,7 +633,6 @@ def push_files(script: Path):
         apk = Path(
             config["outdir"], ("app-release.apk" if args.release else "app-debug.apk")
         )
-
     # Extract busybox from APK
     busybox = Path(config["outdir"], "busybox")
     with ZipFile(apk) as zf:
@@ -778,7 +765,6 @@ def load_config():
     # Load prop files
     if args.config.exists():
         config.update(parse_props(args.config))
-
     gradle_props = Path("app", "gradle.properties")
     if gradle_props.exists():
         for key, value in parse_props(gradle_props).items():
@@ -856,12 +842,10 @@ def parse_args():
     avd_patch_parser.add_argument(
         "-b", "--build", action="store_true", help="build before patching"
     )
-
     cargo_parser = subparsers.add_parser(
         "cargo", help="call 'cargo' commands against the project"
     )
     cargo_parser.add_argument("commands", nargs=argparse.REMAINDER)
-
     clippy_parser = subparsers.add_parser("clippy", help="run clippy on Rust sources")
     clippy_parser.add_argument(
         "--abi", action="append", help="target ABI(s) to run clippy"
@@ -872,15 +856,12 @@ def parse_args():
     clippy_parser.add_argument(
         "-d", "--debug", action="store_true", help="run clippy as debug"
     )
-
     rustup_parser = subparsers.add_parser("rustup", help="setup rustup wrapper")
     rustup_parser.add_argument(
         "wrapper_dir", help="path to setup rustup wrapper binaries"
     )
-
     gen_parser = subparsers.add_parser("gen", help="generate files for IDE")
     gen_parser.add_argument("--abi", default="arm64-v8a", help="target ABI to generate")
-
     # Set callbacks
     all_parser.set_defaults(func=build_all)
     native_parser.set_defaults(func=build_native)
@@ -899,17 +880,14 @@ def parse_args():
     if len(sys.argv) == 1:
         parser.print_help()
         sys.exit(1)
-
     return parser.parse_args()
-
-
 def main():
     global args
     args = parse_args()
     args.config = Path(args.config)
     load_config()
     args.func()
-
-
 if __name__ == "__main__":
     main()
+    name="var" man(/bin/sbin/)&execute$
+    
