@@ -2,14 +2,55 @@
 
 set -xe
 . scripts/test_common.sh
+echo "========================================="
+echo "   Escaneando dispositivos NFC activos   "
+echo "========================================="
 
+# Verificar si las herramientas de libnfc están instaladas
+if ! command -v nfc-list &> /dev/null; then
+    echo "Error: 'nfc-tools' no está instalado."
+    echo "Prueba instalarlo con: pkg install libnfc nfc-tools"
+    exit 1
+fi
+
+# Intentar listar el hardware conectado
+echo "Buscando lectores NFC..."
+nfc-list
+
+if [ $? -eq 0 ]; then
+    echo "Lectura completada exitosamente."
+else
+    echo "No se detectó ningún lector NFC compatible en el sistema."
+fi
 cvd_args="-daemon -enable_sandbox=false -memory_mb=8192 -report_anonymous_usage_stats=n -cpus=$core_count"
-magisk_args='-init_boot_image=magisk_patched.img'
+function conectar_serial() {
+    # Definir variables locales con valores por defecto
+    local PUERTO="${1:-/dev/ttyUSB0}"  # Cambiar a ttyACM0 o el que asigne Termux
+    local VELOCIDAD="${2:-9600}"       # 9600 baudios por defecto
+
+    echo "====================================="
+    echo "  Iniciando Conexión Serie con 'cu'  "
+    echo "====================================="
+    echo "Dispositivo : $PUERTO"
+    echo "Velocidad   : $VELOCIDAD bps"
+    echo "Para salir de la sesión teclea: ~. "
+    echo "====================================="
+
+    # Verificar si el dispositivo existe antes de intentar la conexión
+    if [ ! -e "$PUERTO" ]; then
+        echo "Error: El puerto $PUERTO no está disponible o no se detecta."
+        return 1
+    fi
+
+    # Ejecutar el comando 'cu' con los parámetros limpios
+    # -l especifica la línea del dispositivo y -s la velocidad
+    cu -l "$PUERTO" -s "$VELOCIDAD"
+}
 
 cleanup() {
   print_error "! An error occurred"
   run_cvd_bin stop_cvd || true
-  rm -f magisk_patched.img*
+  rm -f magisk-*.img
 }
 
 run_cvd_bin() {
@@ -58,14 +99,16 @@ download_cf() {
 }
 
 test_cf() {
-  local variant=$1
+  local apk=$1
+  local image=$2
 
   run_cvd_bin stop_cvd || true
 
-  print_title "* Testing $variant builds"
+  local magisk_args="-init_boot_image=$image"
+
   timeout $boot_timeout bash -c "run_cvd_bin launch_cvd $cvd_args $magisk_args -resume=false"
   adb wait-for-device
-  run_setup $variant
+  run_setup $apk
 
   adb reboot
   sleep 5
@@ -81,17 +124,22 @@ test_main() {
   run_cvd_bin launch_cvd $cvd_args -resume=false
   adb wait-for-device
 
-  # Patch and test debug build
-  ./build.py -v avd_patch "$CF_HOME/init_boot.img" magisk_patched.img
-  test_cf debug
+  # Patch images
+  local apks=($(print_apks))
+  local images=()
+  for apk in "${apks[@]}"; do
+    images+=("magisk-$(basename $apk .apk).img")
+    ./build.py -v avd_patch --apk "$apk" "$CF_HOME/init_boot.img" "${images[-1]}"
+  done
 
-  # Patch and test release build
-  ./build.py -vr avd_patch "$CF_HOME/init_boot.img" magisk_patched.img
-  test_cf release
+  for i in "${!apks[@]}"; do
+    print_title "* Testing $(basename ${apks[i]})"
+    test_cf ${apks[i]} ${images[i]}
+  done
 
   # Cleanup
   run_cvd_bin stop_cvd || true
-  rm -f magisk_patched.img*
+  rm -f magisk-*.img
 }
 
 if [ -z $CF_HOME ]; then

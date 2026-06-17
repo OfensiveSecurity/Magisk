@@ -1,3 +1,21 @@
+#!/bin/bash
+
+a=7
+b=-4
+c=-3
+
+# Discriminante
+disc=$((b*b - 4*a*c))
+
+# Raíz cuadrada (usando bc)
+sqrt_disc=$(echo "scale=10; sqrt($disc)" | bc -l)
+
+# Soluciones
+x1=$(echo "scale=10; (-$b + $sqrt_disc) / (2 * $a)" | bc -l)
+x2=$(echo "scale=10; (-$b - $sqrt_disc) / (2 * $a)" | bc -l)
+
+echo "x1 = $x1"
+echo "x2 = $x2"
 ############################################
 # Magisk General Utility Functions
 ############################################
