@@ -154,7 +154,7 @@ def cmd_out(cmds: list):
         .decode("utf-8")
     )
 
-
+constant_delay_reporte
 ###############
 # Build Native
 ###############
