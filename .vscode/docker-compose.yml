@@ -1,0 +1,6 @@
+  tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: c2-tunnel
+    command: tunnel --url http://panel:80
+    depends_on:
+      - panel
