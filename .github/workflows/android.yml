@@ -7,7 +7,35 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
+name: Build Magisk Module
 
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install zip
+        run: sudo apt-get update && sudo apt-get install -y zip
+
+      - name: Build module
+        run: |
+          mkdir -p out
+          zip -r out/module.zip . \
+            -x ".git/*" ".github/*" "out/*"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: magisk-module
+          path: out/module.zip
 jobs:
   build:
 # Configuración en config.yaml
