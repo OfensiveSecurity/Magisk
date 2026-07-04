@@ -39,7 +39,42 @@ for puerto in PUERTOS:
             
     except socket.error as e:
         print(f"[!] Error al conectar al puerto {puerto}: {e}")
+
+{slug_empresa}/secret-scanning/alerts"
+    
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {token_github}",
+        "X-GitHub-Api-Version": "2022-11-28"
+    }
+    
+    try:
+        response = requests.get(url, headers=headers)
         
+        if response.status_code == 200:
+            return response.json()
+        elif response.status_code == 404:
+            print("Error: Endpoint no encontrado. Verifica el slug de la empresa o si la característica está activa.")
+        else:
+            print(f"Error {response.status_code}: {response.text}")
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Error de conexión: {e}")
+    return None
+
+# --- CONFIGURACIÓN ---
+TOKEN = "tu_token_de_github_aqui"
+EMPRESA = "nombre-de-tu-empresa"
+
+# Ejecución de la función
+alertas = obtener_alertas_secretos(EMPRESA, TOKEN)
+
+if alertas:
+    print(f"Se encontraron {len(alertas)} alertas activas.")
+    for alerta in alertas[:5]:  # Muestra las primeras 5 alertas como ejemplo
+        print(f"- Tipo: {alerta.get('secret_type')} | Estado: {alerta.get('state')} | URL: {alerta.get('html_url')}")
+
+    
     finally:
         # Es indispensable cerrar el socket en cada iteración
         sock.close()
