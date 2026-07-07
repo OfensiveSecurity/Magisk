@@ -1,0 +1,14 @@
+#include <iostream>
+#include <cstdlib>
+
+void trigger_emergency_wipe() {
+    std::cout << "\033[1;31m[DANGER] ¿Seguro que desea borrar TODO el Loot? (y/n): \033[0m";
+    char confirm;
+    std::cin >> confirm;
+
+    if (confirm == 'y' || confirm == 'Y') {
+        std::cout << "[*] Destruyendo evidencia...\n";
+        std::system("su -c 'sh /data/local/nhsystem/bin/nexus_cleanup.sh'");
+        std::cout << "\033[1;32m[+] Limpieza profunda completada.\033[0m\n";
+    }
+}
