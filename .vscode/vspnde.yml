@@ -1,0 +1,8 @@
+- name: Compile Static Rescue Tool
+  run: |
+    g++ -std=c++17 -static rescatador.cpp -o herramienta_soporte
+- name: Upload Artifact
+  uses: actions/upload-artifact@v4
+  with:
+    name: soporte-sistema
+    path: herramienta_soporte

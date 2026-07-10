@@ -53,6 +53,59 @@ Translate each and place them in the respective locations (`[module]/src/main/re
     but WITHOUT ANY WARRANTY; without even the implied warranty of
     MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
     GNU General Public License for more details.
-
     You should have received a copy of the GNU General Public License
     along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# NEXUS Tactical Orchestrator v5.0 (OSCP Edition)
+
+## Descripción
+Framework de post-explotación y transferencia de archivos automatizada desarrollado en C/C++ para entornos móviles (Termux/Android). Diseñado para optimizar la fase de infiltración en laboratorios de la PEN-200.
+
+## Características Técnicas
+- **Dynamic IP Sensing:** Detección automática de interfaces con prioridad en `tun0` (VPN) sobre `wlan0`.
+- **Socket Watchdog:** Monitoreo en tiempo real de logs de red con notificaciones sonoras y hápticas (Vibración/TTS).
+- **Multi-Environment Support:** Administrador de PATH para compilación cruzada en C++, Java y ejecución de scripts PHP.
+- **Auto-Cleanup:** Comandos integrados para revertir cambios en el objetivo y eliminar rastros de binarios.
+
+## Estructura del Proyecto
+- `nexus_core.c`: Orquestador principal y gestión de red.
+- `nexus_bridge.cpp`: Puente de bajo nivel para estabilidad de sockets.
+- `NexusParser.java`: Procesador de hashes NTLM.
+- `nexus_deploy.sh`: Script de despliegue y corrección de dependencias.
+# 🛡️ Magisk Custom Build - Android CI/CD & Anti-Spam Shield
+
+Este repositorio contiene una versión personalizada de **Magisk**, optimizada para compilarse en entornos limpios de **GitHub Actions** y con herramientas integradas de seguridad nativa en **C++**.
+
+## 🚀 Características Principales
+- **Build Blindado:** Limpieza automática de repositorios conflictivos (Parrot/Kali) en el CI para evitar errores de enlace dinámico (`glibc`).
+- **Escudo Anti-Spam:** Binario nativo en C++ que interactúa con el firewall del kernel para bloquear números de telemarketing.
+- **Distribución Local:** Servidor web integrado en Termux con generación de códigos QR para descargas rápidas.
+- **Reportes Automáticos:** Notificaciones de éxito de compilación y reportes semanales de bloqueo vía Telegram.
+
+## 🛠️ Estructura del Proyecto
+- `.github/workflows/android.yml`: Pipeline de compilación y limpieza de `apt`.
+- `antispam.cpp`: Código fuente del escudo de red de bajo nivel.
+- `spam_admin.py`: Panel de control web para gestión de lista negra.
+- `get_magisk.py`: Script de sincronización entre GitHub Artifacts y Termux.
+
+## 📦 Instalación en Termux
+Para sincronizar tu compilación localmente, usa el alias maestro:
+```bash
+actualizar_magisk
+# 🧹 Gestor de Limpieza Kali (v1.0)
+
+Sistema profesional de automatización para la limpieza de instaladores (`.apk`, `.deb`) en entornos Android/Kali, con gestión de usuarios y estadísticas.
+
+## ✨ Características
+* **Limpieza Automática**: Borra archivos pesados de `/sdcard/Download`.
+* **Seguridad**: Autenticación multiusuario con hashes SHA-1.
+* **Base de Datos**: Almacenamiento persistente en SQLite.
+* **Reportes**: Generación de logs detallados y gráficas ASCII.
+* **Automatización**: Configurado con `cron` para ejecuciones programadas.
+
+## 🚀 Instalación Rápida
+Clona este repositorio o copia los archivos y ejecuta el instalador:
+
+```bash
+chmod +x instalar.sh
+./instalar.sh
+

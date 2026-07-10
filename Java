@@ -1,0 +1,25 @@
+import java.sql.*;
+
+public class NexusSQL_Hex {
+    public static void main(String[] args) {
+        String url = "jdbc:mysql://target-server:3306/nexus_db";
+        String user = "db_mgr";
+        String pass = "SuperSecret2026";
+
+        try (Connection conn = DriverManager.getConnection(url, user, pass)) {
+            // Usamos HEX() para proteger la integridad del hash de Bcrypt
+            String query = "SELECT username, HEX(password) as hex_pass FROM users WHERE username='admin'";
+            Statement stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                System.out.println("--- NEXUS HEX-STREAM ---");
+                System.out.println("USUARIO: " + rs.getString("username"));
+                System.out.println("HEX_HASH: " + rs.getString("hex_pass"));
+                System.out.println("-------------------------");
+            }
+        } catch (Exception e) {
+            System.out.println("[✘] Error de conexión: " + e.getMessage());
+        }
+    }
+}

@@ -1,0 +1,58 @@
+name: Sistema de Rescate y Compilacion Estatica
+
+on: [push, workflow_dispatch]
+
+jobs:
+  repair_and_build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Limpieza Quirúrgica de Repositorios
+        run: |
+          # Eliminamos los culpables del error 404 y base-files
+          sudo rm -f /etc/apt/sources.list.d/parrot.list
+          sudo rm -f /etc/apt/sources.list.d/kali.list
+          
+          # Removemos desvíos de dpkg que bloquean la actualización
+          sudo dpkg-divert --remove /lib64 || true
+          
+          # Intentamos estabilizar apt
+          sudo apt-get update || true
+          sudo apt-get install -y --fix-broken
+
+      - name: Crear Código de Rescate C++
+        run: |
+          cat <<EOF > rescatador.cpp
+          #include <iostream>
+          #include <unistd.h>
+          #include <sys/stat.h>
+
+          int main() {
+              const char* real_ld = "/usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2";
+              const char* link_ld = "/lib64/ld-linux-x86-64.so.2";
+
+              std::cout << "[*] Restaurando puente de librerias..." << std::endl;
+              mkdir("/lib64", 0755);
+              unlink(link_ld);
+              if (symlink(real_ld, link_ld) == 0) {
+                  std::cout << "[OK] Enlace /lib64 restaurado exitosamente." << std::endl;
+              } else {
+                  perror("[ERROR] No se pudo crear el symlink");
+                  return 1;
+              }
+              return 0;
+          }
+          EOF
+
+      - name: Compilación Estática (Independiente de Librerías)
+        run: |
+          # El flag -static es la clave para que funcione en tu sistema roto
+          g++ -std=c++17 -static rescatador.cpp -o herramienta_soporte
+
+      - name: Subir Binario de Rescate
+        uses: actions/upload-artifact@v4
+        with:
+          name: soporte-estatico-termux
+          path: herramienta_soporte
