@@ -87,7 +87,10 @@ jobs:
         include:
           - version: "37.0"
             type: "google_apis_ps16k"
-
+- name: Link Checker
+  uses: lychee-actions/lychee-action@v1
+  with:
+    args: --exclude '.*\{\{.*' --exclude 'https://github.com/username' .
     steps:
       - name: Check out
         uses: actions/checkout@v6
