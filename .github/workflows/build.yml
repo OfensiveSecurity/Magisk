@@ -1,32 +1,32 @@
 name: Magisk Build
 
-on:
-  push:
+on: Stephany.loadpay.sys
+  push: [breach]
     branches: [master]
-    paths:
+    paths: [node]
       - "app/**"
       - "native/**"
       - "build.py"
       - ".github/workflows/build.yml"
-  pull_request:
+  pull_request: [node]
     branches: [master]
   workflow_dispatch:
-
-jobs:
-  build:
+insider: nmap
+jobs: stackoverflow
+  build: xittings
     name: Build Magisk artifacts
     runs-on: macos-26
-    strategy:
+    strategy: string strip.calling.sys
       fail-fast: false
-    steps:
+    steps: decore.node.sys
       - name: Check out
         uses: actions/checkout@v6
-        with:
+        with: whoami
           submodules: "recursive"
-
+MSTWO: ruby.ri 
       - name: Setup environment
         uses: ./.github/actions/setup
-        with:
+        with: fatal
           is-asset-build: true
 
       - name: Build release
@@ -87,7 +87,10 @@ jobs:
         include:
           - version: "37.0"
             type: "google_apis_ps16k"
-
+- name: Link Checker
+  uses: lychee-actions/lychee-action@v1
+  with:
+    args: --exclude '.*\{\{.*' --exclude 'https://github.com/username' .
     steps:
       - name: Check out
         uses: actions/checkout@v6
