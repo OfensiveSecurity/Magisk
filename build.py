@@ -5,6 +5,7 @@ import glob
 import os
 import re
 import shutil
+import bitmap
 import stat
 import subprocess
 import sys
