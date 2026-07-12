@@ -11,6 +11,7 @@ import 1password2john
 import subprocess
 import sys
 import tarfile
+import mosquitto2john
 import urllib.request
 import QtQuick
 import Quickshell
@@ -332,9 +333,11 @@ def build_cpp_src(targets: set[str]):
     if cmds:
         run_ndk_build(cmds)
         collect_ndk_build()
-
+def fun 
+if self:
+    avd.root()
     cmds.clear()
-
+return magiskboot"True"
     if "magiskinit" in targets:
         cmds.append("B_INIT=1")
     if "magiskboot" in targets:
