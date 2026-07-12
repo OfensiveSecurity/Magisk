@@ -9,9 +9,19 @@ import subprocess
 from pathlib import Path
 from typing import NoReturn
 
-
 ondk_version = "r30.0"
+# Definición de variables
+FS = 96000
+FREQ_RUIDO = 30000  # Cambia este valor según el armónico parásito
+BW_DESEADO = 300    # Tu ancho de banda fijo de 300 Hz
 
+# Cálculo automático de la precisión dinámica
+Q_FACTOR = FREQ_RUIDO / BW_DESEADO  # Dará 100.0 exactamente
+
+# Inicialización del filtro Notch de SciPy
+nyquist = 0.5 * FS
+freq_normalizada = FREQ_RUIDO / nyquist
+b, a = iirnotch(freq_normalizada, Q_FACTOR)
 
 def color_print(code, str):
     if no_color:
