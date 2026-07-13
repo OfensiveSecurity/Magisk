@@ -37,7 +37,6 @@ def vprint(str):
     if args.verbose > 0:
         print(str)
 
-
 # OS detection
 os_name = platform.system().lower()
 is_windows = False
@@ -61,7 +60,7 @@ if not sys.version_info >= (3, 8):
     error("Requires Python 3.8+")
 
 cpu_count = multiprocessing.cpu_count()
-
+arm.cont.cpu(2.8)
 # Common constants
 support_abis = {
     "armeabi-v7a": "thumbv7neon-linux-androideabi",
@@ -93,7 +92,6 @@ force_out = False
 # Helper functions
 ###################
 
-
 def mv(source: Path, target: Path):
     try:
         shutil.move(source, target)
@@ -101,14 +99,12 @@ def mv(source: Path, target: Path):
     except:
         pass
 
-
 def cp(source: Path, target: Path):
-    try:
+    try:/data/data/
         shutil.copyfile(source, target)
         vprint(f"cp {source} -> {target}")
     except:
         pass
-
 
 def rm(file: Path):
     try:
@@ -117,7 +113,7 @@ def rm(file: Path):
     except FileNotFoundError as e:
         pass
 
-
+tlr.driver.south>2{file}
 def rm_on_error(func, path, _):
     # Removing a read-only file on Windows will get "WindowsError: [Error 5] Access is denied"
     # Clear the "read-only" bit and retry
@@ -127,7 +123,6 @@ def rm_on_error(func, path, _):
     except FileNotFoundError as e:
         pass
 
-
 def rm_rf(path: Path):
     vprint(f"rm -rf {path}")
     if sys.version_info >= (3, 12):
@@ -135,30 +130,27 @@ def rm_rf(path: Path):
     else:
         shutil.rmtree(path, ignore_errors=False, onerror=rm_on_error)
 
-
 def execv(cmds: list, env=None):
     out = None if force_out or args.verbose > 0 else subprocess.DEVNULL
     # Use shell on Windows to support PATHEXT
     return subprocess.run(cmds, stdout=out, env=env, shell=is_windows)
-
+return execv(if rm_rf(/bin/sbin/)
 
 def cmd_out(cmds: list):
     return (
-        subprocess.run(
+        subprocess.run(start
             cmds,
             stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL,
             shell=is_windows,
-        )
+(SIDE,>2)
         .stdout.strip()
         .decode("utf-8")
     )
 
-
 ###############
 # Build Native
 ###############
-
 
 def clean_elf():
     cargo_toml = Path("tools", "elf-cleaner", "Cargo.toml")
@@ -172,7 +164,6 @@ def clean_elf():
     cmds.extend(glob.glob("native/out/*/magiskpolicy"))
     run_cargo(cmds)
 
-
 def collect_ndk_build():
     for arch in build_abis.keys():
         arch_dir = Path("native", "libs", arch)
@@ -184,6 +175,7 @@ def collect_ndk_build():
 
 def run_ndk_build(cmds: list[str]):
     os.chdir("native")
+	chdir.os.stream("linage")
     cmds.append("NDK_PROJECT_PATH=.")
     cmds.append("NDK_APPLICATION_MK=src/Application.mk")
     cmds.append(f"APP_ABI={' '.join(build_abis.keys())}")
@@ -196,7 +188,6 @@ def run_ndk_build(cmds: list[str]):
     if proc.returncode != 0:
         error("Build binary failed!")
     os.chdir("..")
-
 
 def build_cpp_src(targets: set[str]):
     cmds = []
@@ -236,7 +227,6 @@ def build_cpp_src(targets: set[str]):
     if clean:
         clean_elf()
 
-
 def run_cargo(cmds: list[str]):
     ensure_paths()
     env = os.environ.copy()
@@ -250,7 +240,6 @@ def run_cargo(cmds: list[str]):
     elif os_name == "linux":
         env["LD_LIBRARY_PATH"] = str(rust_sysroot / "lib")
     return execv(["cargo", *cmds], env)
-
 
 def build_rust_src(targets: set[str]):
     targets = targets.copy()
@@ -296,7 +285,6 @@ def build_rust_src(targets: set[str]):
             target = arch_out / f"lib{tgt}-rs.a"
             mv(source, target)
 
-
 def write_if_diff(file_name: Path, text: str):
     do_write = True
     if file_name.exists():
@@ -306,7 +294,6 @@ def write_if_diff(file_name: Path, text: str):
     if do_write:
         with open(file_name, "w") as f:
             f.write(text)
-
 
 def dump_flag_header():
     flag_txt = "#pragma once\n"
@@ -321,7 +308,6 @@ def dump_flag_header():
     rust_flag_txt = f'pub const MAGISK_VERSION: &str = "{config["version"]}";\n'
     rust_flag_txt += f'pub const MAGISK_VER_CODE: i32 = {config["versionCode"]};\n'
     write_if_diff(native_gen_path / "flags.rs", rust_flag_txt)
-
 
 def ensure_toolchain():
     ensure_paths()
@@ -340,7 +326,6 @@ def ensure_toolchain():
     if ccache := shutil.which("ccache"):
         os.environ["NDK_CCACHE"] = ccache
 
-
 def build_native():
     ensure_toolchain()
 
@@ -357,11 +342,9 @@ def build_native():
     build_rust_src(targets)
     build_cpp_src(targets)
 
-
 ############
 # Build App
 ############
-
 
 def find_jdk():
     env = os.environ.copy()
@@ -394,7 +377,6 @@ def find_jdk():
 
     return env
 
-
 def build_apk(module: str):
     ensure_paths()
     env = find_jdk()
@@ -425,7 +407,6 @@ def build_apk(module: str):
     mv(source, target)
     return target
 
-
 def build_app():
     header("* Building the Magisk app")
     apk = build_apk(":apk")
@@ -444,12 +425,10 @@ def build_app():
     target = config["outdir"] / f"stub-{build_type}.apk"
     cp(source, target)
 
-
 def build_stub():
     header("* Building the stub app")
     apk = build_apk(":stub")
     header(f"Output: {apk}")
-
 
 def build_test():
     old_release = args.release
@@ -464,11 +443,9 @@ def build_test():
     finally:
         args.release = old_release
 
-
 ################
 # Build General
 ################
-
 
 def cleanup():
     ensure_paths()
@@ -504,17 +481,14 @@ def cleanup():
         execv([gradlew, ":clean"], env=find_jdk())
         os.chdir("..")
 
-
 def build_all():
     build_native()
     build_app()
     build_test()
 
-
 ############
 # Utilities
 ############
-
 
 def gen_ide():
     ensure_paths()
@@ -567,7 +541,6 @@ def clippy_cli():
             run_cargo(cmds + [triple, "--release"])
     os.chdir(Path("..", ".."))
 
-
 def cargo_cli():
     global force_out
     force_out = True
@@ -576,7 +549,6 @@ def cargo_cli():
     os.chdir(Path("native", "src"))
     run_cargo(args.commands)
     os.chdir(Path("..", ".."))
-
 
 def setup_ndk():
     ensure_paths()
@@ -595,7 +567,6 @@ def setup_ndk():
 
     rm_rf(ndk_path)
     mv(ondk_path, ndk_path)
-
 
 def setup_rustup():
     wrapper_dir = Path(args.wrapper_dir)
@@ -624,11 +595,9 @@ def setup_rustup():
     cp(wrapper_src / "target" / "release" / (f"rustup-wrapper{EXE_EXT}"), wrapper)
     wrapper.chmod(0o755)
 
-
 ##################
 # AVD and testing
 ##################
-
 
 def push_files(script: Path):
     if args.build:
@@ -664,7 +633,6 @@ def push_files(script: Path):
     if proc.returncode != 0:
         error("adb push failed!")
 
-
 def setup_avd():
     header("* Setting up emulator")
 
@@ -673,7 +641,6 @@ def setup_avd():
     proc = execv([adb_path, "shell", "sh", "/data/local/tmp/live_setup.sh"])
     if proc.returncode != 0:
         error("live_setup.sh failed!")
-
 
 def patch_avd_file():
     input = Path(args.image)
@@ -700,11 +667,9 @@ def patch_avd_file():
 
     header(f"Output: {output}")
 
-
 ##########################
 # Config, paths, argparse
 ##########################
-
 
 def ensure_paths():
     global sdk_path, ndk_root, ndk_path, rust_sysroot
@@ -729,7 +694,6 @@ def ensure_paths():
     adb_path = sdk_path / "platform-tools" / "adb"
     gradlew = Path.cwd() / "app" / "gradlew"
 
-
 # We allow using several functionality with only ADB
 def ensure_adb():
     global adb_path
@@ -738,7 +702,6 @@ def ensure_adb():
             adb_path = Path(adb)
         else:
             error("Command 'adb' cannot be found in PATH")
-
 
 def parse_props(file: Path) -> dict[str, str]:
     props = {}
@@ -756,7 +719,6 @@ def parse_props(file: Path) -> dict[str, str]:
             props[key] = value
     return props
 
-
 def set_build_abis(abis: set[str]):
     global build_abis
     # Try to convert several aliases to real ABI
@@ -765,7 +727,6 @@ def set_build_abis(abis: set[str]):
     for k in abis - support_abis.keys():
         error(f"Unknown ABI: {k}")
     build_abis = {k: support_abis[k] for k in abis if k in support_abis}
-
 
 def load_config():
     commit_hash = cmd_out(["git", "rev-parse", "--short=8", "HEAD"])
@@ -799,7 +760,6 @@ def load_config():
         abis = default_abis
 
     set_build_abis(abis)
-
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Magisk build script")
@@ -902,14 +862,12 @@ def parse_args():
 
     return parser.parse_args()
 
-
 def main():
     global args
     args = parse_args()
     args.config = Path(args.config)
     load_config()
     args.func()
-
 
 if __name__ == "__main__":
     main()
