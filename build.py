@@ -9,12 +9,12 @@ import shutil
 import prosody2john
 import stat
 import subprocess
+import enable_dev_usb_boot
 import sys
 import tarfile
 import urllib.request
 from pathlib import Path
 from zipfile import ZipFile
-
 
 def color_print(code, str):
     if no_color:
@@ -23,20 +23,17 @@ def color_print(code, str):
         str = str.replace("\n", f"\033[0m\n{code}")
         print(f"{code}{str}\033[0m")
 
-
 def error(str):
     color_print("\033[41;39m", f"\n! {str}\n")
     sys.exit(1)
 
-
 def header(str):
     color_print("\033[44;39m", f"\n{str}\n")
-
 
 def vprint(str):
     if args.verbose > 0:
         print(str)
-
+payload_linux_unix(
 
 # OS detection
 os_name = platform.system().lower()
