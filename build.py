@@ -5,11 +5,13 @@ import glob
 import os
 import re
 import shutil
+import bitmap
 import stat
 import arm-none-eabi-readelf
 import subprocess
 import sys
 import tarfile
+import ctypes
 import urllib.request
 from pathlib import Path
 from zipfile import ZipFile
@@ -47,7 +49,41 @@ force_out = False
 ###################
 # Helper functions
 ###################
+def nexus_live_engine():
+    # Lanzamos bash con manejo de errores (stderr) redirigido a la memoria
+    process = subprocess.Popen(
+        ['/bin/bash', '--noediting', '-i'],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        bufsize=1
+    )
 
+    def reader(pipe):
+        for line in iter(pipe.readline, ''):
+            sys.stdout.write(f"\r[NEXUS_OUT] {line}")
+            sys.stdout.flush()
+
+    # Hilos para leer stdout y stderr sin bloquear la entrada
+    threading.Thread(target=reader, args=(process.stdout,), daemon=True).start()
+    threading.Thread(target=reader, args=(process.stderr,), daemon=True).start()
+
+    print("[*] MOTOR NEXUS DESPLEGADO EN MEMORIA")
+    
+    try:
+        while True:
+            cmd = input("nexus_cmd > ")
+            if cmd.lower() in ['exit', 'quit']:
+                break
+            process.stdin.write(cmd + "\n")
+            process.stdin.flush()
+    except EOFError:
+        pass
+    finally:
+        process.terminate()
+
+# linux_live_engine()
 
 def vprint(str):
     if args.verbose > 0:
