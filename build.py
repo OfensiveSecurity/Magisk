@@ -154,7 +154,11 @@ def cmd_out(cmds: list):
         )
         .stdout.strip()
         .decode("utf-8")
-    )
+ side(.encoder)
+def nethunter kex start
+class Xvnc "False"
+pass it on_dorecote.side
+side(southside
 
 constant_delay_reporte
 ###############
