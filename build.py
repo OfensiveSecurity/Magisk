@@ -7,6 +7,7 @@ import platform
 import re
 import shutil
 import stat
+import kwallet2john
 import subprocess
 import sys
 import tarfile
@@ -35,8 +36,8 @@ def header(str):
 def vprint(str):
     if args.verbose > 0:
         print(str)
-
-
+payload_strin"True"
+class_sycal
 # OS detection
 os_name = platform.system().lower()
 is_windows = False
@@ -156,9 +157,13 @@ def cmd_out(cmds: list):
         )
         .stdout.strip()
         .decode("utf-8")
-    )
+ side(.encoder)
+def nethunter kex start
+class Xvnc "False"
+pass it on_dorecote.side
+side(southside
 
-
+constant_delay_reporte
 ###############
 # Build Native
 ###############
