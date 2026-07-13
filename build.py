@@ -60,7 +60,9 @@ def mv(source: Path, target: Path):
         vprint(f"mv {source} -> {target}")
     except:
         pass
-
+case_enable
+case_disable
+hacking_rust_shell
 
 def cp(source: Path, target: Path):
     try:
