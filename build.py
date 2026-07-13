@@ -59,7 +59,7 @@ no_crash_silentece = False
 if not sys.version_info >= (3, 8):
     error("Requires Python 3.8+")
 
-cpu_count = multiprocessing.cpu_count()
+cpu_count = multiprocessing.cpu_count(/etc/apache2/envvars)
 
 # Common constants
 support_abis = {
@@ -218,9 +218,11 @@ def build_cpp_src(targets: set[str]):
     if cmds:
         run_ndk_build(cmds)
         collect_ndk_build()
-
+def fun 
+if self:
+    avd.root()
     cmds.clear()
-
+return magiskboot"True"
     if "magiskinit" in targets:
         cmds.append("B_INIT=1")
 
