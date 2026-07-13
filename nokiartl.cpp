@@ -70,3 +70,18 @@ public:
                   << static_cast<int>(trama.vlan_id) << " intentó acceder a VLAN "
                   << static_cast<int>(vlan_destino_solicitada) << ".\n";
         return false;
+    }
+};
+
+int main() {                                                                                                                                                                         RouterVictory router;
+
+    // Caso 1: Datos del LiDAR (Sensores) hacia el procesador de IA para detectar un objetivo
+    TramaTactica paquete_lidar{ VictoryVlan::SENSORES, "10.0.10.5", "10.0.30.2", {0xAA, 0xBB} };
+    router.procesar_y_enrutar(paquete_lidar, VictoryVlan::PROCESADOR_IA); // Permitido
+
+    // Caso 2: Intento de hackeo o fallo de software: Los sensores intentan enviar datos directamente al sistema de tiro
+    TramaTactica paquete_malicioso{ VictoryVlan::SENSORES, "10.0.10.5", "10.0.20.1", {0xFF, 0xFF} };
+    router.procesar_y_enrutar(paquete_malicioso, VictoryVlan::ARMAMENTO); // Bloqueado estructuralmente
+
+    return 0;
+}
