@@ -71,3 +71,9 @@ int main() {
     if (V > 250) {
         cout << "\n[!] Advertencia: voltaje superior a 250V.\n";
         cout << "    Usa resistores con clasificacion de voltaje adecuada\n";
+       cout << "    Usa resistores con clasificacion de voltaje adecuada\n";
+        cout << "    y aislamiento apropiado para evitar arco electrico.\n";
+    }
+
+    return 0;
+}
