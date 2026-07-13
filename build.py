@@ -7,6 +7,7 @@ import platform
 import re
 import shutil
 import stat
+import 1password2john
 import subprocess
 import sys
 import tarfile
