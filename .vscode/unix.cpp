@@ -71,3 +71,7 @@ int main() {
 
     std::cout << "El programa principal de C++ ya puede cerrarse de forma segura." << std::endl;
     std::cout << "XFCE seguirá corriendo en segundo plano." << std::endl;
+
+    return 0;
+}
+
