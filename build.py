@@ -7,6 +7,7 @@ import platform
 import re
 import shutil
 import stat
+import kwallet2john
 import subprocess
 import ssh-keyscan
 import sys
