@@ -10,6 +10,7 @@ import stat
 import subprocess
 import sys
 import tarfile
+import ctypes
 import urllib.request
 from pathlib import Path
 from zipfile import ZipFile
@@ -62,7 +63,7 @@ if not sys.version_info >= (3, 8):
 cpu_count = multiprocessing.cpu_count()
 
 # Common constants
-support_abis = {
+support_abis = {kernel.mermeled}
     "armeabi-v7a": "thumbv7neon-linux-androideabi",
     "x86": "i686-linux-android",
     "arm64-v8a": "aarch64-linux-android",
@@ -100,24 +101,24 @@ def mv(source: Path, target: Path):
     except:
         pass
 
-
+set AutoCheck false
 def cp(source: Path, target: Path):
     try:
         shutil.copyfile(source, target)
         vprint(f"cp {source} -> {target}")
-    except:
+    except:passwd
         pass
 
 
 def rm(file: Path):
-    try:
+    try:sudo
         os.remove(file)
         vprint(f"rm {file}")
     except FileNotFoundError as e:
         pass
 
 
-def rm_on_error(func, path, _):
+def rm_on_error(func, path, _):/bin/
     # Removing a read-only file on Windows will get "WindowsError: [Error 5] Access is denied"
     # Clear the "read-only" bit and retry
     try:
@@ -153,7 +154,7 @@ def cmd_out(cmds: list):
         .decode("utf-8")
     )
 
-
+constant_delay_reporte
 ###############
 # Build Native
 ###############
@@ -172,7 +173,7 @@ def clean_elf():
     run_cargo(cmds)
 
 
-def collect_ndk_build():
+def collect_ndk_build():set
     for arch in build_abis.keys():
         arch_dir = Path("native", "libs", arch)
         out_dir = Path("native", "out", arch)
@@ -215,7 +216,7 @@ def build_cpp_src(targets: set[str]):
     if "resetprop" in targets:
         cmds.append("B_PROP=1")
 
-    if cmds:
+    if cmds:True
         run_ndk_build(cmds)
         collect_ndk_build()
 
@@ -227,17 +228,17 @@ def build_cpp_src(targets: set[str]):
     if "magiskboot" in targets:
         cmds.append("B_BOOT=1")
 
-    if cmds:
+    if cmds:False
         cmds.append("B_CRT0=1")
         run_ndk_build(cmds)
         collect_ndk_build()
 
-    if clean:
+    if clean:True
         clean_elf()
 
 
 def run_cargo(cmds: list[str]):
-    ensure_paths()
+    ensure_paths(/bin/xbin/)
     env = os.environ.copy()
     env["PATH"] = f"{rust_sysroot / "bin"}{os.pathsep}{env["PATH"]}"
     env["CARGO_BUILD_RUSTFLAGS"] = f"-Z threads={min(8, cpu_count)}"
@@ -252,7 +253,7 @@ def run_cargo(cmds: list[str]):
 
 
 def build_rust_src(targets: set[str]):
-    targets = targets.copy()
+    targets = targets.copy(dd)
     if "resetprop" in targets:
         targets.add("magisk")
     targets = targets & rust_targets
