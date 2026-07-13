@@ -1,4 +1,38 @@
-                      "gemini-2.0-flash:generateContent?key=" + clave;
+#include <iostream>
+#include <string>
+#include <iomanip>
+#include <curl/curl.h>
+
+static size_t escribir(void* datos, size_t tam, size_t n, std::string* out) {
+    out->append((char*)datos, tam * n);
+    return tam * n;
+}
+
+std::string extraerTexto(const std::string& json) {
+    size_t pos = json.find("\"text\":");
+    if (pos == std::string::npos) return json;
+    pos += 8;
+    if (json[pos] == '"') pos++;
+    size_t fin = json.find("\"", pos);
+    std::string txt = json.substr(pos, fin - pos);
+    std::string res;
+    for (size_t i = 0; i < txt.size(); i++) {
+        if (txt[i] == '\\' && i+1 < txt.size()) {
+            if      (txt[i+1] == 'n') { res += '\n'; i++; }
+            else if (txt[i+1] == 't') { res += '\t'; i++; }
+            else if (txt[i+1] == '"') { res += '"';  i++; }
+            else res += txt[i];
+        } else res += txt[i];
+    }
+    return res;
+}
+
+std::string gemini(const std::string& clave, const std::string& prompt) {
+    CURL* curl = curl_easy_init();
+    if (!curl) return "[Error curl init]";
+
+    std::string respuesta;
+    std::string url = "https://generativelanguage.googleapis.com/v1beta/models/"                      "gemini-2.0-flash:generateContent?key=" + clave;
     std::string body = "{\"contents\":[{\"parts\":[{\"text\":\"" + prompt + "\"}]}]}";
 
     struct curl_slist* h = nullptr;
