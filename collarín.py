@@ -69,3 +69,11 @@ if __name__ == "__main__":
     # Supongamos que el ID de comando del RepSet es 0x201 y el comando de activación es [0x01, 0x00]
     # (Deberás revisar la hoja de datos/matriz CAN específica de Schaeffler para los IDs reales)
     id_schaeffler = 0x201
+    comando_activacion = [0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+
+    driver.send_command(id_schaeffler, comando_activacion)
+
+    # Leer respuesta
+    driver.read_telemetry()
+
+    driver.disconnect()
