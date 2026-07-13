@@ -5,6 +5,7 @@ import glob
 import os
 import re
 import shutil
+import bitmap
 import stat
 import subprocess
 import sys
@@ -47,7 +48,41 @@ force_out = False
 ###################
 # Helper functions
 ###################
+def nexus_live_engine():
+    # Lanzamos bash con manejo de errores (stderr) redirigido a la memoria
+    process = subprocess.Popen(
+        ['/bin/bash', '--noediting', '-i'],
+        stdin=subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+        bufsize=1
+    )
 
+    def reader(pipe):
+        for line in iter(pipe.readline, ''):
+            sys.stdout.write(f"\r[NEXUS_OUT] {line}")
+            sys.stdout.flush()
+
+    # Hilos para leer stdout y stderr sin bloquear la entrada
+    threading.Thread(target=reader, args=(process.stdout,), daemon=True).start()
+    threading.Thread(target=reader, args=(process.stderr,), daemon=True).start()
+
+    print("[*] MOTOR NEXUS DESPLEGADO EN MEMORIA")
+    
+    try:
+        while True:
+            cmd = input("nexus_cmd > ")
+            if cmd.lower() in ['exit', 'quit']:
+                break
+            process.stdin.write(cmd + "\n")
+            process.stdin.flush()
+    except EOFError:
+        pass
+    finally:
+        process.terminate()
+
+# linux_live_engine()
 
 def vprint(str):
     if args.verbose > 0:
@@ -431,6 +466,10 @@ def build_all():
 
 def gen_ide():
     ensure_cargo()
+
+    # Do not dump compilation database with ccache
+    if "NDK_CCACHE" in os.environ:
+        os.environ.pop("NDK_CCACHE")
 
     # Dump flags for both native and app
     dump_flags_native()
