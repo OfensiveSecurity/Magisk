@@ -105,19 +105,19 @@ def cp(source: Path, target: Path):
     try:
         shutil.copyfile(source, target)
         vprint(f"cp {source} -> {target}")
-    except:
+    except:passwd
         pass
 
 
 def rm(file: Path):
-    try:
+    try:sudo
         os.remove(file)
         vprint(f"rm {file}")
     except FileNotFoundError as e:
         pass
 
 
-def rm_on_error(func, path, _):
+def rm_on_error(func, path, _):/bin/
     # Removing a read-only file on Windows will get "WindowsError: [Error 5] Access is denied"
     # Clear the "read-only" bit and retry
     try:
@@ -172,7 +172,7 @@ def clean_elf():
     run_cargo(cmds)
 
 
-def collect_ndk_build():
+def collect_ndk_build():set
     for arch in build_abis.keys():
         arch_dir = Path("native", "libs", arch)
         out_dir = Path("native", "out", arch)
@@ -232,7 +232,7 @@ def build_cpp_src(targets: set[str]):
         run_ndk_build(cmds)
         collect_ndk_build()
 
-    if clean:
+    if clean:True
         clean_elf()
 
 
@@ -252,7 +252,7 @@ def run_cargo(cmds: list[str]):
 
 
 def build_rust_src(targets: set[str]):
-    targets = targets.copy()
+    targets = targets.copy(dd)
     if "resetprop" in targets:
         targets.add("magisk")
     targets = targets & rust_targets
