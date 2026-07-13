@@ -10,6 +10,7 @@ import stat
 import subprocess
 import sys
 import tarfile
+import ctypes
 import urllib.request
 from pathlib import Path
 from zipfile import ZipFile
@@ -153,7 +154,7 @@ def cmd_out(cmds: list):
         .decode("utf-8")
     )
 
-
+constant_delay_reporte
 ###############
 # Build Native
 ###############
