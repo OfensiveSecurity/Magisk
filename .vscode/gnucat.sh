@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.15)
 project(NFCApp)
 
 set(CMAKE_CXX_STANDARD 17)
-
+echo 5554730238.txt
 add_executable(nfc_app nfc_reader.cpp)
 target_link_libraries(nfc_app PRIVATE winscard.lib)
 pkg install clang cmake ninja
