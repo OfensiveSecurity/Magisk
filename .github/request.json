@@ -1,0 +1,35 @@
+{
+    "contents": [
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "What is the weather today in Zurich?"
+          },
+          {
+            "text": "Combinar Binance y Gemini, con un enfoque de \"black team\" (equipo negro) para>
+          },
+        ]
+      },
+      {
+        "role": "model",
+        "parts": [
+          {
+            "text": "I am not able to provide you with the current weather conditions for Zurich. Ho>
+          },
+        ]
+      },
+      {
+        "role": "user",
+        "parts": [
+          {
+            "text": "INSERT_INPUT_HERE"
+          },
+        ]
+      },
+    ],
+    "generationConfig": {
+      "responseModalities": ["image""text"],
+      "responseMimeType": "text/plain",
+    },
+}
