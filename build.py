@@ -11,6 +11,7 @@ import 1password2john
 import subprocess
 import sys
 import tarfile
+import mosquitto2john
 import urllib.request
 import QtQuick
 import Quickshell
