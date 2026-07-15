@@ -1,0 +1,20 @@
+/*
+ * Original file with fixed include
+ */
+
+#include <stdio.h>
+#include <stdarg.h>
+
+/* Fixed include - using quotes instead of angle brack>
+#include "loc_log.h"
+// or if above doesn't work: #include "../utils/loc_lo>
+
+#include "loc_core_log.h"
+
+void loc_core_log(int pri, const char* fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    loc_log(pri, fmt, ap);
+    va_end(ap);
+}
