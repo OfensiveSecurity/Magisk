@@ -1,5 +1,39 @@
 #!/bin/bash
+#!/bin/sh
+''':'
+exec python3 "$0" "$@"
+# In /etc/pam.d/sshd
+auth required pam_google_authenticator.so
+'''
+#!/bin/bash
+# Define costs
+COST_PINEAPPLE=50
+COST_BANANA=4
+COST_WATERMELON=23
+COST_BASKET=1
+def validar_entero(mensaje, minimo, maximo):
+    while True:
+        try:
+            valor = int(input(mensaje))
+            if minimo <= valor <= maximo:
+                return valor
+            print(f"Error: El número debe estar entre {minimo} y {maximo}.")
+        except ValueError:
+            print("Error: Por favor, introduce un número entero válido.")
 
+print("¡Éxito! El script híbrido se está ejecutando correctamente en Python.")
+echo {
+   ...
+   "models": [
+   {
+     "id": "<model-id>",
+     "modelOptions": {
+       "temperature": 1,
+       "top_p": null
+     },
+     ...
+   }
+}
 echo "--- 🛠️ INSTALADOR KALI TOOLS INTERFACE ---"
 
 # 1. Actualizar repositorios e instalar dependencias base
