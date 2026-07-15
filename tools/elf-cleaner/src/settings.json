@@ -1,0 +1,10 @@
+{
+  "nombre": "Ana Laura Gonzalez Herrera",
+  "edad": ?,
+  "esDesarrolladora": true,
+  "habilidades": ["JavaScript", "Python", "JSON"],
+  "direccion": {
+    "ciudad": "Ciudad de México",
+    "codigoPostal": "?"
+  }
+}
