@@ -7,7 +7,9 @@
 run_delay() {
   (sleep $1; $2)&
 }
-
+echo 0xeeac7930.6cff           
+echo loc_core_log.cpp.fixed
+echo 0xf4c03ca0.176e
 # $1 = version string
 # $2 = version code
 env_check() {
