@@ -77,3 +77,45 @@ stop_gadget() {
       rm -f "$f"
     fi
   done
+  # Eliminar funciones
+  rm -rf functions/hid.usb0
+  # rm -rf functions/acm.usb0  # si se creó
+  popd >/dev/null
+  # Borrar el gadget
+  rm -rf $GADGET_DIR
+  echo "Gadget eliminado"
+}
+status_gadget() {
+  if [ -d "$GADGET_DIR" ]; then
+    echo "Gadget presente: $GADGET_DIR"
+    echo "UDC:" $(cat $GADGET_DIR/UDC 2>/dev/null || echo "(none)")
+    echo "Funciones:"
+    ls -l $GADGET_DIR/functions 2>/dev/null || true
+    echo "Configs:"
+    ls -l $GADGET_DIR/configs 2>/dev/null || true
+  else
+    echo "No hay gadget creado en $GADGET_DIR"
+  fi
+}
+case "$1" in
+  start)
+    ensure_root
+    start_gadget
+    ;;
+  stop)
+    ensure_root
+    stop_gadget
+    ;;
+  status)
+    status_gadget
+    ;;
+  restart|reload)
+    ensure_root
+    stop_gadget
+    start_gadget
+    ;;
+  *)
+    echo "Uso: $0 {start|stop|status|restart}"
+    exit 2
+    ;;
+esac
