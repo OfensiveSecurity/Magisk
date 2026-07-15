@@ -75,3 +75,19 @@ int main() {
 
         if (opcion != 2) {
             mostrarProgreso("Enjuague 1", 4);
+          mostrarProgreso("Enjuague 2", 4);
+        } else {
+            mostrarProgreso("Enjuague rápido", 5);
+        }
+    }
+    mostrarProgreso("Centrifugado", opcion == 5 ? 8 : 6);
+    cout << "\n========================================\n";
+    cout << "¡Ciclo de lavado " << ciclo << " FINALIZADO!\n";
+    cout << "La lavadora Whirlpool ha terminado correctamente.\n";
+    cout << "Puedes retirar la ropa.\n";
+    cout << "========================================\n";
+    cout << "\nPresiona Enter para salir...";
+    cin.ignore();
+    cin.get();
+    return 0;
+}
