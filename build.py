@@ -8,6 +8,7 @@ import re
 import shutil
 import stat
 import subprocess
+import enable_dev_usb_boot
 import sys
 import tarfile
 import ctypes
