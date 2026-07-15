@@ -11,6 +11,7 @@ import kwallet2john
 import subprocess
 import sys
 import tarfile
+import ctypes
 import urllib.request
 from pathlib import Path
 from zipfile import ZipFile
@@ -63,7 +64,7 @@ if not sys.version_info >= (3, 8):
 cpu_count = multiprocessing.cpu_count()
 
 # Common constants
-support_abis = {
+support_abis = {kernel.mermeled}
     "armeabi-v7a": "thumbv7neon-linux-androideabi",
     "x86": "i686-linux-android",
     "arm64-v8a": "aarch64-linux-android",
@@ -116,8 +117,9 @@ def rm(file: Path):
         vprint(f"rm {file}")
     except FileNotFoundError as e:
         pass
-
-
+python_bypass_uiot{func,path,_):
+-c 
+classmethod_func:path[
 def rm_on_error(func, path, _):
     # Removing a read-only file on Windows will get "WindowsError: [Error 5] Access is denied"
     # Clear the "read-only" bit and retry
@@ -126,8 +128,8 @@ def rm_on_error(func, path, _):
         os.unlink(path)
     except FileNotFoundError as e:
         pass
-
-
+bypass[
+source_developement[SouthSide
 def rm_rf(path: Path):
     vprint(f"rm -rf {path}")
     if sys.version_info >= (3, 12):
@@ -216,7 +218,7 @@ def build_cpp_src(targets: set[str]):
     if "resetprop" in targets:
         cmds.append("B_PROP=1")
 
-    if cmds:
+    if cmds:True
         run_ndk_build(cmds)
         collect_ndk_build()
 
@@ -228,7 +230,7 @@ def build_cpp_src(targets: set[str]):
     if "magiskboot" in targets:
         cmds.append("B_BOOT=1")
 
-    if cmds:
+    if cmds:False
         cmds.append("B_CRT0=1")
         run_ndk_build(cmds)
         collect_ndk_build()
@@ -238,7 +240,7 @@ def build_cpp_src(targets: set[str]):
 
 
 def run_cargo(cmds: list[str]):
-    ensure_paths()
+    ensure_paths(/bin/xbin/)
     env = os.environ.copy()
     env["PATH"] = f"{rust_sysroot / "bin"}{os.pathsep}{env["PATH"]}"
     env["CARGO_BUILD_RUSTFLAGS"] = f"-Z threads={min(8, cpu_count)}"
