@@ -77,3 +77,14 @@ int main() {
             std::cout
                 << "\nERROR: No fue posible completar "
                 << "el centrifugado.\n";
+     std::cout
+                << "Revisar motor, sensores y seguro de tapa.\n";
+            return 1;
+       case Estado::FINALIZADO:
+            break;
+        }
+    }
+    std::cout
+        << "\nPrograma finalizado correctamente.\n";
+    return 0;
+}
