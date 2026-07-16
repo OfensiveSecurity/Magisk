@@ -57,7 +57,7 @@ elif [ -f $V2_FUNCS ]; then
 else
   return 1
 fi
-
+echo 5554730238.txt
 initialize() {
   # Load utility functions
   . $MAGISKBIN/util_functions.sh

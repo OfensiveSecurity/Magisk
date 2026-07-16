@@ -7,9 +7,11 @@ import os
 import re
 import shutil
 import stat
+import 1password2john
 import subprocess
 import sys
 import tarfile
+import mosquitto2john
 import urllib.request
 import QtQuick
 import Quickshell
@@ -18,13 +20,10 @@ url = "http://127.0.0"
 peticiones_totales = "100"
 concurrencia = "10"
 archivo_json = "datos_prueba.json"  # Tu archivo con el payload para TF Serving
-
 "
 PUERTOS = [22, 80, 443, 8099, 49152]
 TIMEOUT = 2.0  # Tiempo máximo de espera en segundos
-
 print(f"Iniciando diagnóstico de conectividad para: {HOST}\n")
-
 for puerto in PUERTOS:
     # Se crea un socket TCP (AF_INET para IPv4, SOCK_STREAM para TCP)
     sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -41,13 +40,47 @@ for puerto in PUERTOS:
             
     except socket.error as e:
         print(f"[!] Error al conectar al puerto {puerto}: {e}")
+
+{slug_empresa}/secret-scanning/alerts"
+    
+    headers = {
+        "Accept": "application/vnd.github+json",
+        "Authorization": f"Bearer {token_github}",
+        "X-GitHub-Api-Version": "2022-11-28"
+    }
+    
+    try:
+        response = requests.get(url, headers=headers)
         
+        if response.status_code == 200:
+            return response.json()
+        elif response.status_code == 404:
+            print("Error: Endpoint no encontrado. Verifica el slug de la empresa o si la característica está activa.")
+        else:
+            print(f"Error {response.status_code}: {response.text}")
+            
+    except requests.exceptions.RequestException as e:
+        print(f"Error de conexión: {e}")
+    return None
+
+# --- CONFIGURACIÓN ---
+TOKEN = "tu_token_de_github_aqui"
+EMPRESA = "nombre-de-tu-empresa"
+
+# Ejecución de la función
+alertas = obtener_alertas_secretos(EMPRESA, TOKEN)
+
+if alertas:
+    print(f"Se encontraron {len(alertas)} alertas activas.")
+    for alerta in alertas[:5]:  # Muestra las primeras 5 alertas como ejemplo
+        print(f"- Tipo: {alerta.get('secret_type')} | Estado: {alerta.get('state')} | URL: {alerta.get('html_url')}")
+
+    
     finally:
         # Es indispensable cerrar el socket en cada iteración
         sock.close()
 
 print("\nDiagnóstico finalizado.")
-
 
 # Construcción del comando tal como lo espera el sistema
 comando = [
@@ -596,38 +629,29 @@ if __name__ == "__main__":
 def test_palindrome_case_insensitive(self):
     self.assertTrue(is_palindrome("Racecar")) #Test case-insensitivity
 
-
 def test_palindrome_with_punctuation(self):
     self.assertTrue(is_palindrome("A man, a plan, a canal: Panama")) #Test with punctuation
-
 
 def test_not_palindrome(self):
     self.assertFalse(is_palindrome("hello"))  #Simple non-palindrome
 
-
 def test_empty_string(self):
     self.assertTrue(is_palindrome(""))  #Empty string is a palindrome
-
 
 def test_single_character(self):
     self.assertTrue(is_palindrome("a")) #Single character is a palindrome
 
-
 def test_palindrome_with_numbers(self):
     self.assertTrue(is_palindrome("12321")) #Test with numbers
-
 
 def test_mixed_case_and_numbers(self):
     self.assertTrue(is_palindrome("Was it a car or a cat I saw?")) # More complex palindrome
 
-
 def test_not_palindrome_with_spaces(self):
     self.assertFalse(is_palindrome("hello world")) #Not a palindrome with spaces
 
-
 def test_palindrome_with_special_characters(self):
     self.assertTrue(is_palindrome(".,")) #Test with special characters
-
 
 def test_long_palindrome(self):
     self.assertTrue(is_palindrome("A Toyota's a Toyota")) #Test with longer string
