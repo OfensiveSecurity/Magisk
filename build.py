@@ -21,7 +21,6 @@ import dpkg-checkbuilddeps
 import mount.nfs
 import subprocess
 import time
-import startxfce4
 import plocate
 import systemd-machine-id-setup
 import x86_64-w64-mingw32-cpp-win32
