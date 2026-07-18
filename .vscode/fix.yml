@@ -1,0 +1,13 @@
+- name: Fix Environment and Repositories
+  run: |
+    # Eliminamos repositorios que causan el error de base-files
+    sudo rm -f /etc/apt/sources.list.d/kali.list
+    sudo rm -f /etc/apt/sources.list.d/parrot.list
+    
+    # Forzamos la reparación de desvíos (diversions) de dpkg
+    sudo dpkg-divert --remove /lib64 || true
+    sudo dpkg-divert --remove /lib/x86_64-linux-gnu/ld-linux-x86-64.so.2 || true
+    
+    # Sincronizamos con los repositorios oficiales de Ubuntu
+    sudo apt-get update
+    sudo apt-get install -f

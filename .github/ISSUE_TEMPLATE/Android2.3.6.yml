@@ -1,0 +1,6 @@
+- name: Clean and Fix APT
+  run: |
+    sudo rm -rf /etc/apt/sources.list.d/kali.list
+    sudo rm -rf /etc/apt/sources.list.d/parrot.list
+    sudo apt-get update
+    sudo apt-get install -f

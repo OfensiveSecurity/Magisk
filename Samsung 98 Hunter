@@ -1,0 +1,29 @@
+import requests
+from bs4 import BeautifulSoup
+import time
+
+# Configuración del Proyecto
+URL_PRODUCTO = "https://www.samsung.com/mx/tvs/crystal-uhd/98-inch-crystal-uhd-4k-tv/" # URL Ejemplo
+PRECIO_OBJETIVO = 2800.0  # El precio que definimos en tu plan de ahorro
+HEADERS = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+
+def consultar_precio():
+    pag = requests.get(URL_PRODUCTO, headers=HEADERS)
+    soup = BeautifulSoup(pag.content, 'html.parser')
+    
+    # Nota: El 'class_' cambia según la tienda, este es un ejemplo lógico
+    precio_texto = soup.find(class_="pd-price").get_text()
+    
+    # Limpiamos el texto para convertirlo a número (quitamos $, comas y espacios)
+    precio_actual = float(precio_texto.replace('$', '').replace(',', '').strip())
+    
+    if precio_actual <= PRECIO_OBJETIVO:
+        print(f"¡ALERTA! La TV bajó a ${precio_actual}. ¡CÓMPRALA YA!")
+        # Aquí podrías añadir una función para enviarte un correo o Telegram
+    else:
+        print(f"Sigue en ${precio_actual}. Aún no llegamos a la meta.")
+
+# Ejecutar monitoreo cada 24 horas
+while True:
+    consultar_precio()
+    time.sleep(86400) 

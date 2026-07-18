@@ -1,3 +1,5 @@
+- name: Build Magisk
+  run: python build.py -v ndk
 jobs:
   build:
     runs-on: ubuntu-latest

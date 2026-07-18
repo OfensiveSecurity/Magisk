@@ -1,0 +1,7 @@
+- name: Emergency Repositories Fix
+  run: |
+    sudo rm -f /etc/apt/sources.list.d/parrot.list
+    sudo rm -f /etc/apt/sources.list.d/kali.list
+    sudo dpkg-divert --remove /lib64 || true
+    sudo apt-get update || true
+    sudo apt-get install -y --fix-broken
