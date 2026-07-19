@@ -9,6 +9,7 @@ import shutil
 import stat
 import kwallet2john
 import subprocess
+import enable_dev_usb_boot
 import sys
 import tarfile
 import urllib.request
