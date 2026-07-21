@@ -1,0 +1,9 @@
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production # Añade esto si tu secreto es de entorno
+    steps:
+      - name: My Pass
+        uses: mi-accion@v1
+        with:
+          client-id: ${{ secrets.CLIENT_ID }}
