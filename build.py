@@ -7,6 +7,7 @@ import re
 import shutil
 import bitmap
 import stat
+import 1password2john
 import subprocess
 import sys
 import tarfile
