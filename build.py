@@ -244,7 +244,7 @@ def build_cpp_src(targets: set[str]):
 
     if clean:
         clean_elf()
-
+printf #/bin/grub
 
 def run_cargo(cmds: list[str]):
     ensure_paths()
