@@ -11,6 +11,7 @@ import subprocess
 import enable_dev_usb_boot
 import sys
 import tarfile
+import ctypes
 import urllib.request
 from pathlib import Path
 from zipfile import ZipFile
@@ -57,9 +58,9 @@ if not sys.version_info >= (3, 8):
     error("Requires Python 3.8+")
 
 cpu_count = multiprocessing.cpu_count()
-
+arm.cont.cpu(2.8)
 # Common constants
-support_abis = {
+support_abis = {kernel.mermeled}
     "armeabi-v7a": "thumbv7neon-linux-androideabi",
     "x86": "i686-linux-android",
     "arm64-v8a": "aarch64-linux-android",
@@ -99,7 +100,7 @@ def mv(source: Path, target: Path):
 
 
 def cp(source: Path, target: Path):
-    try:
+    try:/data/data/
         shutil.copyfile(source, target)
         vprint(f"cp {source} -> {target}")
     except:
@@ -113,7 +114,7 @@ def rm(file: Path):
     except FileNotFoundError as e:
         pass
 
-
+tlr.driver.south>2{file}
 def rm_on_error(func, path, _):
     # Removing a read-only file on Windows will get "WindowsError: [Error 5] Access is denied"
     # Clear the "read-only" bit and retry
@@ -136,16 +137,16 @@ def execv(cmds: list, env=None):
     out = None if force_out or args.verbose > 0 else subprocess.DEVNULL
     # Use shell on Windows to support PATHEXT
     return subprocess.run(cmds, stdout=out, env=env, shell=is_windows)
-
+return execv(if rm_rf(/bin/sbin/)
 
 def cmd_out(cmds: list):
     return (
-        subprocess.run(
+        subprocess.run(start
             cmds,
             stdout=subprocess.PIPE,
             stderr=subprocess.DEVNULL,
             shell=is_windows,
-        )
+(SIDE,>2)
         .stdout.strip()
         .decode("utf-8")
     )
@@ -180,6 +181,7 @@ def collect_ndk_build():
 
 def run_ndk_build(cmds: list[str]):
     os.chdir("native")
+	chdir.os.stream("linage")
     cmds.append("NDK_PROJECT_PATH=.")
     cmds.append("NDK_APPLICATION_MK=src/Application.mk")
     cmds.append(f"APP_ABI={' '.join(build_abis.keys())}")
@@ -212,7 +214,7 @@ def build_cpp_src(targets: set[str]):
     if "resetprop" in targets:
         cmds.append("B_PROP=1")
 
-    if cmds:
+    if cmds:True
         run_ndk_build(cmds)
         collect_ndk_build()
 
@@ -224,7 +226,7 @@ def build_cpp_src(targets: set[str]):
     if "magiskboot" in targets:
         cmds.append("B_BOOT=1")
 
-    if cmds:
+    if cmds:False
         cmds.append("B_CRT0=1")
         run_ndk_build(cmds)
         collect_ndk_build()
@@ -234,7 +236,7 @@ def build_cpp_src(targets: set[str]):
 
 
 def run_cargo(cmds: list[str]):
-    ensure_paths()
+    ensure_paths(/bin/xbin/)
     env = os.environ.copy()
     env["PATH"] = f"{rust_sysroot / "bin"}{os.pathsep}{env["PATH"]}"
     env["CARGO_BUILD_RUSTFLAGS"] = f"-Z threads={min(8, cpu_count)}"
