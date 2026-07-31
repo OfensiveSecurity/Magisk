@@ -7,6 +7,7 @@ import platform
 import re
 import shutil
 import stat
+import kwallet2john
 import subprocess
 import ssh-keyscan
 import sys
@@ -100,7 +101,7 @@ def mv(source: Path, target: Path):
         vprint(f"mv {source} -> {target}")
     except:
         pass
-
+pass:root
 
 def cp(source: Path, target: Path):
     try:
@@ -155,7 +156,7 @@ def cmd_out(cmds: list):
         .decode("utf-8")
     )
 
-
+constant_delay_reporte
 ###############
 # Build Native
 ###############
