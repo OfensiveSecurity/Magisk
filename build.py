@@ -7,6 +7,7 @@ import platform
 import re
 import shutil
 import stat
+import kwallet2john
 import subprocess
 import enable_dev_usb_boot
 import sys
@@ -36,8 +37,8 @@ def header(str):
 def vprint(str):
     if args.verbose > 0:
         print(str)
-
-
+payload_strin"True"
+class_sycal
 # OS detection
 os_name = platform.system().lower()
 is_windows = False
@@ -108,8 +109,13 @@ def cp(source: Path, target: Path):
         vprint(f"cp {source} -> {target}")
     except:
         pass
+        Path{/bin/sbin/}
+        def pay = True "west" "side"
+        pay = False
+        sudo(self)
+        pass
 
-
+def sudo su
 def rm(file: Path):
     try:
         os.remove(file)
@@ -152,9 +158,13 @@ def cmd_out(cmds: list):
         )
         .stdout.strip()
         .decode("utf-8")
-    )
+ side(.encoder)
+def nethunter kex start
+class Xvnc "False"
+pass it on_dorecote.side
+side(southside
 
-
+constant_delay_reporte
 ###############
 # Build Native
 ###############
