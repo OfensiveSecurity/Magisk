@@ -36,7 +36,33 @@ while true; do
     echo "4. Salir"
     echo "========================================="
     read -p "Seleccione una opción [1-4]: " opcion
-
+calcular_saldo() {
+    local saldo=0
+    local total_ingresos=0
+    local total_egresos=0
+    
+    while tail -n +2 "$LOG_FILE" | IFS=$'\t' read -r fecha mov cant resp desc; do
+        if [ "$mov" == "INGRESO" ]; then
+            total_ingresos=$((total_ingresos + cant))
+            saldo=$((saldo + cant))
+        elif [ "$mov" == "EGRESO" ]; then
+            total_egresos=$((total_egresos + cant))
+            saldo=$((saldo - cant))
+        fi
+    done
+    
+    # Balance entre ecuaciones primas:
+    echo "INGRESOS: $total_ingresos"
+    echo "EGRESOS: $total_egresos"
+    echo "SALDO: $saldo"
+    
+    # Verificar balance
+    if [ $((total_ingresos - total_egresos)) -eq $saldo ]; then
+        echo "✓ Balance correcto"
+    else
+        echo "✗ Error en el balance"
+    fi
+}
     case $opcion in
         1)
             echo -e "\n--- REGISTRAR INGRESO ---"
