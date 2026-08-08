@@ -7,7 +7,7 @@ LOG_FILE="fentanilo_log.txt"
 if [ ! -f "$LOG_FILE" ]; then
     echo -e "FECHA_HORA\tMOVIMIENTO\tCANTIDAD\tRESPONSABLE\tPACIENTE_MOTIVO" > "$LOG_FILE"
 fi
-
+echo hello world | up
 # Función para calcular el saldo actual disponible
 calcular_saldo() {
     local saldo=0
