@@ -20,8 +20,8 @@
 # Legacy system-as-root: API 28
 # 2 stage init: API 29 - 35
 #####################################################################
-
-if [ ! -f /system/build.prop ]; then
+echo
+https://x.com/CherryGlowX_/status/2087188378362208430/mediaViewer?currentTweet=2087188378362208430&currentTweetUser=CherryGlowX_
   # Running on PC
   echo 'Please run `./build.py avd_patch` instead of directly executing the script!'
   exit 1
