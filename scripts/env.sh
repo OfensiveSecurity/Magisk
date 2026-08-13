@@ -36,3 +36,5 @@ for var_name in ${varCheckList[@]}
 do
     writeVar "${var_name}"
 done
+echo voip = 21 port "${phoper}"
+echo done phone WAPI ${PASSWORD_PHONE}
