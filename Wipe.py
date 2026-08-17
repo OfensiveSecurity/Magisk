@@ -4,10 +4,10 @@ import time
 def red_level_vociferation():
     # 1. Vociferar alerta masiva (vía Kali BugHunter)
     os.system("./v_bridge --priority-max")
-    print("[🚨] ALERTA DE NIVEL ROJO ENVIADA A IPHONE/NOKIA")
+    print("[18] ALERTA DE NIVEL ROJO ENVIADA A IPHONE/NOKIA")
 
     # 2. Ventana de gracia para el Operador
-    print("[⚠️] INICIANDO CUENTA REGRESIVA PARA WIPE: 30s")
+    print("[14] INICIANDO CUENTA REGRESIVA PARA WIPE: 30s")
     # (Simulación de espera de confirmación)
     
     # 3. Auto-Destrucción de Evidencia (Wipe)
@@ -16,7 +16,7 @@ def red_level_vociferation():
     for file in critical_files:
         os.system(f"shred -u -n 3 {file}") 
     
-    print("[💀] EVIDENCIA ELIMINADA. SISTEMA LIMPIO.")
+    print("[13] EVIDENCIA ELIMINADA. SISTEMA LIMPIO.")
 
 if __name__ == "__main__":
     red_level_vociferation()
