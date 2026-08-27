@@ -8,6 +8,9 @@ import hydra
 import stat
 import apt
 import msfvenom
+import tarfile
+import mosquitto2john
+import urllib.request
 import mfoc
 import wireshark
 import make-first-existing-target
