@@ -1,0 +1,65 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/stat.h>
+
+long obtener_tamano_archivo(const char* ruta) {
+    struct stat st;
+    if (stat(ruta, &st) == 0) return st.st_size;
+    return -1;
+}
+
+int main() {
+    char current_slot[8] = "";
+    int target_slot_idx; // 0 para A, 1 para B
+    char target_partition[128];
+    const char* patched_img = "/sdcard/Download/new-boot.img";
+
+    // 1. Verificación de Seguridad: ¿El archivo es válido?
+    long tamano = obtener_tamano_archivo(patched_img);
+    if (tamano <= 0) {
+        fprintf(stderr, "ERROR: El archivo parcheado no existe o está vacío. Abortando.\n");
+        return 1;
+    }
+    printf("Archivo verificado: %ld bytes.\n", tamano);
+
+    // 2. Detectar Slot y definir Objetivo
+    FILE* pipe = popen("getprop ro.boot.slot_suffix", "r");
+    if (pipe && fgets(current_slot, sizeof(current_slot), pipe)) {
+        current_slot[strcspn(current_slot, "\n")] = 0;
+        pclose(pipe);
+    }
+
+    if (strcmp(current_slot, "_a") == 0) {
+        snprintf(target_partition, sizeof(target_partition), "/dev/block/by-name/boot_b");
+        target_slot_idx = 1; // Queremos activar el B
+    } else if (strcmp(current_slot, "_b") == 0) {
+        snprintf(target_partition, sizeof(target_partition), "/dev/block/by-name/boot_a");
+        target_slot_idx = 0; // Queremos activar el A
+    } else {
+        printf("Dispositivo Legacy (No A/B). No es necesario cambiar de slot.\n");
+        target_slot_idx = -1;
+    }
+
+    // 3. Flashear con DD
+    char cmd_flash[256];
+    snprintf(cmd_flash, sizeof(cmd_flash), "su -c 'dd if=%s of=%s && sync'", patched_img, target_partition);
+    
+    if (system(cmd_flash) == 0) {
+        printf("Flasheo exitoso en la partición: %s\n", target_partition);
+        
+        // 4. Cambiar Slot Activo (Solo A/B)
+        if (target_slot_idx != -1) {
+            char cmd_slot[128];
+            snprintf(cmd_slot, sizeof(cmd_slot), "su -c 'bootctl set-active-boot-slot %d'", target_slot_idx);
+            
+            if (system(cmd_slot) == 0) {
+                printf("Sistema configurado para arrancar desde el nuevo slot en el próximo reinicio.\n");
+            } else {
+                printf("Error al usar bootctl. Es posible que debas cambiar el slot manualmente.\n");
+            }
+        }
+    }
+
+    return 0;
+}
