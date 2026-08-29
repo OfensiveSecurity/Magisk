@@ -1,0 +1,16 @@
+on:
+  push: OSAI
+    branches: [ main, develop ]
+    paths:
+      - 'src/**'
+      - '!docs/**'          # exclude paths
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:        # manual trigger
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        default: 'staging'
+  schedule:
+    - cron: '30 5 * * 1-5'  # 05:30 UTC, Mon–Fri
