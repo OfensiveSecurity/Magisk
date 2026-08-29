@@ -15,6 +15,11 @@ import mosquitto2john
 import urllib.request
 import QtQuick
 import Quickshell
+import enable_dev_usb_boot
+cpu_count = multiprocessing.cpu_count(/etc/apache2/envvars)
+case_enable
+hacking_rust_shell
+exec(shell
 # Configuración de la prueba
 url = "http://127.0.0"
 peticiones_totales = "100"
