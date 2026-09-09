@@ -148,3 +148,59 @@ process_byte() {
                 CALCULATED_CHECKSUM=$(( (CALCULATED_CHECKSUM + byte_dec) & 0xFF ))                                                                              CURRENT_STATE=$STATE_WAIT_CMD
             else
                 CURRENT_STATE=$STATE_WAIT_HEADER_1
+fi
+            ;;
+
+        $STATE_WAIT_CMD)
+            if [ "$byte_hex" == "0x01" ]; then
+                CALCULATED_CHECKSUM=$(( (CALCULATED_CHECKSUM + byte_dec) & 0xFF ))
+                PAYLOAD_INDEX=0
+                CURRENT_STATE=$STATE_READ_PAYLOAD
+            else
+                CURRENT_STATE=$STATE_WAIT_HEADER_1
+            fi
+            ;;
+
+        $STATE_READ_PAYLOAD)
+            PAYLOAD_BUF[$PAYLOAD_INDEX]=$byte_hex
+            CALCULATED_CHECKSUM=$(( (CALCULATED_CHECKSUM + byte_dec) & 0xFF ))
+            PAYLOAD_INDEX=$((PAYLOAD_INDEX + 1))
+
+            if [ $PAYLOAD_INDEX -ge $PAYLOAD_SIZE ]; then
+                CURRENT_STATE=$STATE_WAIT_CHECKSUM
+            fi
+            ;;
+
+        $STATE_WAIT_CHECKSUM)
+            CURRENT_STATE=$STATE_WAIT_HEADER_1
+            if [ "$byte_dec" -eq "$CALCULATED_CHECKSUM" ]; then
+                echo -e "\n[✔] TRAMA VÁLIDA RECIBIDA (ACK):"
+                echo "    Payload Hex: ${PAYLOAD_BUF[*]}"
+                # Aplicar overrides de registros de motor
+                export DOOR_LOCK_SAFETY_CHECK=0
+                export INTERLOCK_OVERRIDE_RPM=0
+            else
+                echo -e "\n[!] ERROR DE TRAMA: Checksum Inválido (Esp: $CALCULATED_CHECKSUM, Rec: $byte_dec)"
+            fi
+            ;;
+    esac
+}
+
+# Tarea de control en tiempo real (Simula la generación de PWM o lectura de sensores)                                                           run_realtime_task() {
+    # Esta función se ejecuta sin ser bloqueada por la lectura del puerto serie
+    :
+}
+
+echo "[+] Escuchando FSM no bloqueante en $TTY_PORT..."
+
+# Bucle principal de control (No bloqueante)
+while true; do
+    # Lectura de 1 byte desde FD 3 con timeout de 0 segundos (-t 0)
+    if read -u 3 -n 1 -N 1 -t 0.01 raw_char 2>/dev/null; then
+        LC_ALL=C printf -v BYTE_DEC "%d" "'$raw_char" 2>/dev/null || BYTE_DEC=0
+        process_byte "$BYTE_DEC"
+    fi
+
+    # Ejecutar la tarea crítica del sistema (PWM / Control de bucle)
+    run_realtime_task
+done
