@@ -1,0 +1,73 @@
+name: "Lucky Patcher Workflow"
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+  schedule:
+    - cron: '21 8 * * 6'
+
+jobs:
+  analyze:
+    name: Analyze (${{ matrix.language }})
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+    permissions:
+      security-events: write
+      packages: read
+      actions: read
+      contents: read
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - language: actions
+            build-mode: none
+          - language: c-cpp
+            build-mode: manual
+          - language: java-kotlin
+            build-mode: manual
+          - language: python
+            build-mode: none
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up JDK 17
+      if: matrix.language == 'java-kotlin' || matrix.language == 'c-cpp'
+      uses: actions/setup-java@v4
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+        cache: gradle
+
+    - name: Set up Android NDK
+      if: matrix.language == 'c-cpp'
+      uses: nttpc/setup-ndk@v1
+      with:
+        ndk-version: r21e
+
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+        build-mode: ${{ matrix.build-mode }}
+
+    - name: Build with Gradle (C/C++)
+      if: matrix.language == 'c-cpp' && matrix.build-mode == 'manual'
+      run: |
+        chmod +x ./gradlew
+        ./gradlew build --no-daemon
+
+    - name: Build with Gradle (Java/Kotlin)
+      if: matrix.language == 'java-kotlin' && matrix.build-mode == 'manual'
+      run: |
+        chmod +x ./gradlew
+        ./gradlew build --no-daemon
+
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v3
+      with:
+        category: "/language:${{ matrix.language }}"

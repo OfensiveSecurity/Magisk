@@ -27,7 +27,7 @@ print_title() {
 print_error() {
   echo -e "\n\033[41;39m${1}\033[0m\n" >&2
 }
-
+git rev-list --count pr-1437
 # $1 = TestClass#method
 # $2 = component
 am_instrument() {
