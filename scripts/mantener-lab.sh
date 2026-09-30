@@ -95,3 +95,100 @@ write_report() {
             [ -e "$item" ] || continue
 
             if is_git_repo "$item"; then
+(
+                    cd "$item" || exit
+                    echo
+                    echo "[$(basename "$item")]"
+                    echo "rama: $(git branch --show-current 2>/dev/null)"
+                    echo "remote: $(git remote get-url origin 2>/dev/null || echo 'sin remote')"
+                    echo "estado:"
+                    git status --short 2>/dev/null
+                )
+            fi
+        done
+
+        echo
+        echo "ESPACIO"
+        echo "-------"
+        df -h "$HOME" 2>/dev/null
+
+        echo
+        echo "ARCHIVOS GRANDES"
+        echo "----------------"
+        find "$LAB" -type f -size +100M \
+            -printf '%s %p\n' 2>/dev/null |
+            sort -n |
+            tail -30
+
+    } > "$REPORT"
+}
+
+# -----------------------------------------
+# INICIO
+# -----------------------------------------
+
+clear 2>/dev/null || true
+
+echo
+printf "${BOLD}${CYAN}MANTENIMIENTO DEL LABORATORIO${RESET}\n"
+echo "Ubicación: $LAB"
+echo
+
+: > "$LOG"
+: > "$REPORT"
+
+title "SISTEMA"
+
+echo "Fecha: $(date)"
+echo "Kernel:"
+uname -a
+
+echo
+echo "Arquitectura:"
+uname -m
+
+echo
+echo "Espacio:"
+df -h "$HOME" 2>/dev/null || df -h
+
+title "TERMUX"
+
+if command -v termux-info >/dev/null 2>&1; then
+    termux-info 2>&1 | head -80
+else
+    echo "termux-info no disponible"
+fi
+
+title "PAQUETES TERMUX"
+
+if command -v pkg >/dev/null 2>&1; then
+    echo "Actualizando índices..."
+    pkg update -y 2>&1 | tee -a "$LOG"
+
+    echo
+    echo "Actualizando paquetes..."
+    pkg upgrade -y 2>&1 | tee -a "$LOG"
+else
+    echo "pkg no disponible"
+fi
+
+title "REPOSITORIOS DEL LAB"
+
+# Solo directorios conocidos como proyectos/repos.
+REPOS=(
+    "$LAB/Kali-Linux"
+    "$LAB/Magisk"
+    "$LAB/Python-System-Administration"
+    "$LAB/TheRock"
+    "$LAB/bug-bounty"
+    "$LAB/exploitdb"
+    "$LAB/knockpy"
+    "$LAB/obbsd"
+    "$LAB/proyecto"
+    "$LAB/myems"
+    "$LAB/wifi-lab"
+    "$LAB/facility_roguelike"
+    "$LAB/game_kernel"
+)
+
+for repo in "${REPOS[@]}"; do
