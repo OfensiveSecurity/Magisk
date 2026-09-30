@@ -190,3 +190,25 @@ else
         --exclude-dir=.git \
         || true
 fi
+
+echo
+echo "============================================================"
+echo "Migración terminada."
+echo "============================================================"
+echo
+echo "Cambios:"
+git status --short
+
+echo
+echo "Diff:"
+git diff -- README.md
+
+echo
+echo "Para revisar todo:"
+echo "  git status"
+echo "  git diff --stat"
+echo "  git diff"
+echo
+echo "Cuando hayas verificado todo:"
+echo "  git add -A"
+echo '  git commit -m "refactor: modernize security tool names"'
