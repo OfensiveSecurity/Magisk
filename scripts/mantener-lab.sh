@@ -192,3 +192,76 @@ REPOS=(
 )
 
 for repo in "${REPOS[@]}"; do
+[ -e "$repo" ] || continue
+    update_repo "$repo" | tee -a "$LOG"
+done
+
+title "PROYECTOS LOCALES"
+
+for item in \
+    "$LAB/dutuj.cpp" \
+    "$LAB/game_kernel.cpp" \
+    "$LAB/registrador_interferencias.py" \
+    "$LAB/simulador_passwords.py" \
+    "$LAB/guardar.php"
+do
+    if [ -e "$item" ]; then
+        echo "Encontrado: $(basename "$item")"
+    fi
+done
+
+title "BACKUPS"
+
+for item in \
+    "$LAB/nethunter.backup" \
+    "$LAB/nh.backup" \
+    "$LAB/knockpy.backup.20260904-143918"
+do
+    if [ -e "$item" ]; then
+        du -sh "$item" 2>/dev/null
+    fi
+done
+
+title "ROOTFS KALI / NETHUNTER"
+
+for item in \
+    "$LAB/kali-arm64" \
+    "$LAB/kali-nethunter-rootfs-full-armhf.tar" \
+    "$LAB/kali-nethunter-rootfs-full-armhf.tar.xz" \
+    "$LAB/kali-nethunter-rootfs-minimal-armhf.tar" \
+    "$LAB/kali-nethunter-rootfs-nano-armhf.tar"
+do
+    if [ -e "$item" ]; then
+        du -sh "$item" 2>/dev/null
+    fi
+done
+
+title "ARCHIVOS GRANDES"
+
+find "$LAB" -type f -size +100M \
+    -printf '%s %p\n' 2>/dev/null |
+    sort -n |
+    tail -30 |
+    while read -r size file; do
+        if command -v numfmt >/dev/null 2>&1; then
+            printf "%10s %s\n" "$(numfmt --to=iec "$size")" "$file"
+        else
+            printf "%12s bytes %s\n" "$size" "$file"
+        fi
+    done
+
+title "INVENTARIO"
+
+write_report
+
+echo
+printf "${GREEN}Mantenimiento terminado.${RESET}\n"
+echo
+echo "Log:"
+echo "  $LOG"
+echo
+echo "Reporte:"
+echo "  $REPORT"
+echo
+echo "Para revisar el reporte:"
+echo "  less $REPORT"
