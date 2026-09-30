@@ -95,3 +95,98 @@ rename_git \
     "tools/reconnaissance/asset-discovery.py"
 
 rename_git \
+    "tools/utilities/wordlist-merger.sh" \                                                                                                                                              "tools/utilities/wordlist-tool.sh"
+
+echo
+echo "== Actualizando README =="
+
+if [[ -f README.md ]]; then
+    python3 - <<'PY'
+from pathlib import Path
+
+p = Path("README.md")
+text = p.read_text(encoding="utf-8")
+
+replacements = {
+    "Exploitation Tools": "Security Assessment Tools",
+    "Reconnaissance Tools": "Reconnaissance & Discovery",
+    "Utility Tools": "Security Utilities",
+
+    "write-ups/": "case-studies/",
+
+    "tools/exploitation/": "tools/assessment/",
+
+    "tools/automation/bug-bounty-workflow.sh":
+        "tools/automation/security-assessment-workflow.sh",
+
+    "tools/automation/recon-automation.yml":
+        "tools/automation/asset-monitoring.yml",
+
+    "tools/exploitation/sqli-tester.py":
+        "tools/assessment/sqli-assessment.py",
+
+    "tools/exploitation/xss-scanner.py":
+        "tools/assessment/xss-assessment.py",
+
+    "tools/reconnaissance/subdomain-enum.py":
+        "tools/reconnaissance/asset-discovery.py",
+
+    "tools/reconnaissance/url-collector.sh":
+        "tools/reconnaissance/url-analysis.sh",
+
+    "tools/utilities/payload-generator.py":
+        "tools/utilities/test-input-generator.py",
+
+    "tools/utilities/wordlist-merger.sh":
+        "tools/utilities/wordlist-tool.sh",
+
+    "Complete Bug Bounty Automation Workflow":
+        "Security Assessment Workflow",
+
+    "Reconnaissance Automation Pipeline":
+        "Asset Monitoring",
+
+    "SQL Injection Automated Tester":
+        "SQL Injection Assessment",
+
+    "Cross-Site Scripting Scanner":
+        "XSS Assessment",
+
+    "Subdomain Enumeration Script":
+        "Asset Discovery",
+
+    "URL Collection & Analysis Tool":
+        "URL Analysis",
+
+    "Custom Payload Generator":
+        "Test Input Generator",
+
+    "Wordlist Merger & Deduplicator":
+        "Wordlist Tool",
+}
+
+for old, new in replacements.items():
+    text = text.replace(old, new)
+
+p.write_text(text, encoding="utf-8")
+PY
+else
+    echo "AVISO: README.md no existe."
+fi
+
+echo
+echo "== Buscando referencias antiguas =="
+
+if command -v rg >/dev/null 2>&1; then
+    rg -n \
+        'tools/exploitation|bug-bounty-workflow|recon-automation|sqli-tester|xss-scanner|subdomain-enum|url-collector|payload-generator|wordlist-merger|write-ups/' \
+        . \
+        --glob '!*.git/*' \
+        || true
+else
+    grep -RniE \
+        'tools/exploitation|bug-bounty-workflow|recon-automation|sqli-tester|xss-scanner|subdomain-enum|url-collector|payload-generator|wordlist-merger|write-ups/' \
+        . \
+        --exclude-dir=.git \
+        || true
+fi
