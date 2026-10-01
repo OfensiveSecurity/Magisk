@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plataCardPage>
+    <heroBlock id="WsBafHero-olbm8q" theme="light">
+        <chip invitationTemplate="firstName te invita" defaultText="Tu amigo quiere que te unas a Pl>
+        <textHeading alignment="center" semanticTag="h1"/>
+        <specialOffer enabled="true" size="m">
+            <timer color="brand-100" backgroundColor="brand-10" icon="promo-card-banner-fire-new.gif>
+        </specialOffer>
+        <products>
+            <product type="PRODUCT_TYPE_CREDIT" link="/es/card/credit" text="Obtener tarjeta"/>
+            <product type="PRODUCT_TYPE_DEBIT" link="/es/card/cuenta" text="Obtener Plata Cuenta"/>
+        </products>
+        <disclaimer url="conditionsUrl">Revisa las condiciones aplicables</disclaimer>
+    </heroBlock>
+
+    <benefits blockId="WsBenefitsList-umrnrt" layout="vertical">
+        <benefit id="1" icon="/origination-client-web/card/cuenta/benefits/benefits_rate.png">
+            <heading>Tasa de interés de hasta 11%</heading>
+            <description>Haz crecer tu dinero con una tasa alta</description>
+        </benefit>
+        <benefit id="2" icon="/origination-client-web/card/cuenta/benefits/benefits_safe.png">
+            <heading>Acceso a Ahorro Flexible y Fijo</heading>
+            <description>Elige cómo ahorrar: con libertad o con metas a plazo</description>
+        </benefit>
+        <benefit id="3" icon="/origination-client-web/card/cuenta/benefits/benefits_cashback.png">
+            <heading>Cashback de hasta 15%</heading>
+            <description>Recibe dinero de vuelta en cada compra</description>
+        </benefit>
+        <benefit id="4" icon="/origination-client-web/card/cuenta/benefits/benefits_gift.png">
+            <heading>Sin comisión anual</heading>
+            <description>Disfruta tu tarjeta sin pagar de más</description>
+        </benefit>
+    </benefits>
+
+    <legalProtection agency="IPAB">
+        <limit currency="UDI">400000</limit>
+        <estimatedAmount mxn="3500000"/>
+    </legalProtection>
+</plataCardPage>
