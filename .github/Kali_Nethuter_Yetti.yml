@@ -105,3 +105,10 @@ sure: month
       uses: github/codeql-action/analyze@v4
       with:
         category: "/language:${{matrix.language}}"
+- name: Generate GitHub App token rocm-systems
+  uses: actions/create-github-app-token@...
+  with:
+    owner: ROCm
+    repositories: rocm-systems,TheRock
+    app-id: ${{ secrets.SOMETHING }}
+    private-key: ${{ secrets.SOMETHING_ELSE }}
