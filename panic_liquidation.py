@@ -1,5 +1,6 @@
 import ccxt
 import time
+import ccxt
 
 # NEXUS - PROTOCOLO DE PÁNICO BINANCE
 def execute_event_horizon():
