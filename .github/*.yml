@@ -1,0 +1,29 @@
+name: C++ WIF Diagnostic
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install compiler
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++
+
+      - name: Build diagnostic
+        run: |
+          g++ -std=c++17 -O2 wif_diagnostic.cpp -o wif_diagnostic
+
+      - name: Run diagnostic
+        run: |
+          ./wif_diagnostic
