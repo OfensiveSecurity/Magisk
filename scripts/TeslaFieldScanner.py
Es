@@ -1,0 +1,62 @@
+from scapy.all import sniff, Dot11, Dot11Beacon, Dot11Elt
+import os
+
+# ==============================================================================
+# TESLA FIELD SCANNER
+# Inspirado en los principios de transmisión por ondas de radio y campos resonantes
+# ==============================================================================
+
+detected_nodes = {}
+
+def process_wireless_beacon(packet):
+    """
+    Analiza cada trama de baliza (Beacon) detectada en el espectro electromagnético.
+    """
+    if packet.haslayer(Dot11Beacon):
+        try:
+            # Extraer el nombre de la red (SSID)
+            ssid_element = packet[Dot11Elt]
+            ssid = ssid_element.info.decode('utf-8', errors='ignore')
+            if not ssid:
+                ssid = "<Red Oculta / Campo Silencioso>"
+        except Exception:
+            ssid = "<Desconocido>"
+
+        # Dirección MAC de la torre transmisora (BSSID)
+        bssid = packet[Dot11].addr2
+
+        # Intentar extraer la potencia de la señal (RSSI) desde la cabecera Radiotap
+        rssi = "N/A"
+        if packet.haslayer('Radiotap'):
+            try:
+                rssi = packet['Radiotap'].dBm_AntSignal
+            except AttributeError:
+                pass
+
+        # Registrar el nodo si es nuevo o actualizar su métrica de campo
+        if bssid and bssid not in detected_nodes:
+            detected_nodes[bssid] = {"ssid": ssid, "rssi": rssi}
+            print(f"[⚡] Nodo Resonante Detectado:")
+            print(f"     ├── SSID: {ssid}")
+            print(f"     ├── BSSID (Torre): {bssid}")
+            print(f"     └── Potencia de Campo (RSSI): {rssi} dBm\n")
+
+def initialize_tesla_scanner(interface):
+    print("=" * 60)
+    print("        TESLA FIELD SCANNER - Analizador de Ondas RF")
+    print("=" * 60)
+    print(f"[*] Sintonizando interfaz '{interface}' en el espectro 802.11...")
+    print("[*] Escuchando emisiones electromagnéticas ambientales. Presiona Ctrl+C para detener.\n")
+    
+    try:
+        # Escanea el aire capturando paquetes sin almacenarlos en memoria (modo pasivo)
+        sniff(iface=interface, prn=process_wireless_beacon, store=0)
+    except PermissionError:
+        print("[-] Error: Se requieren privilegios de superusuario (root) para acceder al adaptador inalámbrico.")
+    except Exception as e:
+        print(f"[-] Error en el campo de captura: {e}")
+
+if __name__ == "__main__":
+    # Puedes definir tu interfaz inalámbrica en modo monitor (ej. wlan0mon)
+    target_interface = os.getenv("WIFI_IFACE", "wlan0mon")
+    initialize_tesla_scanner(target_interface)
