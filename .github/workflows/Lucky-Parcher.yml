@@ -71,3 +71,11 @@ jobs:
       uses: github/codeql-action/analyze@v3
       with:
         category: "/language:${{ matrix.language }}"
+
+    - name: Set up Android SDK
+      if: matrix.language == 'c-cpp'
+      uses: android-actions/setup-android@v3
+
+    - name: Install Android NDK
+      if: matrix.language == 'c-cpp'
+      run: sdkmanager "ndk;21.4.7075529"
