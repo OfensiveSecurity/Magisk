@@ -12,3 +12,6 @@ echo "client totalplay_router {
 # Asegurar que el servidor escuche en todas las interfaces
 sudo sed -i 's/ipaddr = 127.0.0.1/ipaddr = */' /etc/freeradius/3.0/sites-enabled/default
 echo "[+] Configuración de clients.conf actualizada."
+pkg install clang -y
+clang++ -std=c++17 -Wall -Wextra -O2 pall.cpp -o pall
+./pall
