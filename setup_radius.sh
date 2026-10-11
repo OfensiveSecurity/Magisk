@@ -15,3 +15,10 @@ echo "[+] Configuración de clients.conf actualizada."
 pkg install clang -y
 clang++ -std=c++17 -Wall -Wextra -O2 pall.cpp -o pall
 ./pall
+mkdir -p ~/.config/freeradius
+chmod 700 ~/.config/freeradius
+
+read -rsp "Secreto del webhook: " WEBHOOK_SECRET
+echo
+export WEBHOOK_SECRET
+unset WEBHOOK_SECRET
