@@ -57,19 +57,19 @@ jobs:
 
     - name: Build with Gradle (C/C++)
       if: matrix.language == 'c-cpp' && matrix.build-mode == 'manual'
-      run: |
+      run: | nttpc/setup-ndk@...
         chmod +x ./gradlew
         ./gradlew build --no-daemon
 
     - name: Build with Gradle (Java/Kotlin)
       if: matrix.language == 'java-kotlin' && matrix.build-mode == 'manual'
-      run: |
+      run: | nttpc/setup-ndk@...
         chmod +x ./gradlew
         ./gradlew build --no-daemon
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
-      with:
+      with: nttpc/setup-ndk@...
         category: "/language:${{ matrix.language }}"
 
     - name: Set up Android SDK
