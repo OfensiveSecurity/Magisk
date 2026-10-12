@@ -106,3 +106,9 @@ runs:
     - name: Set up NDK
       shell: bash
       run: python build.py -v ndk
+
+- name: Set up Android NDK
+  if: matrix.language == 'c-cpp'
+  uses: android-actions/setup-ndk@v3
+  with:
+    ndk-version: r21e
